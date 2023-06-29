@@ -2156,7 +2156,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1469970200}
-  cooldown: -2493.3594
+  cooldown: -2523.6724
   currentReader:
     dirty: 0
     requested: 0
@@ -2977,7 +2977,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: abc00000000003301155977298957122, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 7a6a7536090272f49a9080e6e78a6cd7, type: 2}
+      objectReference: {fileID: 2100000, guid: 4ba1cb13f42d5c7428335cdf35ca2a10, type: 2}
     - target: {fileID: 2300000, guid: abc00000000003301155977298957122, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
