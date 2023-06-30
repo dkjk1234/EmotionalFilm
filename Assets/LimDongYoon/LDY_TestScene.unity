@@ -1893,7 +1893,7 @@ MonoBehaviour:
   width: 512
   height: 512
   texture: {fileID: 0}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 1}
   format: 0
   mipMaps: 0
   filter: -1
@@ -2202,7 +2202,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1567681411}
-  cooldown: -2658.9888
+  cooldown: -2716.1545
   currentReader:
     dirty: 0
     requested: 0
