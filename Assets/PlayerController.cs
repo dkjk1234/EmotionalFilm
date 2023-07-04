@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum Weapon
+    {
+        Melee,
+        Spray,
+        Grenade
+    }
+    Weapon weapon = Weapon.Melee;
+
+    bool comboBool = false;
+
     public float speed = 5.0f;
     public float mouseSensitivity = 100.0f;
     public float gravity = -9.81f;
@@ -14,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController;
     private Transform cameraTransform;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +32,49 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
         Cursor.lockState = CursorLockMode.Locked;
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        int Combo = anim.GetInteger("SwingCombo");
+        if (comboBool)
+        {
+            print("SDSDS");
+            Combo = 0;
+            anim.SetInteger("SwingCombo", Combo);
+        }
+        if (Combo == 5)
+        {
+            Combo = 0;
+            anim.SetInteger("SwingCombo", Combo);
+        }
+
+        // Swing
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (weapon == Weapon.Melee)
+            {
+                StopCoroutine("WaitCombo");
+
+                anim.SetBool("IsSwing", true);
+                anim.SetInteger("SwingCombo", Combo + 1);
+                comboBool = false;
+
+                StartCoroutine("WaitCombo");
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (weapon == Weapon.Melee)
+            {
+                anim.SetBool("IsSwing", false);
+
+            }
+        }
+
         // Player movement - WASD
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -51,7 +100,17 @@ public class PlayerController : MonoBehaviour
         //xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        cameraTransform.localRotation = Quaternion.Euler(/*xRotation*/15f, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+
+    IEnumerator WaitCombo()
+    {
+        {
+            yield return new WaitForSeconds(1f);
+            comboBool = true;
+
+        }
     }
 }
