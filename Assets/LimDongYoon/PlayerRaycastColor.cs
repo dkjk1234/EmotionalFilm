@@ -7,6 +7,7 @@ using PaintIn3D;
 public class RaycastDiretionColor : MonoBehaviour
 {
     
+
     public float raycastDistance = 100f;
     public LayerMask raycastLayerMask;
     private P3dReadColor readColor;
@@ -23,6 +24,7 @@ public class RaycastDiretionColor : MonoBehaviour
         {
             // Call your function with the hit details.
             P3dHit p3dHit = new P3dHit(hit);
+            Debug.Log(p3dHit.Distance + p3dHit.Transform.name);
             readColor.HandleHitCoord(false, 0, 0, 0, p3dHit, Quaternion.identity);
             
         }
