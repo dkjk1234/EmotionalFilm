@@ -6,6 +6,7 @@ public class MiniAImove : MonoBehaviour
 {
     public float timer;
     public int newtarget;
+    public float speed;
     public UnityEngine.AI.NavMeshAgent nav;
     public Vector3 Target;
 
