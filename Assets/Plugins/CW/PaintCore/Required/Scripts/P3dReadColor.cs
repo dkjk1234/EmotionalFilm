@@ -59,7 +59,7 @@ namespace PaintIn3D
 				for (var i = paintableTextures.Count - 1; i >= 0; i--)
 				{
 					var paintableTexture = paintableTextures[i];
-					var coord       = paintableTexture.GetCoord(ref hit);
+					var coord= paintableTexture.GetCoord(ref hit);
 
 					switch (read)
 					{
