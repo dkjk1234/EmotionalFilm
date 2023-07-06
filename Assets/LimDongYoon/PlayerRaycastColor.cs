@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PaintIn3D;
+using Unity.VisualScripting;
 
 public class RaycastDiretionColor : MonoBehaviour
 {
@@ -24,9 +25,11 @@ public class RaycastDiretionColor : MonoBehaviour
         {
             // Call your function with the hit details.
             P3dHit p3dHit = new P3dHit(hit);
-            Debug.Log(p3dHit.Distance + p3dHit.Transform.name);
-            readColor.HandleHitCoord(false, 0, 0, 0, p3dHit, Quaternion.identity);
             
+            readColor.HandleHitCoord(false, 0, 0, 0, p3dHit, Quaternion.identity);
+            Color color = readColor.Color;
+            
+            Debug.Log(color + " alpha: " + color.a);
         }
     }
 

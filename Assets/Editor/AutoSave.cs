@@ -306,7 +306,7 @@ public class AutoSave : EditorWindow
 
 
 
-   GUILayout.Label("현재 열린씬 " + SceneManager.loadedSceneCount, EditorStyles.boldLabel);
+   GUILayout.Label("현재 열린씬 " + EditorStyles.boldLabel);
 
    EditorGUILayout.BeginVertical();
 
