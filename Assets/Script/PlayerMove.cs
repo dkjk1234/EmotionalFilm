@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    Animator animator;
+
     public float Speed = 10.0f;
     public float jumpHeight = 2.0f;
 
@@ -11,9 +13,11 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     private Vector3 velocity;
     private Rigidbody rigid;
+    public bool isGround = true;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         
     }
@@ -22,13 +26,38 @@ public class PlayerMove : MonoBehaviour
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(h, 0, v);
         transform.position += new Vector3(h, 0, v) * Speed * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (h != 0 || v != 0)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10.0f);
+            animator.SetBool("move", true);
+        }
+        else
+        {
+            animator.SetBool("move", false);
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGround==true)
         {
             rigid.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-
+            animator.SetTrigger("Jump");
+            isGround = false;
         }
+    }
 
+      
+
+    void OnCollisionEnter(Collision collsion)
+    {
+        if(collsion.gameObject.CompareTag("Ground"))
+        {
+            isGround = true;
+        }
     }
 }
