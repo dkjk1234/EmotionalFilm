@@ -102,6 +102,7 @@ public class EnemyController : MonoBehaviour
 
         FireBullet(directionToPlayer);
     }
+    
 
     private void FireBullet(Vector3 direction)
     {
