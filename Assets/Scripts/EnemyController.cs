@@ -29,10 +29,12 @@ public class EnemyController : MonoBehaviour
             particlePool[i] = Instantiate(particlePrefab);
             particlePool[i].SetActive(false);
         }
+        
     }
 
     private void Update()
     {
+        
         timer += Time.deltaTime;
         if (timer >= delay)
         {
@@ -43,14 +45,15 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         Targeting();
         Move();
-        OnDrawGizmosSelected();
+        
     }
 
     private void Targeting()
     {
-        float targetRadius = 1.5f;
+        float targetRadius = 30f;
         float targetRange = 3f;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, targetRadius, LayerMask.GetMask("Player"));
@@ -64,9 +67,9 @@ public class EnemyController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         float targetRadius = 1.5f;
-
+        Gizmos.DrawWireSphere(transform.position, 1.5f);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, targetRadius);
+        
     }
 
     private void Move()
@@ -92,15 +95,15 @@ public class EnemyController : MonoBehaviour
         int ranNumber = Random.Range(0, 3);
         anim.SetFloat("Attack", ranNumber);
         anim.SetTrigger("doAttack");
-
-        Vector3 directionToPlayer = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 directionToPlayer = player.transform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
 
-        FireBullet();
+        FireBullet(directionToPlayer);
     }
 
-    private void FireBullet()
+    private void FireBullet(Vector3 direction)
     {
         for (int i = 0; i < poolSize; i++)
         {
@@ -108,7 +111,7 @@ public class EnemyController : MonoBehaviour
             {
                 particlePool[i].SetActive(true);
                 particlePool[i].transform.position = transform.position;
-                Vector3 direction = transform.forward;
+               
                 particlePool[i].GetComponent<Bullet>().Initialized(direction);
                 StartCoroutine(DisableParticle(particlePool[i]));
                 break;
