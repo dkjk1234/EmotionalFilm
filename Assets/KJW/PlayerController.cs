@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class PlayerController : MonoBehaviour
     public GameObject aim;
     public List<GameObject> effect;
 
+    public Slider paintBar;
+    public GameObject fillArea;
+
     bool swingBool = true;
     bool comboBool = false;
     bool bulletCool = false;
@@ -27,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     public float run = 2f;
     Vector3 ScreenCenter;
+
+
 
 
     public float speed = 5.0f;
@@ -59,6 +65,7 @@ public class PlayerController : MonoBehaviour
         Brush();
         PaintGun();
         WaterBalloon();
+        PaintBar();
 
         // Player movement - WASD
         float x = Input.GetAxis("Horizontal");
@@ -139,6 +146,20 @@ public class PlayerController : MonoBehaviour
         {
             ConnectWeapon(0, "Spray");
             weapon = Weapon.Spray;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            if (paintBar.value > 0)
+            {
+                prefab[2].SetActive(true);
+                paintBar.value -= 0.001f;
+            }
+
+            else
+            {
+                prefab[2].SetActive(false);
+            }
         }
     }
 
@@ -249,6 +270,14 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(WaitWaterBalloon());
             }
         }
+    }
+
+    void PaintBar()
+    {
+        if (paintBar.value <= 0)
+            fillArea.SetActive(false);
+        else
+            fillArea.SetActive(true);
     }
 
     // 현재 무기를 활성화해주는 함수

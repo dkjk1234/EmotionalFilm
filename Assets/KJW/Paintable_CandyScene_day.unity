@@ -3941,6 +3941,7 @@ MonoBehaviour:
   prefab:
   - {fileID: 94630703}
   - {fileID: 992101713}
+  - {fileID: 1123642296}
   selectWeapon:
   - {fileID: 290343547}
   - {fileID: 1566248474}
@@ -3949,6 +3950,8 @@ MonoBehaviour:
   aim: {fileID: 1029313608}
   effect:
   - {fileID: 125192680}
+  paintBar: {fileID: 796256257}
+  fillArea: {fileID: 1442551260}
   run: 2
   speed: 5
   mouseSensitivity: 100
@@ -4974,7 +4977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.000061035156, y: 30}
+  m_AnchoredPosition: {x: 0, y: 30}
   m_SizeDelta: {x: 20, y: 160}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &796256257
@@ -5024,7 +5027,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -60219,7 +60222,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -4791.7427
+  cooldown: -4933.889
   currentReader:
     dirty: 0
     requested: 0
