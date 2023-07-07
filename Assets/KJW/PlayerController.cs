@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    // 김정우 코드
     public enum Weapon
     {
         Spray,
@@ -14,14 +15,19 @@ public class PlayerController : MonoBehaviour
     }
     public Weapon weapon = Weapon.Spray;
 
+    private Animator anim;
+
     public List<GameObject> prefab;
     public List<GameObject> selectWeapon;
-    public GameObject aim;
+    public List<GameObject> aim;
     public List<GameObject> effect;
 
     public Slider paintBar;
     public GameObject fillArea;
 
+    public Camera cam;
+
+    bool FPS = false;
     bool swingBool = true;
     bool comboBool = false;
     bool bulletCool = false;
@@ -32,30 +38,37 @@ public class PlayerController : MonoBehaviour
     public float run = 2f;
     Vector3 ScreenCenter;
 
+    // 윤수지 코드
+    private Rigidbody rigid;
+    public bool isGround = true;
 
 
-
+    // 원래 있었던 코드
     public float speed = 5.0f;
     public float mouseSensitivity = 100.0f;
     public float gravity = -9.81f;
     public float jumpHeight = 2.0f;
 
-    public float xRotation = 0f;
+    private float xRotation = 0f;
     private Vector3 velocity;
 
     private CharacterController characterController;
     private Transform cameraTransform;
-    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
+        // 원래 있던 코드
         characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
         Cursor.lockState = CursorLockMode.Locked;
 
+        // 김정우 코드
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         anim = GetComponent<Animator>();
+
+        // 윤수지 코드
+        rigid = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -73,31 +86,37 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        if (Input.GetKey(KeyCode.LeftShift))
-            characterController.Move(move * 2 * speed * Time.deltaTime);
-
+        if (x != 0 || z != 0)
+        {
+            anim.SetBool("Move", true);
+        }
         else
-            characterController.Move(move * speed * Time.deltaTime);
+        {
+            anim.SetBool("Move", false);
+        }
+
+        characterController.Move(move * speed * Time.deltaTime);
 
 
         // Jump
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            anim.SetTrigger("Jump");
+            isGround = false;
         }
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
 
-        // Mouse look - rotate player and camera
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            anim.SetTrigger("Roll");
+        }
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
+        // Mouse look - rotate player and camera
+        transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
     }
 
 
@@ -159,7 +178,7 @@ public class PlayerController : MonoBehaviour
         if (weapon != Weapon.Spray)
             return;
 
-        selectWeapon[0].transform.localRotation = Quaternion.Euler(xRotation, 90f, 0f);
+        prefab[2].transform.localRotation = Quaternion.Euler(cam.transform.eulerAngles.x, 0f, 0f);
 
         if (Input.GetMouseButton(0))
         {
@@ -218,10 +237,10 @@ public class PlayerController : MonoBehaviour
 
         if (weapon != Weapon.PaintGun)
         {
-            aim.SetActive(false);
+            aim[0].SetActive(false);
             return;
         }
-        aim.SetActive(true);
+        aim[0].SetActive(true);
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -248,12 +267,20 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            cameraTransform.localPosition = new Vector3(0,0.8f,0.2f);
+            aim[1].SetActive(true);
+            FPS = true;
         }
 
         if (Input.GetMouseButtonUp(1))
         {
-            cameraTransform.localPosition = new Vector3(0,2,-10);
+            FPS = false;
+            aim[1].SetActive(true);
+            //cameraTransform.localPosition = new Vector3(0,2,-10);
+        }
+
+        if (FPS)
+        {
+            cameraTransform.localPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.8f, gameObject.transform.position.z + 0.4f);
         }
     }
 
@@ -318,6 +345,16 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("WaterBalloon", false);
         anim.SetBool(weaponName, true);
 
-        cameraTransform.localPosition = new Vector3(0, 2, -10);
+        FPS = false;
+        aim[1].SetActive(true);
+        //cameraTransform.localPosition = new Vector3(0, 2, -10);
+    }
+
+    void OnCollisionEnter(Collision collsion)
+    {
+        if (collsion.gameObject.CompareTag("Ground"))
+        {
+            isGround = true;
+        }
     }
 }
