@@ -103,9 +103,9 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator WaitCombo()
     {
-        // ÄŞº¸ ²÷±â´Âµ¥ °É¸®´Â ½Ã°£
+        // ì½¤ë³´ ëŠê¸°ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„
 
-        // ÄŞº¸°¡ ÃÖ´ëÄ¡ÀÏ °æ¿ì ´Ù½Ã Ã³À½ ÄŞº¸·Î µ¹¾Æ°¨
+        // ì½¤ë³´ê°€ ìµœëŒ€ì¹˜ì¼ ê²½ìš° ë‹¤ì‹œ ì²˜ìŒ ì½¤ë³´ë¡œ ëŒì•„ê°
         if (combo == 5)
         {
             combo = 0;
@@ -118,7 +118,15 @@ public class PlayerController : MonoBehaviour
         else
             yield return new WaitForSeconds(0.8f);
         comboBool = true;
-        // ÄŞº¸ ÁßÀÌ ¾Æ´Ò °æ¿ì °Ë ÀÜ»ó ÀÌÆåÆ®¸¦ ²û
+
+        // comboBoolì´ ì¼œì§€ë©´ ì½¤ë³´ê°€ ëŠê²¼ë‹¤ê³  íŒë‹¨í•˜ê³  ìŠ¤ìœ™ ì½¤ë³´ë¥¼ 0ìœ¼ë¡œ ë°”ê¿ˆ
+        if (comboBool)
+        {
+            combo = 0;
+            anim.SetInteger("SwingCombo", combo);
+        }
+
+        // ì½¤ë³´ ì¤‘ì´ ì•„ë‹ ê²½ìš° ê²€ ì”ìƒ ì´í™íŠ¸ë¥¼ ë”
         effect[0].SetActive(false);
     }
     IEnumerator BulletCooldown()
@@ -132,7 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         waterBalloonCool = true;
         yield return new WaitForSeconds(0.1f);
-        // ÀÌ°Å ¾È ÇØÁÖ¸é °è¼Ó ¼ö·ùÅº ´øÁö´Â ¸ğ¼Ç ¹İº¹ÇÔ.
+        // ì´ê±° ì•ˆ í•´ì£¼ë©´ ê³„ì† ìˆ˜ë¥˜íƒ„ ë˜ì§€ëŠ” ëª¨ì…˜ ë°˜ë³µí•¨.
         anim.SetBool("IsWaterBalloon", false);
         yield return new WaitForSeconds(0.4f);
         waterBalloonCool = false;
@@ -141,12 +149,17 @@ public class PlayerController : MonoBehaviour
 
     void Spray()
     {
-        // µ¿ÀÛ Áß¿¡´Â º¯°æ ºÒ°¡´ÉÇÏ°Ô ¸·´Â ÄÚµå Ãß°¡ÇÒ °Í
+        // ë™ì‘ ì¤‘ì—ëŠ” ë³€ê²½ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë§‰ëŠ” ì½”ë“œ ì¶”ê°€í•  ê²ƒ
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ConnectWeapon(0, "Spray");
             weapon = Weapon.Spray;
         }
+
+        if (weapon != Weapon.Spray)
+            return;
+
+        selectWeapon[0].transform.localRotation = Quaternion.Euler(xRotation, 90f, 0f);
 
         if (Input.GetMouseButton(0))
         {
@@ -165,35 +178,31 @@ public class PlayerController : MonoBehaviour
 
     void Brush()
     {
-        // µ¿ÀÛ Áß¿¡´Â º¯°æ ºÒ°¡´ÉÇÏ°Ô ¸·´Â ÄÚµå Ãß°¡ÇÒ °Í
+        // ë™ì‘ ì¤‘ì—ëŠ” ë³€ê²½ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë§‰ëŠ” ì½”ë“œ ì¶”ê°€í•  ê²ƒ
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ConnectWeapon(1, "Brush");
             weapon = Weapon.Brush;
         }
 
-        // ½ºÀ® ÄŞº¸¼ö¸¦ ¹ŞÀ½
-        combo = anim.GetInteger("SwingCombo");
+        if (weapon != Weapon.Brush)
+            return;
 
-        // comboBoolÀÌ ÄÑÁö¸é ÄŞº¸°¡ ²÷°å´Ù°í ÆÇ´ÜÇÏ°í ½ºÀ® ÄŞº¸¸¦ 0À¸·Î ¹Ù²Ş
-        if (comboBool)
-        {
-            combo = 0;
-            anim.SetInteger("SwingCombo", combo);
-        }
+        // ìŠ¤ìœ™ ì½¤ë³´ìˆ˜ë¥¼ ë°›ìŒ
+        combo = anim.GetInteger("SwingCombo");
 
         // Swing
         if (Input.GetMouseButtonDown(0))
         {
-            if (weapon == Weapon.Brush && swingBool)
+            if (swingBool)
             {
                 effect[0].SetActive(true);
-                // °ø°İ½Ã ÄŞº¸ È®ÀÎ ÄÚ·çÆ¾ ½ºÅ¾
+                // ê³µê²©ì‹œ ì½¤ë³´ í™•ì¸ ì½”ë£¨í‹´ ìŠ¤íƒ‘
                 StopCoroutine("WaitCombo");
                 anim.SetInteger("SwingCombo", combo + 1);
                 comboBool = false;
 
-                // °ø°İÀÌ ³¡³ª¸é ÄŞº¸°¡ ²÷°å´ÂÁö È®ÀÎÇÏ´Â ÄÚ·çÆ¾ ÁøÇà
+                // ê³µê²©ì´ ëë‚˜ë©´ ì½¤ë³´ê°€ ëŠê²¼ëŠ”ì§€ í™•ì¸í•˜ëŠ” ì½”ë£¨í‹´ ì§„í–‰
                 StartCoroutine("WaitCombo");
             }
         }
@@ -206,16 +215,17 @@ public class PlayerController : MonoBehaviour
             ConnectWeapon(2, "PaintGun");
             weapon = Weapon.PaintGun;
         }
-        selectWeapon[0].transform.localRotation = Quaternion.Euler(xRotation, 90f, 0f);
 
-        if(weapon == Weapon.PaintGun)
-            aim.SetActive(true);
-        else
+        if (weapon != Weapon.PaintGun)
+        {
             aim.SetActive(false);
+            return;
+        }
+        aim.SetActive(true);
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (weapon == Weapon.PaintGun && !bulletCool)
+            if (!bulletCool)
             {
                 var ray = Camera.main.ScreenPointToRay(ScreenCenter);
                 var rotation = Quaternion.LookRotation(ray.direction);
@@ -235,20 +245,33 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(BulletCooldown());
             }
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            cameraTransform.localPosition = new Vector3(0,0.8f,0.2f);
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            cameraTransform.localPosition = new Vector3(0,2,-10);
+        }
     }
 
     void WaterBalloon()
     {
-        // µ¿ÀÛ Áß¿¡´Â º¯°æ ºÒ°¡´ÉÇÏ°Ô ¸·´Â ÄÚµå Ãß°¡ÇÒ °Í
+        // ë™ì‘ ì¤‘ì—ëŠ” ë³€ê²½ ë¶ˆê°€ëŠ¥í•˜ê²Œ ë§‰ëŠ” ì½”ë“œ ì¶”ê°€í•  ê²ƒ
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             ConnectWeapon(3, "WaterBalloon");
             weapon = Weapon.WaterBalloon;
         }
 
+        if (weapon != Weapon.WaterBalloon)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
-            if (weapon == Weapon.WaterBalloon && !waterBalloonCool)
+            if (!waterBalloonCool)
             {
                 anim.SetBool("IsWaterBalloon", true);
 
@@ -280,7 +303,7 @@ public class PlayerController : MonoBehaviour
             fillArea.SetActive(true);
     }
 
-    // ÇöÀç ¹«±â¸¦ È°¼ºÈ­ÇØÁÖ´Â ÇÔ¼ö
+    // í˜„ì¬ ë¬´ê¸°ë¥¼ í™œì„±í™”í•´ì£¼ëŠ” í•¨ìˆ˜
     void ConnectWeapon(int weaponNum, string weaponName)
     {
         selectWeapon[0].SetActive(false);
@@ -294,5 +317,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("PaintGun", false);
         anim.SetBool("WaterBalloon", false);
         anim.SetBool(weaponName, true);
+
+        cameraTransform.localPosition = new Vector3(0, 2, -10);
     }
 }
