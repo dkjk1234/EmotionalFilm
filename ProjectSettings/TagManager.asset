@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - PlayerEyes
   - Ground_Stone
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -12,9 +14,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
-  - Weapon
-  - Enemy
+  - 
+  - 
+  - 
   - 
   - 
   - 
