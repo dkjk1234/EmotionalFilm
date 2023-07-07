@@ -1,52 +1,124 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-
-    public GameObject bulletPrefab;
+    public GameObject particlePrefab;
     public int poolSize = 5;
-    private GameObject[] bulletPool;
-
-    public float fireRate = 3f;
-
+    public float delay = 3;
+    private GameObject[] particlePool;
+    public float moveRange = 20f;
     private float timer = 0f;
+    private Animator anim;
+    private NavMeshAgent nav;
+    public bool isAttack;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        bulletPool = new GameObject[poolSize];
+        anim = GetComponent<Animator>();
+        nav = GetComponent<NavMeshAgent>();
+    }
+
+    private void Start()
+    {
+        particlePool = new GameObject[poolSize];
         for (int i = 0; i < poolSize; i++)
         {
-            bulletPool[i] = Instantiate(bulletPrefab);
-            bulletPool[i].SetActive(false);
+            particlePool[i] = Instantiate(particlePrefab);
+            particlePool[i].SetActive(false);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         timer += Time.deltaTime;
-        if(timer >= fireRate)
+        if (timer >= delay)
         {
-            FireBullet();
-            timer = 0f;
-        }    
+            Move();
+            timer = 0;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Targeting();
+        Move();
+        OnDrawGizmosSelected();
+    }
+
+    private void Targeting()
+    {
+        float targetRadius = 1.5f;
+        float targetRange = 3f;
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, targetRadius, LayerMask.GetMask("Player"));
+        foreach (Collider collider in colliders)
+        {
+            isAttack = true;
+            Attack();
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        float targetRadius = 1.5f;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, targetRadius);
+    }
+
+    private void Move()
+    {
+        if (!nav.pathPending && nav.remainingDistance < 0.5f)
+        {
+            Vector3 randomPoint = GetRandomPoint();
+            nav.SetDestination(randomPoint);
+        }
+    }
+
+    private Vector3 GetRandomPoint()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * moveRange;
+        randomDirection += transform.position;
+        NavMeshHit navMeshHit;
+        NavMesh.SamplePosition(randomDirection, out navMeshHit, moveRange, NavMesh.AllAreas);
+        return navMeshHit.position;
+    }
+
+    private void Attack()
+    {
+        int ranNumber = Random.Range(0, 3);
+        anim.SetFloat("Attack", ranNumber);
+        anim.SetTrigger("doAttack");
+
+        Vector3 directionToPlayer = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+
+        FireBullet();
     }
 
     private void FireBullet()
     {
-        for(int i = 0; i < poolSize; i++)
+        for (int i = 0; i < poolSize; i++)
         {
-            if(!bulletPool[i].activeInHierarchy)
+            if (!particlePool[i].activeInHierarchy)
             {
-                bulletPool[i].SetActive(true);
-                bulletPool[i].transform.position = transform.position;
-                Vector3 direction = Vector3.forward;
-                bulletPool[i].GetComponent<Bullet>().Initialized(direction);
+                particlePool[i].SetActive(true);
+                particlePool[i].transform.position = transform.position;
+                Vector3 direction = transform.forward;
+                particlePool[i].GetComponent<Bullet>().Initialized(direction);
+                StartCoroutine(DisableParticle(particlePool[i]));
                 break;
             }
         }
+    }
+
+    private IEnumerator DisableParticle(GameObject particleObject)
+    {
+        yield return new WaitForSeconds(delay);
+        particleObject.SetActive(false);
     }
 }
