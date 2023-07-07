@@ -49,6 +49,16 @@ public class PlayerMove : MonoBehaviour
             animator.SetTrigger("Jump");
             isGround = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            animator.SetTrigger("Roll");
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            animator.SetTrigger("attack");
+        }
     }
 
       
