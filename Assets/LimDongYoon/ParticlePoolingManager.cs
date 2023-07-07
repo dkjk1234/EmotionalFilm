@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class ParticlePoolingManager : MonoBehaviour
 {
     public static ParticlePoolingManager instance;
     public GameObject particlePrefab;
+    public Dictionary<string, Stack<GameObject>> poolingDic = new Dictionary<string, Stack<GameObject>>();
     public int poolSize = 20;
     private List<GameObject> particlePool;
 
