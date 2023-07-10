@@ -7,6 +7,7 @@ TagManager:
   - PlayerEyes
   - Ground_Stone
   - Ground
+  - Portal
   layers:
   - Default
   - TransparentFX
