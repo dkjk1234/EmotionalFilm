@@ -4,16 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground_Stone
   - PlayerEyes
+  - Ground_Stone
+  - Ground
+  - MiniAI
+  - AttackParticle1
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
