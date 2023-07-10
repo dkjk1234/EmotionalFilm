@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine; //시네머신을 using 해줘야 활용이 시네머신을 스크립트로 가져올 수 있다.
 using static Cinemachine.CinemachineFreeLook;
+using PaintIn3D;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,7 +32,11 @@ public class PlayerController : MonoBehaviour
     public CinemachineCameraOffset cineCameraOffset;
     public CinemachineFollowZoom cineFollowZoom;
 
-    public Orbit[] m_Orbits;
+    public P3dPaintDecal P3dPD;
+
+    public ParticleSystem PS;
+
+    Orbit[] m_Orbits;
 
     public Camera cam;
 
@@ -57,18 +62,15 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 2.0f;
 
-    private float xRotation = 0f;
     private Vector3 velocity;
 
     private CharacterController characterController;
-    private Transform cameraTransform;
 
     // Start is called before the first frame update
     void Start()
     {
         // 원래 있던 코드
         characterController = GetComponent<CharacterController>();
-        cameraTransform = Camera.main.transform;
         Cursor.lockState = CursorLockMode.Locked;
 
         // 김정우 코드
@@ -118,7 +120,7 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGround)
         {
             anim.SetTrigger("Roll");
         }
@@ -264,7 +266,7 @@ public class PlayerController : MonoBehaviour
         }
         aim[0].SetActive(true);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             if (!bulletCool)
             {
@@ -284,11 +286,14 @@ public class PlayerController : MonoBehaviour
                 }
 
                 if (FPS)
+                {
                     StartCoroutine(WaitForIt());
                     StartCoroutine(BulletCooldown(1.5f));
 
+                }
+
                 if (!FPS)
-                    StartCoroutine(BulletCooldown(0.1f));
+                    StartCoroutine(BulletCooldown(0.2f));
             }
         }
 
@@ -309,6 +314,12 @@ public class PlayerController : MonoBehaviour
             cineFollowZoom.enabled = true;
             cineCameraOffset.enabled = true;
             cineFreeLook.m_XAxis.m_MaxSpeed = 50f;
+
+            P3dPD.Radius = 2;
+            var main = PS.main;
+            main.startSize = 3;
+
+            aim[0].transform.localScale = new Vector3(5, 5, 5);
         }
         if (!FPS || !isGround)
         {
@@ -321,6 +332,12 @@ public class PlayerController : MonoBehaviour
             cineFollowZoom.enabled = false;
             cineCameraOffset.enabled = false;
             cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
+
+            P3dPD.Radius = 1;
+            var main = PS.main;
+            main.startSize = 1;
+
+            aim[0].transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
