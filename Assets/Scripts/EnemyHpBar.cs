@@ -34,7 +34,8 @@ public class EnemyHpBar : MonoBehaviour
             Vector2 localPos = Vector2.zero;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(rectParent, screenPos, uiCamera, out localPos);
 
-            rectHp.localPosition = new Vector3(localPos.x, localPos.y, 0);
+            rectHp.localPosition = localPos; 
+            //rectHp.localPosition = new Vector3(localPos.x, localPos.y, 0);
         }
     }
 }
