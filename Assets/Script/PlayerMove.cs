@@ -69,5 +69,6 @@ public class PlayerMove : MonoBehaviour
         {
             isGround = true;
         }
+
     }
 }
