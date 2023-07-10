@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine; //시네머신을 using 해줘야 활용이 시네머신을 스크립트로 가져올 수 있다.
+using static Cinemachine.CinemachineFreeLook;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +26,12 @@ public class PlayerController : MonoBehaviour
 
     public Slider paintBar;
     public GameObject fillArea;
+
+    public CinemachineFreeLook cineFreeLook;
+    public CinemachineCameraOffset cineCameraOffset;
+    public CinemachineFollowZoom cineFollowZoom;
+
+    public Orbit[] m_Orbits;
 
     public Camera cam;
 
@@ -148,10 +156,10 @@ public class PlayerController : MonoBehaviour
         // 콤보 중이 아닐 경우 검 잔상 이펙트를 끔
         effect[0].SetActive(false);
     }
-    IEnumerator BulletCooldown()
+    IEnumerator BulletCooldown(float waitSec)
     {
         bulletCool = true;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(waitSec);
         bulletCool = false;
     }
 
@@ -163,6 +171,20 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("IsWaterBalloon", false);
         yield return new WaitForSeconds(0.4f);
         waterBalloonCool = false;
+    }
+
+    IEnumerator WaitForIt()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            cineFreeLook.m_YAxis.Value -= 0.01f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        for (int i = 0;i < 10; i++)
+        {
+            cineFreeLook.m_YAxis.Value += 0.002f;
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 
 
@@ -261,26 +283,44 @@ public class PlayerController : MonoBehaviour
                     cloneRigidbody.velocity = clone.transform.forward * 100;
                 }
 
-                StartCoroutine(BulletCooldown());
+                if (FPS)
+                    StartCoroutine(WaitForIt());
+                    StartCoroutine(BulletCooldown(1.5f));
+
+                if (!FPS)
+                    StartCoroutine(BulletCooldown(0.1f));
             }
         }
 
         if (Input.GetMouseButtonDown(1))
-        {
-            aim[1].SetActive(true);
             FPS = true;
-        }
 
         if (Input.GetMouseButtonUp(1))
-        {
             FPS = false;
-            aim[1].SetActive(true);
-            //cameraTransform.localPosition = new Vector3(0,2,-10);
-        }
 
         if (FPS)
         {
-            cameraTransform.localPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.8f, gameObject.transform.position.z + 0.4f);
+            cineFreeLook.m_Orbits = new Orbit[3]
+            {
+                new Orbit(1f, 2f),
+                new Orbit(0.5f, 2f),
+                new Orbit(0f, 2f)
+            };
+            cineFollowZoom.enabled = true;
+            cineCameraOffset.enabled = true;
+            cineFreeLook.m_XAxis.m_MaxSpeed = 50f;
+        }
+        if (!FPS || !isGround)
+        {
+            cineFreeLook.m_Orbits = new Orbit[3]
+            {
+                new Orbit(4.5f, 3f),
+                new Orbit(2f, 5f),
+                new Orbit(-1.5f, 3f)
+            };
+            cineFollowZoom.enabled = false;
+            cineCameraOffset.enabled = false;
+            cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
         }
     }
 
@@ -346,15 +386,11 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(weaponName, true);
 
         FPS = false;
-        aim[1].SetActive(true);
-        //cameraTransform.localPosition = new Vector3(0, 2, -10);
     }
 
     void OnCollisionEnter(Collision collsion)
     {
-        if (collsion.gameObject.CompareTag("Ground"))
-        {
+        if (collsion.transform.CompareTag("Ground"))
             isGround = true;
-        }
     }
 }
