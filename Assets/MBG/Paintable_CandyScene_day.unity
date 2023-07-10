@@ -207,6 +207,10 @@ MonoBehaviour:
   - {fileID: 414925586}
   paintBar: {fileID: 934256562}
   fillArea: {fileID: 84951017}
+  cineFreeLook: {fileID: 0}
+  cineCameraOffset: {fileID: 0}
+  cineFollowZoom: {fileID: 0}
+  m_Orbits: []
   cam: {fileID: 1824765060}
   run: 2
   isGround: 1
@@ -17611,7 +17615,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922896280}
-  m_LocalRotation: {x: 0.15046364, y: 0.000000017010501, z: -0.0000000025889353, w: 0.9886156}
+  m_LocalRotation: {x: 0.15046364, y: -0.000000017010493, z: 0.000000002588934, w: 0.9886156}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -63578,7 +63582,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1528686104}
-  cooldown: -5423.598
+  cooldown: -5605.724
   currentReader:
     dirty: 0
     requested: 0
@@ -68538,7 +68542,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806997625}
-  m_LocalRotation: {x: 0.15046364, y: 0.000000034020992, z: -0.0000000051778697, w: 0.9886156}
+  m_LocalRotation: {x: 0.15046364, y: -0.000000034020992, z: 0.0000000051778697, w: 0.9886156}
   m_LocalPosition: {x: 0, y: 2.5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
