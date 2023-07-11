@@ -49,7 +49,9 @@ public class PlayerController : MonoBehaviour
 
     int combo;
 
-    public float run = 2f;
+    public float srSpeed = 3f;
+    public float originSpeed = 5f;
+    public float runSpeed = 7f;
     Vector3 ScreenCenter;
 
     // 윤수지 코드
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
 
     // 원래 있었던 코드
-    public float speed = 5.0f;
+    float speed;
     public float mouseSensitivity = 100.0f;
     public float gravity = -9.81f;
     public float jumpHeight = 2.0f;
@@ -287,7 +289,6 @@ public class PlayerController : MonoBehaviour
 
                 clone.SetActive(true);
 
-                // Throw with velocity?
                 var cloneRigidbody = clone.GetComponent<Rigidbody>();
 
                 if (cloneRigidbody != null)
@@ -315,6 +316,8 @@ public class PlayerController : MonoBehaviour
 
         if (FPS)
         {
+            // 스피드 변경 코드
+            speed = srSpeed;
             cineFreeLook.m_Orbits = new Orbit[3]
             {
                 new Orbit(1f, 2f),
@@ -333,6 +336,8 @@ public class PlayerController : MonoBehaviour
         }
         if (!FPS || !isGround)
         {
+            // 스피드 변경 코드
+            speed = originSpeed;
             cineFreeLook.m_Orbits = new Orbit[3]
             {
                 new Orbit(4.5f, 3f),
@@ -383,7 +388,6 @@ public class PlayerController : MonoBehaviour
 
                 clone.SetActive(true);
 
-                // Throw with velocity?
                 var cloneRigidbody = clone.GetComponent<Rigidbody>();
 
                 if (cloneRigidbody != null)

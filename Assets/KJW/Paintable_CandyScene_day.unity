@@ -6649,7 +6649,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159312112}
-  m_LocalRotation: {x: 0.41785678, y: 0.000000011215161, z: -0.000000005158246, w: 0.90851295}
+  m_LocalRotation: {x: 0.41785684, y: -9.6769934e-17, z: 3.4975507e-16, w: 0.90851295}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11245,9 +11245,10 @@ MonoBehaviour:
   P3dPD: {fileID: 94630707}
   PS: {fileID: 1047697547}
   cam: {fileID: 1714169581}
-  run: 2
+  srSpeed: 1
+  originSpeed: 5
+  runSpeed: 8
   isGround: 1
-  speed: 5
   mouseSensitivity: 100
   gravity: -9.81
   jumpHeight: 2
@@ -54263,7 +54264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0.3, y: -0.5, z: 5}
+  m_Offset: {x: 0.3, y: -0.5, z: 2}
   m_ApplyAfter: 1
   m_PreserveComposition: 0
 --- !u!114 &1027356268
@@ -82146,7 +82147,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714169577}
-  m_LocalRotation: {x: 0.41785684, y: 0.000000039899597, z: -0.00000001835122, w: 0.90851295}
+  m_LocalRotation: {x: 0.41785684, y: 0.00000003829096, z: -0.00000001761135, w: 0.90851295}
   m_LocalPosition: {x: 7.03, y: 4.636, z: 12.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -83131,7 +83132,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -7996.2944
+  cooldown: -8054.9766
   currentReader:
     dirty: 0
     requested: 0
