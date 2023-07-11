@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4700693977610831746}
   - component: {fileID: 6898754514988779680}
   - component: {fileID: 4060346065151788786}
+  - component: {fileID: 2466580971541074512}
   m_Layer: 5
   m_Name: EnemyHpBar
   m_TagString: Untagged
@@ -153,3 +154,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2466580971541074512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4805842481269477219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65fdd4c70d612ee49bd50db217cefdd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  targetTr: {fileID: 0}
