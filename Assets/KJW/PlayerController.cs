@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
 
     // 원래 있었던 코드
-    float speed;
+    float speed = 5f;
     public float mouseSensitivity = 100.0f;
     public float gravity = -9.81f;
     public float jumpHeight = 2.0f;
