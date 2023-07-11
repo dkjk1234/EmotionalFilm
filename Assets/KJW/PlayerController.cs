@@ -32,11 +32,12 @@ public class PlayerController : MonoBehaviour
     public CinemachineCameraOffset cineCameraOffset;
     public CinemachineFollowZoom cineFollowZoom;
 
+    Vector3[] trajectoryPoints;
+    public LineRenderer lineRenderer;
+
     public P3dPaintDecal P3dPD;
 
     public ParticleSystem PS;
-
-    Orbit[] m_Orbits;
 
     public Camera cam;
 
@@ -77,6 +78,9 @@ public class PlayerController : MonoBehaviour
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         anim = GetComponent<Animator>();
 
+        trajectoryPoints = new Vector3[60];
+        lineRenderer.positionCount = 60;
+
         // 윤수지 코드
         rigid = GetComponent<Rigidbody>();
     }
@@ -113,7 +117,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGround)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            anim.SetTrigger("Jump");
+            anim.SetBool("Jump", true);
+            StartCoroutine(WaitJump());
             isGround = false;
         }
 
@@ -175,7 +180,7 @@ public class PlayerController : MonoBehaviour
         waterBalloonCool = false;
     }
 
-    IEnumerator WaitForIt()
+    IEnumerator recoil()
     {
         for (int i = 0; i < 10; i++)
         {
@@ -189,6 +194,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator WaitJump()
+    {
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("Jump", false);
+    }
 
     void Spray()
     {
@@ -202,7 +212,7 @@ public class PlayerController : MonoBehaviour
         if (weapon != Weapon.Spray)
             return;
 
-        prefab[2].transform.localRotation = Quaternion.Euler(cam.transform.eulerAngles.x, 0f, 0f);
+        prefab[2].transform.rotation = Quaternion.Euler(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
 
         if (Input.GetMouseButton(0))
         {
@@ -287,7 +297,7 @@ public class PlayerController : MonoBehaviour
 
                 if (FPS)
                 {
-                    StartCoroutine(WaitForIt());
+                    StartCoroutine(recoil());
                     StartCoroutine(BulletCooldown(1.5f));
 
                 }
@@ -337,7 +347,7 @@ public class PlayerController : MonoBehaviour
             var main = PS.main;
             main.startSize = 1;
 
-            aim[0].transform.localScale = new Vector3(1, 1, 1);
+            aim[0].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
     }
 
@@ -353,7 +363,14 @@ public class PlayerController : MonoBehaviour
         if (weapon != Weapon.WaterBalloon)
             return;
 
-        if (Input.GetMouseButtonDown(0))
+        prefab[1].transform.rotation = Quaternion.Euler(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+
+        if (Input.GetMouseButton(0))
+        {
+            lineRenderer.enabled = true;
+            CalculateTrajectory();
+        }
+        if (Input.GetMouseButtonUp(0))
         {
             if (!waterBalloonCool)
             {
@@ -373,6 +390,8 @@ public class PlayerController : MonoBehaviour
                 {
                     cloneRigidbody.velocity = clone.transform.forward * 15 + clone.transform.up * 5;
                 }
+
+                lineRenderer.enabled = false;
 
                 StartCoroutine(WaitWaterBalloon());
             }
@@ -405,9 +424,26 @@ public class PlayerController : MonoBehaviour
         FPS = false;
     }
 
+    // 물풍선 궤적 구하는 코드(등가속도 공식을 이용하여 거리 계산 s = v0*t + (1/2)at^2) 여기서 가속도는 중력가속도뿐임.
+    private void CalculateTrajectory()
+    {
+        Vector3 startPosition = prefab[1].transform.position;
+        Vector3 currentVelocity = prefab[1].transform.forward * 15f + prefab[1].transform.up * 5;
+
+        for (int i = 0; i < 60; i++)
+        {
+            float time = i * 0.1f;
+            float x = startPosition.x + (currentVelocity.x * time);
+            float y = startPosition.y + (currentVelocity.y * time) + (0.5f * gravity * time * time);
+            float z = startPosition.z + (currentVelocity.z * time);
+            trajectoryPoints[i] = new Vector3(x, y, z);
+            lineRenderer.SetPosition(i, trajectoryPoints[i]);
+        }
+    }
+
     void OnCollisionEnter(Collision collsion)
     {
         if (collsion.transform.CompareTag("Ground"))
-            isGround = true;
+            isGround = true;    
     }
 }
