@@ -210,7 +210,8 @@ MonoBehaviour:
   cineFreeLook: {fileID: 0}
   cineCameraOffset: {fileID: 0}
   cineFollowZoom: {fileID: 0}
-  m_Orbits: []
+  P3dPD: {fileID: 0}
+  PS: {fileID: 0}
   cam: {fileID: 1824765060}
   run: 2
   isGround: 1
@@ -7726,7 +7727,7 @@ GameObject:
   - component: {fileID: 410504813}
   m_Layer: 0
   m_Name: MonsterPos4
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10036,7 +10037,7 @@ GameObject:
   - component: {fileID: 673567876}
   m_Layer: 0
   m_Name: MonsterPos0
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53005,7 +53006,7 @@ GameObject:
   - component: {fileID: 1189679984}
   m_Layer: 0
   m_Name: MonsterPos3
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53306,7 +53307,7 @@ GameObject:
   - component: {fileID: 1195204867}
   m_Layer: 0
   m_Name: MonsterPos2
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63582,7 +63583,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1528686104}
-  cooldown: -5605.724
+  cooldown: -5747.6465
   currentReader:
     dirty: 0
     requested: 0
@@ -63774,6 +63775,7 @@ GameObject:
   - component: {fileID: 1537431305}
   - component: {fileID: 1537431304}
   - component: {fileID: 1537431310}
+  - component: {fileID: 1537431311}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -63933,6 +63935,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4805af764aa85fd4798c1514c5d3d5e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1537431311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537431303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950166c349528bb449a42209944dcd29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MonsterPos0: {fileID: 673567874}
+  MonsterPos1: {fileID: 2131500507}
+  MonsterPos2: {fileID: 1195204866}
+  MonsterPos3: {fileID: 1189679982}
+  MonsterPos4: {fileID: 410504811}
 --- !u!114 &1537984952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77889,7 +77908,7 @@ GameObject:
   - component: {fileID: 2131500508}
   m_Layer: 0
   m_Name: MonsterPos1
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
