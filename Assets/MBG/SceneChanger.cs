@@ -17,10 +17,10 @@ public class SceneChanger : MonoBehaviour
         
     }
     private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.collider.gameObject.CompareTag("Portal"))
         {
-            if(collision.collider.gameObject.CompareTag("Portal"))
-            {
-                SceneManager.LoadScene("End");
-            }
+            SceneManager.LoadScene("End");
         }
+    }
 }
