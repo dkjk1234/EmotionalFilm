@@ -9,6 +9,7 @@ using PaintIn3D;
 public class PlayerController : MonoBehaviour
 {
     // 김정우 코드
+    
     public enum Weapon
     {
         Spray,
@@ -17,6 +18,13 @@ public class PlayerController : MonoBehaviour
         WaterBalloon
     }
     public Weapon weapon = Weapon.Spray;
+
+    public enum PlayMode
+    {
+        Play,
+        Edit
+    }
+    public PlayMode playMode = PlayMode.Play;
 
     private Animator anim;
 
@@ -75,6 +83,7 @@ public class PlayerController : MonoBehaviour
         // 원래 있던 코드
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        
 
         // 김정우 코드
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
@@ -90,50 +99,54 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Spray();
-        Brush();
-        PaintGun();
-        WaterBalloon();
-        PaintBar();
-
-        // Player movement - WASD
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        if (x != 0 || z != 0)
+        if(playMode == PlayMode.Play)
         {
-            anim.SetBool("Move", true);
+            Spray();
+            Brush();
+            PaintGun();
+            WaterBalloon();
+            PaintBar();
+
+            // Player movement - WASD
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
+
+            Vector3 move = transform.right * x + transform.forward * z;
+
+            if (x != 0 || z != 0)
+            {
+                anim.SetBool("Move", true);
+            }
+            else
+            {
+                anim.SetBool("Move", false);
+            }
+
+            characterController.Move(move * speed * Time.deltaTime);
+
+
+            // Jump
+
+            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                anim.SetBool("Jump", true);
+                StartCoroutine(WaitJump());
+                isGround = false;
+            }
+
+            velocity.y += gravity * Time.deltaTime;
+            characterController.Move(velocity * Time.deltaTime);
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && isGround)
+            {
+                anim.SetTrigger("Roll");
+            }
+
+            // Mouse look - rotate player and camera
+            transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
         }
-        else
-        {
-            anim.SetBool("Move", false);
-        }
-
-        characterController.Move(move * speed * Time.deltaTime);
-
-
-        // Jump
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            anim.SetBool("Jump", true);
-            StartCoroutine(WaitJump());
-            isGround = false;
-        }
-
-        velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGround)
-        {
-            anim.SetTrigger("Roll");
-        }
-
-        // Mouse look - rotate player and camera
-        transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
+        
     }
 
 
@@ -449,5 +462,27 @@ public class PlayerController : MonoBehaviour
     {
         if (collsion.transform.CompareTag("Ground"))
             isGround = true;    
+    }
+    public void ScriptOnOff(bool OnOff)
+    {
+        this.enabled = OnOff;
+        if (OnOff)
+        {
+            GetComponent<Rigidbody>().isKinematic = false;
+            playMode = PlayMode.Play;
+        }
+        else
+        {
+            playMode = PlayMode.Edit;
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+    private void OnEnable()
+    {
+        Cursor.lockState= CursorLockMode.None;
     }
 }
