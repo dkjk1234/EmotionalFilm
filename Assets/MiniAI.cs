@@ -48,7 +48,7 @@ public class MiniAI : MonoBehaviour
 
         IEnumerator WaitForSomeTime()
         {
-            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));    
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
         }
     }
 }
