@@ -11217,19 +11217,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: 0
-  prefab: []
-  selectWeapon: []
-  aim: []
-  effect: []
-  paintBar: {fileID: 0}
-  fillArea: {fileID: 0}
-  cineFreeLook: {fileID: 0}
-  cineCameraOffset: {fileID: 0}
-  cineFollowZoom: {fileID: 0}
-  lineRenderer: {fileID: 0}
-  P3dPD: {fileID: 0}
-  PS: {fileID: 0}
-  cam: {fileID: 0}
+  prefab:
+  - {fileID: 94630703}
+  - {fileID: 992101713}
+  - {fileID: 1123642296}
+  selectWeapon:
+  - {fileID: 290343547}
+  - {fileID: 1301125207}
+  - {fileID: 709956508}
+  - {fileID: 309275113}
+  aim:
+  - {fileID: 1029313608}
+  effect:
+  - {fileID: 125192680}
+  paintBar: {fileID: 796256257}
+  fillArea: {fileID: 1442551260}
+  cineFreeLook: {fileID: 1027356265}
+  cineCameraOffset: {fileID: 1027356267}
+  cineFollowZoom: {fileID: 1027356268}
+  lineRenderer: {fileID: 595605051}
+  P3dPD: {fileID: 94630707}
+  PS: {fileID: 1047697547}
+  cam: {fileID: 1714169581}
   srSpeed: 3
   originSpeed: 5
   runSpeed: 7
@@ -12047,6 +12056,12 @@ Transform:
   m_Father: {fileID: 769603181}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &709956508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 185377887db6c834aa0079c9649d02fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 297735980}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &715739433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67658,6 +67673,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activated: 0
+--- !u!1 &1301125207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8738099424440055954, guid: 8d89ada5f8847c44389ce35d4ea4612d,
+    type: 3}
+  m_PrefabInstance: {fileID: 898904580}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1304405667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83111,7 +83132,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -8077.276
+  cooldown: -8191.2974
   currentReader:
     dirty: 0
     requested: 0
