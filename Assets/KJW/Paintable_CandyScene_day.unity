@@ -6649,7 +6649,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159312112}
-  m_LocalRotation: {x: 0.4178568, y: -0.0000000270758, z: 0.000000012453105, w: 0.90851295}
+  m_LocalRotation: {x: 0.41785678, y: 0.000000011215161, z: -0.000000005158246, w: 0.90851295}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8419,12 +8419,6 @@ PrefabInstance:
       addedObject: {fileID: 1047697544}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 185377887db6c834aa0079c9649d02fe, type: 3}
---- !u!1 &308971280 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 185377887db6c834aa0079c9649d02fe,
-    type: 3}
-  m_PrefabInstance: {fileID: 297735980}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &308971281 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 185377887db6c834aa0079c9649d02fe,
@@ -11223,31 +11217,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: 0
-  prefab:
-  - {fileID: 94630703}
-  - {fileID: 992101713}
-  - {fileID: 1123642296}
-  selectWeapon:
-  - {fileID: 290343547}
-  - {fileID: 1566248474}
-  - {fileID: 308971280}
-  - {fileID: 309275113}
-  aim:
-  - {fileID: 1029313608}
-  effect:
-  - {fileID: 125192680}
-  paintBar: {fileID: 796256257}
-  fillArea: {fileID: 1442551260}
-  cineFreeLook: {fileID: 1027356265}
-  cineCameraOffset: {fileID: 1027356267}
-  cineFollowZoom: {fileID: 1027356268}
-  lineRenderer: {fileID: 595605051}
-  P3dPD: {fileID: 94630707}
-  PS: {fileID: 1047697547}
-  cam: {fileID: 1714169581}
-  srSpeed: 1
+  prefab: []
+  selectWeapon: []
+  aim: []
+  effect: []
+  paintBar: {fileID: 0}
+  fillArea: {fileID: 0}
+  cineFreeLook: {fileID: 0}
+  cineCameraOffset: {fileID: 0}
+  cineFollowZoom: {fileID: 0}
+  lineRenderer: {fileID: 0}
+  P3dPD: {fileID: 0}
+  PS: {fileID: 0}
+  cam: {fileID: 0}
+  srSpeed: 3
   originSpeed: 5
-  runSpeed: 8
+  runSpeed: 7
   isGround: 1
   mouseSensitivity: 100
   gravity: -9.81
@@ -67020,7 +67005,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266137212}
-  m_LocalRotation: {x: 0.3536933, y: -0.000000016094182, z: 0.0000000060857803, w: 0.93536144}
+  m_LocalRotation: {x: 0.3536933, y: 0.00000001609419, z: -0.0000000060857834, w: 0.93536144}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -79628,12 +79613,6 @@ Transform:
   m_Father: {fileID: 906907546}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1566248474 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8738099424440055954, guid: 8d89ada5f8847c44389ce35d4ea4612d,
-    type: 3}
-  m_PrefabInstance: {fileID: 898904580}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1567102382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82147,7 +82126,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714169577}
-  m_LocalRotation: {x: 0.41785687, y: -0.000000038290956, z: 0.00000001761135, w: 0.9085129}
+  m_LocalRotation: {x: 0.41785684, y: 0.000000039899597, z: -0.00000001835122, w: 0.90851295}
   m_LocalPosition: {x: 7.03, y: 4.636, z: 12.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -83132,7 +83111,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -8067.402
+  cooldown: -8077.276
   currentReader:
     dirty: 0
     requested: 0
