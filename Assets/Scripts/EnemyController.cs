@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     public bool isMove;
     public int curHealth;
     public int maxHealth;
+    //public Sprite image;
 
     public GameObject hpBarPrefab;
     public Vector3 hpBarOffset = new Vector3(0, 2.2f, 0);
@@ -124,6 +125,7 @@ public class EnemyController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
             //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             transform.rotation = targetRotation;
+
             FireBullet(directionToPlayer);
         }
     }

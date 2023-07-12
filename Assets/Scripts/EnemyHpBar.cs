@@ -24,7 +24,7 @@ public class EnemyHpBar : MonoBehaviour
     {
         if (targetTr != null)
         {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(targetTr.position + offset);
+            var screenPos = Camera.main.WorldToScreenPoint(targetTr.position + offset);
 
             if (screenPos.z < 0.0f)
             {
