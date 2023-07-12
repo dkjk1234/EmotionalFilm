@@ -134,6 +134,11 @@ public class PlayerController : MonoBehaviour
 
         // Mouse look - rotate player and camera
         transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
+
+        if(!Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            paintBar.value += 0.0002f;
+        }
     }
 
 
@@ -229,11 +234,10 @@ public class PlayerController : MonoBehaviour
                 prefab[2].SetActive(false);
             }
         }
-
-        else
+        /*else
         {
             paintBar.value += 0.0002f;
-        }
+        }*/
     }
 
     void Brush()
@@ -305,13 +309,20 @@ public class PlayerController : MonoBehaviour
                 {
                     StartCoroutine(recoil());
                     StartCoroutine(BulletCooldown(1.5f));
-
+                    paintBar.value -= 0.015f;
                 }
 
                 if (!FPS)
+                {
                     StartCoroutine(BulletCooldown(0.2f));
+                    paintBar.value -= 0.01f;
+                }
             }
         }
+        /*else
+        {
+            paintBar.value += 0.0002f;
+        }*/
 
         if (Input.GetMouseButtonDown(1))
             FPS = true;
@@ -380,6 +391,11 @@ public class PlayerController : MonoBehaviour
             lineRenderer.enabled = true;
             CalculateTrajectory();
         }
+
+        /*else
+        {
+            paintBar.value += 0.0002f;
+        }*/
         if (Input.GetMouseButtonUp(0))
         {
             if (!waterBalloonCool)
@@ -390,7 +406,9 @@ public class PlayerController : MonoBehaviour
                 var rotation = Quaternion.LookRotation(ray.direction);
 
                 var clone = Instantiate(prefab[1], prefab[1].transform.position, rotation);
-
+                
+                paintBar.value -= 0.05f;
+                
                 clone.SetActive(true);
 
                 var cloneRigidbody = clone.GetComponent<Rigidbody>();
