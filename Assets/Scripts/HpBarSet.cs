@@ -11,16 +11,12 @@ public Vector3 hpBarOffset = new Vector3(0, 2.2f, 0);
 Canvas uiCanvas;
 Image hpBarImage;
 // Start is called before the first frame update
-void Start()
-{
-    SetHpBar();
-}
+    void Start()
+    {
+        SetHpBar();
 
-// Update is called once per frame
-void Update()
-{
+    }
 
-}
 
 void SetHpBar()
 {

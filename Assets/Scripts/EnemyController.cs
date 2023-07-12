@@ -21,7 +21,8 @@ public class EnemyController : MonoBehaviour
     public int curHealth;
     public int maxHealth;
     public Transform player;
-    //public Sprite image;
+    public GameObject hpBar;
+    public float hpBarRange = 10f;
 
     public GameObject hpBarPrefab;
     public Vector3 hpBarOffset = new Vector3(0, 2.2f, 0);
@@ -49,6 +50,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        ShowHpBar();
         timer += Time.deltaTime;
         attackTime += Time.deltaTime;
         if (timer >= attackDelay && !isAttack)
@@ -67,7 +69,7 @@ public class EnemyController : MonoBehaviour
     void SetHpBar()
     {
         uiCanvas = GameObject.Find("UI Canvas").GetComponent<Canvas>();
-        GameObject hpBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
+        hpBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
         hpBarImage = hpBar.GetComponentsInChildren<Image>()[1];
 
         var _hpbar = hpBar.GetComponent<EnemyHpBar>();
@@ -77,14 +79,17 @@ public class EnemyController : MonoBehaviour
 
     private void Targeting()
     {
-        float targetRadius = 5f;
+        float targetRadius = 5;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, targetRadius, LayerMask.GetMask("Player"));
         
         if (colliders.Length > 0 && !isAttack)
         {
+            // hpBar.SetActive(true);
             Attack();
         }
+
+        else hpBar.SetActive(false);
         /*
         float distance = Vector3.Distance(transform.position, player.position);
         if (targetRadius >= distance && !isAttack)
@@ -92,6 +97,13 @@ public class EnemyController : MonoBehaviour
             Attack();
         }
         */
+    }
+
+    private void ShowHpBar()
+    {
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (hpBarRange >= distance) hpBar.SetActive(true);
+        else hpBar.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()

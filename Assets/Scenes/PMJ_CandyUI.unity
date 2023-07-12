@@ -6606,6 +6606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   jumpHeight: 5
+  isGround: 1
 --- !u!54 &928969703
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -39487,6 +39488,7 @@ MonoBehaviour:
   angleX: 12
   angleY: 0
   angleZ: 0
+  rotateSpeed: 500
   CameraSpeed: 10
 --- !u!114 &1024450572
 MonoBehaviour:
@@ -49137,6 +49139,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 38547089}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1655705851 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 539745478100655087, guid: bd6ee82c5e06b3f4f86113cbf8261ae1,
+    type: 3}
+  m_PrefabInstance: {fileID: 38547089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1662306891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50173,7 +50181,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -4533.7993
+  cooldown: -4687.54
   currentReader:
     dirty: 0
     requested: 0
@@ -51899,6 +51907,9 @@ MonoBehaviour:
   isMove: 0
   curHealth: 0
   maxHealth: 0
+  player: {fileID: 1655705851}
+  hpBar: {fileID: 0}
+  hpBarRange: 10
   hpBarPrefab: {fileID: 4805842481269477219, guid: d86892d0fccf32c40b11ef1bf17c7da7,
     type: 3}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
