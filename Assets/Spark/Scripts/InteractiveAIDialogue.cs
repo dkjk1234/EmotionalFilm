@@ -31,6 +31,7 @@ namespace LeastSquares.Spark
                 role = "user",
                 content = prompt
             });
+            
             SetText("Thinking...");
             var result = await OpenAIAccessManager.RequestChatCompletion(_messages.ToArray());
             _messages.Add(new ChatCompletionMessage
