@@ -79,6 +79,7 @@ namespace PaintIn3D
 			}
 		}
 #endif
+		
 
 		public static void OpenWith(GameObject gameObject, Mesh mesh = null)
 		{

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: ec9645b85a7a81244a29b5f8c2a740ef
   - enabled: 1
-    path: Assets/Scenes/PMJ_CandyUI.unity
-    guid: b565e9b015921fb4699e634b79d85d8e
+    path: Assets/MBG/Paintable_CandyScene_day.unity
+    guid: cb9d7770a26797a4ea5b84f5052e0b36
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: a437ec3db0fdef6489c8d215260f50f6
   m_configObjects: {}
