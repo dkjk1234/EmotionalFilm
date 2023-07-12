@@ -13589,7 +13589,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898455522}
-  m_LocalRotation: {x: 0.3536933, y: 0.000000016094187, z: -0.0000000060857825, w: 0.93536144}
+  m_LocalRotation: {x: 0.3536933, y: -0.000000016094184, z: 0.000000006085781, w: 0.93536144}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48863,6 +48863,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4805af764aa85fd4798c1514c5d3d5e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1213488811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213488800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950166c349528bb449a42209944dcd29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MonsterPos0: {fileID: 673567874}
+  MonsterPos1: {fileID: 2131500507}
+  MonsterPos2: {fileID: 1195204866}
+  MonsterPos3: {fileID: 1189679982}
+  MonsterPos4: {fileID: 410504811}
+  MonsterPos5: {fileID: 801778931}
 --- !u!114 &1215856835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53062,7 +53080,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1528686104}
-  cooldown: -6405.36
+  cooldown: -6421.013
   currentReader:
     dirty: 0
     requested: 0
@@ -54589,6 +54607,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1213488809}
+    - targetCorrespondingSourceObject: {fileID: 3324446406351297882, guid: 8d89ada5f8847c44389ce35d4ea4612d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1213488811}
   m_SourcePrefab: {fileID: 100100000, guid: 8d89ada5f8847c44389ce35d4ea4612d, type: 3}
 --- !u!114 &1537984952
 MonoBehaviour:

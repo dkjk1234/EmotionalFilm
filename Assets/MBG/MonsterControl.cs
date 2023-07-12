@@ -9,6 +9,9 @@ public class MonsterControl : MonoBehaviour
     public GameObject MonsterPos2;
     public GameObject MonsterPos3;
     public GameObject MonsterPos4;
+    
+    public GameObject MonsterPos5;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +25,30 @@ public class MonsterControl : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.gameObject.CompareTag("Monster"))
+        if(collision.collider.gameObject.name=="MonsterPos0")
         {
             GameObject.Destroy(MonsterPos0);
         }
+        else if(collision.collider.gameObject.name=="MonsterPos1")
+        {
+            GameObject.Destroy(MonsterPos1);
+        }
+        else if(collision.collider.gameObject.name=="MonsterPos2")
+        {
+            GameObject.Destroy(MonsterPos2);
+        }
+        else if(collision.collider.gameObject.name=="MonsterPos3")
+        {
+            GameObject.Destroy(MonsterPos3);
+        }
+        else if(collision.collider.gameObject.name=="MonsterPos4")
+        {
+            GameObject.Destroy(MonsterPos4);
+        }
+        else if(collision.collider.gameObject.name=="MonsterPos5")
+        {
+            GameObject.Destroy(MonsterPos5);
+        }
+
     }
 }
