@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            paintBar.value += 0.0001f;
+            paintBar.value += 0.0002f;
         }
     }
 
@@ -451,9 +451,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collsion)
+    void OnCollisionEnter(Collision collision)
     {
-        if (collsion.transform.CompareTag("Ground"))
+        if (collision.transform.CompareTag("Ground"))
             isGround = true;    
     }
 }
