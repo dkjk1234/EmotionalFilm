@@ -229,6 +229,11 @@ public class PlayerController : MonoBehaviour
                 prefab[2].SetActive(false);
             }
         }
+
+        else
+        {
+            paintBar.value += 0.0001f;
+        }
     }
 
     void Brush()
@@ -426,6 +431,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(weaponName, true);
 
         FPS = false;
+        lineRenderer.enabled = false;
     }
 
     // 물풍선 궤적 구하는 코드(등가속도 공식을 이용하여 거리 계산 s = v0*t + (1/2)at^2) 여기서 가속도는 중력가속도뿐임.
