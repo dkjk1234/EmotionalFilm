@@ -20,13 +20,9 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
-    public List<GameObject> prefab;
-    public List<GameObject> selectWeapon;
-    public List<GameObject> aim;
-    public List<GameObject> effect;
+    public Image fillArea;
 
-    public Slider paintBar;
-    public GameObject fillArea;
+    public Text percentText;
 
     public CinemachineFreeLook cineFreeLook;
     public CinemachineCameraOffset cineCameraOffset;
@@ -40,6 +36,22 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem PS;
 
     public Camera cam;
+    
+    public List<GameObject> prefab;
+    public List<GameObject> selectWeapon;
+    public List<GameObject> aim;
+    public List<GameObject> effect;
+
+
+    float paintValue = 100;
+
+    float sprayConsumption = 0.03f;
+    float ARpaintGunConsumption = 1f;
+    float SRpaintGunConsumption = 3f;
+    float waterBalloonConsumption = 5f;
+
+    bool paintRecovery = true;
+    bool sprayPaintMin = true;
 
     bool FPS = false;
     bool swingBool = true;
@@ -96,6 +108,15 @@ public class PlayerController : MonoBehaviour
         WaterBalloon();
         PaintBar();
 
+        paintValue = Mathf.Clamp(paintValue, 0, 100);
+
+        if (paintRecovery)
+        {
+            paintValue += 0.02f;
+        }
+        int percentPaintValue = (int)paintValue;
+        percentText.text = percentPaintValue.ToString() + "%";
+
         // Player movement - WASD
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -135,10 +156,6 @@ public class PlayerController : MonoBehaviour
         // Mouse look - rotate player and camera
         transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
 
-        if(!Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            paintBar.value += 0.0002f;
-        }
     }
 
 
@@ -207,9 +224,15 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Jump", false);
     }
 
+    IEnumerator PaintRecovery()
+    {
+        paintRecovery = false;
+        yield return new WaitForSeconds(4f);
+        paintRecovery = true;
+    }
+
     void Spray()
     {
-        // 동작 중에는 변경 불가능하게 막는 코드 추가할 것
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ConnectWeapon(0, "Spray");
@@ -221,28 +244,33 @@ public class PlayerController : MonoBehaviour
 
         prefab[2].transform.rotation = Quaternion.Euler(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
 
+
         if (Input.GetMouseButton(0))
         {
-            if (paintBar.value > 0)
+            if (paintValue >= sprayConsumption && sprayPaintMin)
             {
+                StopCoroutine("PaintRecovery");
                 prefab[2].SetActive(true);
-                paintBar.value -= 0.001f;
+                paintValue -= sprayConsumption;
+                StartCoroutine("PaintRecovery");
             }
 
-            else
+            else if (paintValue < sprayConsumption)
             {
                 prefab[2].SetActive(false);
+                sprayPaintMin = false;
             }
+
         }
-        /*else
+
+        if (paintValue > 10f)
         {
-            paintBar.value += 0.0002f;
-        }*/
+            sprayPaintMin = true;
+        }
     }
 
     void Brush()
     {
-        // 동작 중에는 변경 불가능하게 막는 코드 추가할 것
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ConnectWeapon(1, "Brush");
@@ -287,10 +315,12 @@ public class PlayerController : MonoBehaviour
         }
         aim[0].SetActive(true);
 
+
         if (Input.GetMouseButton(0))
         {
-            if (!bulletCool)
+            if ((!bulletCool && FPS && paintValue >= SRpaintGunConsumption) || (!bulletCool && !FPS && paintValue >= ARpaintGunConsumption))
             {
+                StopCoroutine("PaintRecovery");
                 var ray = Camera.main.ScreenPointToRay(ScreenCenter);
                 var rotation = Quaternion.LookRotation(ray.direction);
 
@@ -304,34 +334,46 @@ public class PlayerController : MonoBehaviour
                 {
                     cloneRigidbody.velocity = clone.transform.forward * 100;
                 }
-
+                StartCoroutine("PaintRecovery");
                 if (FPS)
                 {
                     StartCoroutine(recoil());
                     StartCoroutine(BulletCooldown(1.5f));
-                    paintBar.value -= 0.015f;
+                    paintValue -= SRpaintGunConsumption;
                 }
 
                 if (!FPS)
                 {
                     StartCoroutine(BulletCooldown(0.2f));
-                    paintBar.value -= 0.01f;
+                    paintValue -= ARpaintGunConsumption;
                 }
             }
         }
-        /*else
-        {
-            paintBar.value += 0.0002f;
-        }*/
+
 
         if (Input.GetMouseButtonDown(1))
-            FPS = true;
+        {
+            if (paintValue > 3)
+            {
+                FPS = true;
+            }
+        }
+
 
         if (Input.GetMouseButtonUp(1))
+        {
             FPS = false;
+        }
+
+        // paintValue값이 3보다 적으면, 조준이 불가능
+        if (paintValue < 3)
+        {
+            FPS = false;
+        }
 
         if (FPS)
         {
+            StopCoroutine("PaintRecovery");
             // 스피드 변경 코드
             speed = srSpeed;
             cineFreeLook.m_Orbits = new Orbit[3]
@@ -349,7 +391,9 @@ public class PlayerController : MonoBehaviour
             main.startSize = 3;
 
             aim[0].transform.localScale = new Vector3(5, 5, 5);
+            StartCoroutine("PaintRecovery");
         }
+
         if (!FPS || !isGround)
         {
             // 스피드 변경 코드
@@ -374,7 +418,6 @@ public class PlayerController : MonoBehaviour
 
     void WaterBalloon()
     {
-        // 동작 중에는 변경 불가능하게 막는 코드 추가할 것
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             ConnectWeapon(3, "WaterBalloon");
@@ -386,17 +429,18 @@ public class PlayerController : MonoBehaviour
 
         prefab[1].transform.rotation = Quaternion.Euler(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && paintValue >= waterBalloonConsumption)
         {
-            lineRenderer.enabled = true;
-            CalculateTrajectory();
+            if (!waterBalloonCool)
+            {
+                StopCoroutine("PaintRecovery");
+                lineRenderer.enabled = true;
+                CalculateTrajectory();
+                StartCoroutine("PaintRecovery");
+            }
         }
-
-        /*else
-        {
-            paintBar.value += 0.0002f;
-        }*/
-        if (Input.GetMouseButtonUp(0))
+        
+        if (Input.GetMouseButtonUp(0) && paintValue >= waterBalloonConsumption)
         {
             if (!waterBalloonCool)
             {
@@ -407,7 +451,7 @@ public class PlayerController : MonoBehaviour
 
                 var clone = Instantiate(prefab[1], prefab[1].transform.position, rotation);
                 
-                paintBar.value -= 0.05f;
+                paintValue -= waterBalloonConsumption;
                 
                 clone.SetActive(true);
 
@@ -427,10 +471,7 @@ public class PlayerController : MonoBehaviour
 
     void PaintBar()
     {
-        if (paintBar.value <= 0)
-            fillArea.SetActive(false);
-        else
-            fillArea.SetActive(true);
+        fillArea.rectTransform.sizeDelta = new Vector2(840, 70 + paintValue * 7);
     }
 
     // 현재 무기를 활성화해주는 함수
@@ -449,6 +490,17 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(weaponName, true);
 
         FPS = false;
+        speed = originSpeed;
+        cineFreeLook.m_Orbits = new Orbit[3]
+        {
+                new Orbit(4.5f, 3f),
+                new Orbit(2f, 5f),
+                new Orbit(-1.5f, 3f)
+        };
+        cineFollowZoom.enabled = false;
+        cineCameraOffset.enabled = false;
+        cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
+
         lineRenderer.enabled = false;
     }
 
