@@ -11,6 +11,10 @@ public class MonsterControl : MonoBehaviour
     public GameObject MonsterPos4;
     
     public GameObject MonsterPos5;
+
+    public GameObject Door;
+
+    bool MonsterTag = true;
     
     // Start is called before the first frame update
     void Start()
@@ -21,7 +25,11 @@ public class MonsterControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MonsterTag = GameObject.FindGameObjectWithTag("Monster");
+        if(MonsterTag == false)
+        {
+            GameObject.Destroy(Door);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
