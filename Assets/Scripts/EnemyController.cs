@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     public bool isMove;
     public int curHealth;
     public int maxHealth;
+    public Transform player;
     //public Sprite image;
 
     public GameObject hpBarPrefab;
@@ -79,10 +80,18 @@ public class EnemyController : MonoBehaviour
         float targetRadius = 5f;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, targetRadius, LayerMask.GetMask("Player"));
+        
         if (colliders.Length > 0 && !isAttack)
         {
             Attack();
         }
+        /*
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (targetRadius >= distance && !isAttack)
+        {
+            Attack();
+        }
+        */
     }
 
     private void OnDrawGizmosSelected()
@@ -120,11 +129,12 @@ public class EnemyController : MonoBehaviour
             int ranNumber = Random.Range(0, 3);
             anim.SetFloat("Attack", ranNumber);
             anim.SetTrigger("doAttack");
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            transform.LookAt(player);
+            //GameObject player = GameObject.FindGameObjectWithTag("Player");
             Vector3 directionToPlayer = player.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+            //Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
             //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-            transform.rotation = targetRotation;
+            //transform.rotation = targetRotation;
 
             FireBullet(directionToPlayer);
         }
