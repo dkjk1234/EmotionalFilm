@@ -29,19 +29,24 @@ namespace PaintIn3D
 		/// <summary>The previously counted amount of pixels with a RGBA value difference above the threshold.</summary>
 		public int Count { get { return count; } } [SerializeField] private int count;
 
+		
         /// <summary>The <b>Count / Total</b> value.</summary>
-        public float Ratio { get { return total > 0 ? (float)(count / customControlRatio) / (float)total : 0.0f; } }
+        public float Ratio { get { return total > 0 ? (float)(count/customControlRatio) / (float)total : 0.0f; } }
 
         [Range(0f, 1f)]
         public float customControlRatio = 1f;
-        public float CustomRatio { get { return Ratio / customControlRatio; } }
+        public float CustomRatio { get { return Ratio / customControlRatio ;} }
+
+
         [SerializeField]
 		private P3dReader changeReader;
 
 		[SerializeField]
 		protected NativeArray<Color32> changePixels;
 
-		public P3dReader ChangeReader
+        
+
+        public P3dReader ChangeReader
 		{
 			get
 			{
