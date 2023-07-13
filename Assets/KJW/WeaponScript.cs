@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine; //½Ã³×¸Ó½ÅÀ» using ÇØÁà¾ß È°¿ëÀÌ ½Ã³×¸Ó½ÅÀ» ½ºÅ©¸³Æ®·Î °¡Á®¿Ã ¼ö ÀÖ´Ù.
+using Cinemachine; //ì‹œë„¤ë¨¸ì‹ ì„ using í•´ì¤˜ì•¼ í™œìš©ì´ ì‹œë„¤ë¨¸ì‹ ì„ ìŠ¤í¬ë¦½íŠ¸ë¡œ ê°€ì ¸ì˜¬ ìˆ˜ ìˆë‹¤.
 using static Cinemachine.CinemachineFreeLook;
 using PaintIn3D;
 
@@ -85,9 +85,9 @@ public class WeaponScript : MonoBehaviour
 
     IEnumerator WaitCombo()
     {
-        // ÄŞº¸ ²÷±â´Âµ¥ °É¸®´Â ½Ã°£
+        // ì½¤ë³´ ëŠê¸°ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„
 
-        // ÄŞº¸°¡ ÃÖ´ëÄ¡ÀÏ °æ¿ì ´Ù½Ã Ã³À½ ÄŞº¸·Î µ¹¾Æ°¨
+        // ì½¤ë³´ê°€ ìµœëŒ€ì¹˜ì¼ ê²½ìš° ë‹¤ì‹œ ì²˜ìŒ ì½¤ë³´ë¡œ ëŒì•„ê°
         if (combo == 5)
         {
             combo = 0;
@@ -101,14 +101,14 @@ public class WeaponScript : MonoBehaviour
             yield return new WaitForSeconds(0.8f);
         comboBool = true;
 
-        // comboBoolÀÌ ÄÑÁö¸é ÄŞº¸°¡ ²÷°å´Ù°í ÆÇ´ÜÇÏ°í ½ºÀ® ÄŞº¸¸¦ 0À¸·Î ¹Ù²Ş
+        // comboBoolì´ ì¼œì§€ë©´ ì½¤ë³´ê°€ ëŠê²¼ë‹¤ê³  íŒë‹¨í•˜ê³  ìŠ¤ìœ™ ì½¤ë³´ë¥¼ 0ìœ¼ë¡œ ë°”ê¿ˆ
         if (comboBool)
         {
             combo = 0;
             anim.SetInteger("SwingCombo", combo);
         }
 
-        // ÄŞº¸ ÁßÀÌ ¾Æ´Ò °æ¿ì °Ë ÀÜ»ó ÀÌÆåÆ®¸¦ ²û
+        // ì½¤ë³´ ì¤‘ì´ ì•„ë‹ ê²½ìš° ê²€ ì”ìƒ ì´í™íŠ¸ë¥¼ ë”
         effect[0].SetActive(false);
     }
     IEnumerator BulletCooldown(float waitSec)
@@ -122,7 +122,7 @@ public class WeaponScript : MonoBehaviour
     {
         waterBalloonCool = true;
         yield return new WaitForSeconds(0.1f);
-        // ÀÌ°Å ¾È ÇØÁÖ¸é °è¼Ó ¼ö·ùÅº ´øÁö´Â ¸ğ¼Ç ¹İº¹ÇÔ.
+        // ì´ê±° ì•ˆ í•´ì£¼ë©´ ê³„ì† ìˆ˜ë¥˜íƒ„ ë˜ì§€ëŠ” ëª¨ì…˜ ë°˜ë³µí•¨.
         anim.SetBool("IsWaterBalloon", false);
         yield return new WaitForSeconds(0.4f);
         waterBalloonCool = false;
@@ -202,7 +202,7 @@ public class WeaponScript : MonoBehaviour
         if (weapon != Weapon.Brush)
             return;
 
-        // ½ºÀ® ÄŞº¸¼ö¸¦ ¹ŞÀ½
+        // ìŠ¤ìœ™ ì½¤ë³´ìˆ˜ë¥¼ ë°›ìŒ
         combo = anim.GetInteger("SwingCombo");
 
         // Swing
@@ -211,12 +211,12 @@ public class WeaponScript : MonoBehaviour
             if (swingBool)
             {
                 effect[0].SetActive(true);
-                // °ø°İ½Ã ÄŞº¸ È®ÀÎ ÄÚ·çÆ¾ ½ºÅ¾
+                // ê³µê²©ì‹œ ì½¤ë³´ í™•ì¸ ì½”ë£¨í‹´ ìŠ¤íƒ‘
                 StopCoroutine("WaitCombo");
                 anim.SetInteger("SwingCombo", combo + 1);
                 comboBool = false;
 
-                // °ø°İÀÌ ³¡³ª¸é ÄŞº¸°¡ ²÷°å´ÂÁö È®ÀÎÇÏ´Â ÄÚ·çÆ¾ ÁøÇà
+                // ê³µê²©ì´ ëë‚˜ë©´ ì½¤ë³´ê°€ ëŠê²¼ëŠ”ì§€ í™•ì¸í•˜ëŠ” ì½”ë£¨í‹´ ì§„í–‰
                 StartCoroutine("WaitCombo");
             }
         }
@@ -287,7 +287,7 @@ public class WeaponScript : MonoBehaviour
             FPS = false;
         }
 
-        // paintValue°ªÀÌ 3º¸´Ù ÀûÀ¸¸é, Á¶ÁØÀÌ ºÒ°¡´É
+        // paintValueê°’ì´ 3ë³´ë‹¤ ì ìœ¼ë©´, ì¡°ì¤€ì´ ë¶ˆê°€ëŠ¥
         if (GameManager.Instance.player.paintValue < SRpaintGunConsumption)
         {
             FPS = false;
@@ -296,7 +296,7 @@ public class WeaponScript : MonoBehaviour
         if (FPS)
         {
             StopCoroutine("PaintRecovery");
-            // ½ºÇÇµå º¯°æ ÄÚµå
+            // ìŠ¤í”¼ë“œ ë³€ê²½ ì½”ë“œ
             GameManager.Instance.player.speed = srSpeed;
             cineFreeLook.m_Orbits = new Orbit[3]
             {
@@ -318,7 +318,7 @@ public class WeaponScript : MonoBehaviour
 
         if (!FPS || !GameManager.Instance.player.isGround)
         {
-            // ½ºÇÇµå º¯°æ ÄÚµå
+            // ìŠ¤í”¼ë“œ ë³€ê²½ ì½”ë“œ
             GameManager.Instance.player.speed = originSpeed;
             cineFreeLook.m_Orbits = new Orbit[3]
             {
@@ -390,7 +390,7 @@ public class WeaponScript : MonoBehaviour
 
                 for (int i = 0; i < 30; i++)
                 {
-                    //fixedUpdate·Î ÇÒ °æ¿ì ¿¹Àü À§Ä¡°ªÀÌ º¸ÀÌ´Â ¹ö±×°¡ Á¸Àç. µû¶ó¼­ °è¼Ó À§Ä¡°ªÀ» Á¦°ÅÇØÁà¾ß ÇÔ.
+                    //fixedUpdateë¡œ í•  ê²½ìš° ì˜ˆì „ ìœ„ì¹˜ê°’ì´ ë³´ì´ëŠ” ë²„ê·¸ê°€ ì¡´ì¬. ë”°ë¼ì„œ ê³„ì† ìœ„ì¹˜ê°’ì„ ì œê±°í•´ì¤˜ì•¼ í•¨.
                     lineRenderer.SetPosition(i, Vector3.zero);
                 }
                 lineRenderer.enabled = false;
@@ -400,7 +400,7 @@ public class WeaponScript : MonoBehaviour
         }
     }
 
-    // ÇöÀç ¹«±â¸¦ È°¼ºÈ­ÇØÁÖ´Â ÇÔ¼ö
+    // í˜„ì¬ ë¬´ê¸°ë¥¼ í™œì„±í™”í•´ì£¼ëŠ” í•¨ìˆ˜
     void ConnectWeapon(int weaponNum, string weaponName)
     {
         selectWeapon[0].SetActive(false);
@@ -429,13 +429,13 @@ public class WeaponScript : MonoBehaviour
 
         for (int i = 0; i < 30; i++)
         {
-            //fixedUpdate·Î ÇÒ °æ¿ì ¿¹Àü À§Ä¡°ªÀÌ º¸ÀÌ´Â ¹ö±×°¡ Á¸Àç. µû¶ó¼­ °è¼Ó À§Ä¡°ªÀ» Á¦°ÅÇØÁà¾ß ÇÔ.
+            //fixedUpdateë¡œ í•  ê²½ìš° ì˜ˆì „ ìœ„ì¹˜ê°’ì´ ë³´ì´ëŠ” ë²„ê·¸ê°€ ì¡´ì¬. ë”°ë¼ì„œ ê³„ì† ìœ„ì¹˜ê°’ì„ ì œê±°í•´ì¤˜ì•¼ í•¨.
             lineRenderer.SetPosition(i, Vector3.zero);
         }
         lineRenderer.enabled = false;
     }
 
-    // ¹°Ç³¼± ±ËÀû ±¸ÇÏ´Â ÄÚµå(µî°¡¼Óµµ °ø½ÄÀ» ÀÌ¿ëÇÏ¿© °Å¸® °è»ê s = v0*t + (1/2)at^2) ¿©±â¼­ °¡¼Óµµ´Â Áß·Â°¡¼Óµµ»ÓÀÓ.
+    // ë¬¼í’ì„  ê¶¤ì  êµ¬í•˜ëŠ” ì½”ë“œ(ë“±ê°€ì†ë„ ê³µì‹ì„ ì´ìš©í•˜ì—¬ ê±°ë¦¬ ê³„ì‚° s = v0*t + (1/2)at^2) ì—¬ê¸°ì„œ ê°€ì†ë„ëŠ” ì¤‘ë ¥ê°€ì†ë„ë¿ì„.
     private void CalculateTrajectory()
     {
         Vector3 startPosition = prefab[2].transform.position;
