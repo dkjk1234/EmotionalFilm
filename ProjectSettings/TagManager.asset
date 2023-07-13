@@ -9,6 +9,8 @@ TagManager:
   - Ground
   - MiniAI
   - AttackParticle1
+  - Monster
+  - Portal
   layers:
   - Default
   - TransparentFX
