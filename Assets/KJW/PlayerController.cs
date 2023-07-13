@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
     Vector3[] trajectoryPoints;
     public LineRenderer lineRenderer;
 
-    public P3dPaintDecal P3dPD;
-
     public ParticleSystem PS;
 
     public Camera cam;
@@ -41,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public List<GameObject> selectWeapon;
     public List<GameObject> aim;
     public List<GameObject> effect;
+    public List<P3dPaintSphere> SBScript; //Spray, Brush
+    public List<P3dPaintDecal> PWScript; //PaintGun, WaterBalloon
 
 
     float paintValue = 100;
@@ -92,8 +92,8 @@ public class PlayerController : MonoBehaviour
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         anim = GetComponent<Animator>();
 
-        trajectoryPoints = new Vector3[60];
-        lineRenderer.positionCount = 60;
+        trajectoryPoints = new Vector3[30];
+        lineRenderer.positionCount = 30;
 
         // 윤수지 코드
         rigid = GetComponent<Rigidbody>();
@@ -158,6 +158,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void FixedUpdate()
+    {
+        if (weapon == Weapon.WaterBalloon && Input.GetMouseButton(0) && paintValue >= waterBalloonConsumption)
+        {
+            CalculateTrajectory();
+        }
+    }
 
     IEnumerator WaitCombo()
     {
@@ -353,7 +360,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (paintValue > 3)
+            if (paintValue > SRpaintGunConsumption)
             {
                 FPS = true;
             }
@@ -366,7 +373,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // paintValue값이 3보다 적으면, 조준이 불가능
-        if (paintValue < 3)
+        if (paintValue < SRpaintGunConsumption)
         {
             FPS = false;
         }
@@ -386,7 +393,7 @@ public class PlayerController : MonoBehaviour
             cineCameraOffset.enabled = true;
             cineFreeLook.m_XAxis.m_MaxSpeed = 50f;
 
-            P3dPD.Radius = 2;
+            PWScript[0].Radius = 2;
             var main = PS.main;
             main.startSize = 3;
 
@@ -408,7 +415,7 @@ public class PlayerController : MonoBehaviour
             cineCameraOffset.enabled = false;
             cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
 
-            P3dPD.Radius = 1;
+            PWScript[0].Radius = 1;
             var main = PS.main;
             main.startSize = 1;
 
@@ -435,7 +442,7 @@ public class PlayerController : MonoBehaviour
             {
                 StopCoroutine("PaintRecovery");
                 lineRenderer.enabled = true;
-                CalculateTrajectory();
+                //CalculateTrajectory();
                 StartCoroutine("PaintRecovery");
             }
         }
@@ -462,6 +469,11 @@ public class PlayerController : MonoBehaviour
                     cloneRigidbody.velocity = clone.transform.forward * 15 + clone.transform.up * 5;
                 }
 
+                for (int i = 0; i < 30; i++)
+                {
+                    //fixedUpdate로 할 경우 예전 위치값이 보이는 버그가 존재. 따라서 계속 위치값을 제거해줘야 함.
+                    lineRenderer.SetPosition(i, Vector3.zero);
+                }
                 lineRenderer.enabled = false;
 
                 StartCoroutine(WaitWaterBalloon());
@@ -501,6 +513,11 @@ public class PlayerController : MonoBehaviour
         cineCameraOffset.enabled = false;
         cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
 
+        for (int i = 0; i < 30; i++)
+        {
+            //fixedUpdate로 할 경우 예전 위치값이 보이는 버그가 존재. 따라서 계속 위치값을 제거해줘야 함.
+            lineRenderer.SetPosition(i, Vector3.zero);
+        }
         lineRenderer.enabled = false;
     }
 
@@ -510,7 +527,7 @@ public class PlayerController : MonoBehaviour
         Vector3 startPosition = prefab[1].transform.position;
         Vector3 currentVelocity = prefab[1].transform.forward * 15f + prefab[1].transform.up * 5;
 
-        for (int i = 0; i < 60; i++)
+        for (int i = 0; i < 30; i++)
         {
             float time = i * 0.1f;
             float x = startPosition.x + (currentVelocity.x * time);
@@ -524,6 +541,6 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
-            isGround = true;    
+            isGround = true;
     }
 }

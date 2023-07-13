@@ -200,8 +200,8 @@ MonoBehaviour:
   targetModel: {fileID: 0}
   targetTexture: {fileID: 0}
   blendMode:
-    Index: 6
-    Color: {r: 0, g: 0, b: 0, a: 1}
+    Index: 9
+    Color: {r: 1, g: 1, b: 1, a: 1}
     Texture: {fileID: 2800000, guid: 430658e8525edc44aa1fb47855cb3a8c, type: 3}
     Kernel: 1
     Channels: {x: 1, y: 1, z: 1, w: 1}
@@ -1051,13 +1051,13 @@ MonoBehaviour:
     index: 0
   targetTexture: {fileID: 0}
   blendMode:
-    Index: 6
+    Index: 9
     Color: {r: 1, g: 1, b: 1, a: 1}
-    Texture: {fileID: 0}
+    Texture: {fileID: 2800000, guid: 430658e8525edc44aa1fb47855cb3a8c, type: 3}
     Kernel: 1
     Channels: {x: 1, y: 1, z: 1, w: 1}
   texture: {fileID: 2800000, guid: b232d88a05fd2304f9ecfb0eaca4f742, type: 3}
-  shape: {fileID: 0}
+  shape: {fileID: 2800000, guid: b232d88a05fd2304f9ecfb0eaca4f742, type: 3}
   shapeChannel: 3
   color: {r: 1, g: 0, b: 0, a: 1}
   opacity: 1
@@ -1671,7 +1671,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.00012207031}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &179310209
@@ -9464,7 +9464,6 @@ MonoBehaviour:
   cineCameraOffset: {fileID: 1027356267}
   cineFollowZoom: {fileID: 1027356268}
   lineRenderer: {fileID: 595605051}
-  P3dPD: {fileID: 94630707}
   PS: {fileID: 1047697547}
   cam: {fileID: 1714169581}
   prefab:
@@ -9480,6 +9479,12 @@ MonoBehaviour:
   - {fileID: 1029313608}
   effect:
   - {fileID: 125192680}
+  SBScript:
+  - {fileID: 1123642298}
+  - {fileID: 12916446}
+  PWScript:
+  - {fileID: 94630707}
+  - {fileID: 992101714}
   srSpeed: 3
   originSpeed: 5
   runSpeed: 7
@@ -10570,7 +10575,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -225.7137
+  cooldown: -674.59247
   currentReader:
     dirty: 1
     requested: 0
@@ -13923,13 +13928,13 @@ MonoBehaviour:
     index: 0
   targetTexture: {fileID: 0}
   blendMode:
-    Index: 6
+    Index: 9
     Color: {r: 1, g: 1, b: 1, a: 1}
-    Texture: {fileID: 0}
+    Texture: {fileID: 2800000, guid: 430658e8525edc44aa1fb47855cb3a8c, type: 3}
     Kernel: 1
     Channels: {x: 1, y: 1, z: 1, w: 1}
   texture: {fileID: 2800000, guid: b232d88a05fd2304f9ecfb0eaca4f742, type: 3}
-  shape: {fileID: 0}
+  shape: {fileID: 2800000, guid: b232d88a05fd2304f9ecfb0eaca4f742, type: 3}
   shapeChannel: 3
   color: {r: 1, g: 0, b: 0, a: 1}
   opacity: 1
@@ -52005,7 +52010,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 1, y: 0}
 --- !u!225 &1099565986
@@ -52173,7 +52178,6 @@ GameObject:
   - component: {fileID: 1123642300}
   - component: {fileID: 1123642299}
   - component: {fileID: 1123642298}
-  - component: {fileID: 1123642302}
   m_Layer: 7
   m_Name: Particles
   m_TagString: Untagged
@@ -52217,11 +52221,11 @@ MonoBehaviour:
   targetTexture: {fileID: 0}
   blendMode:
     Index: 9
-    Color: {r: 1, g: 1, b: 1, a: 1}
+    Color: {r: 1, g: 1, b: 1, a: 0}
     Texture: {fileID: 2800000, guid: 430658e8525edc44aa1fb47855cb3a8c, type: 3}
     Kernel: 1
     Channels: {x: 1, y: 1, z: 1, w: 1}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 1}
   opacity: 0.1
   angle: 0
   scale: {x: 1, y: 1, z: 1}
@@ -57070,46 +57074,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &1123642302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1123642296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 724ff6f732015ec4e8fecdb3d889fb82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layers:
-    serializedVersion: 2
-    m_Bits: 247
-  group:
-    index: 5
-  targetModel: {fileID: 0}
-  targetTexture: {fileID: 0}
-  blendMode:
-    Index: 9
-    Color: {r: 1, g: 1, b: 1, a: 1}
-    Texture: {fileID: 2800000, guid: 430658e8525edc44aa1fb47855cb3a8c, type: 3}
-    Kernel: 1
-    Channels: {x: 1, y: 1, z: 1, w: 1}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  opacity: 0.1
-  angle: 0
-  scale: {x: 1, y: 1, z: 1}
-  radius: 1.52
-  hardness: 1
-  tileTexture: {fileID: 0}
-  tileTransform: {fileID: 0}
-  tileOpacity: 1
-  tileTransition: 4
-  modifiers:
-    modifiers: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!114 &1127392435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57760,7 +57724,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266137212}
-  m_LocalRotation: {x: 0.3536933, y: -0.000000016094182, z: 0.0000000060857803, w: 0.93536144}
+  m_LocalRotation: {x: 0.3536933, y: 0.00000001609419, z: -0.0000000060857834, w: 0.93536144}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -63387,12 +63351,12 @@ PrefabInstance:
     - target: {fileID: 6714071095664549332, guid: 3a6c429900fad3a4db39b003ba2b6d6e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 17.066729
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 6714071095664549332, guid: 3a6c429900fad3a4db39b003ba2b6d6e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00012207031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6714071095664549332, guid: 3a6c429900fad3a4db39b003ba2b6d6e,
         type: 3}
@@ -63741,7 +63705,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.00012207031}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1338006288
@@ -72756,7 +72720,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -9381.45
+  cooldown: -9829.259
   currentReader:
     dirty: 0
     requested: 0
