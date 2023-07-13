@@ -14,9 +14,9 @@ public class AttackBlindfolded : MonoBehaviour
     public bool isCollided = false;
     public Image image;
     public float fadeDuration = 1f;
-    public float showDuration = 5f; // 이미지가 보여질 시간
+    public float showDuration = 5f;
 
-    private Coroutine fadeCoroutine; // FadeInAndOutImage() 코루틴 참조용 변수
+    private Coroutine fadeCoroutine; 
 
     // Start is called before the first frame update
     void Start()
@@ -49,10 +49,9 @@ public class AttackBlindfolded : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.AddForce(firePoint.forward * 30, ForceMode.Impulse);
 
-        // Bullet에 닿을 때 이미지를 보여주는 코루틴을 시작합니다.
         if (fadeCoroutine != null)
         {
-            StopCoroutine(fadeCoroutine); // 기존 코루틴을 중지합니다.
+            StopCoroutine(fadeCoroutine);
         }
         fadeCoroutine = StartCoroutine(FadeInAndOutImage());
     }
@@ -68,13 +67,8 @@ public class AttackBlindfolded : MonoBehaviour
     private IEnumerator FadeInAndOutImage()
     {
         yield return StartCoroutine(FadeIn());
-
-        // 이미지를 보여줄 시간만큼 기다립니다.
         yield return new WaitForSeconds(showDuration);
-
         yield return StartCoroutine(FadeOut());
-
-        // 이미지 페이드 아웃이 완료되면 변수를 초기화합니다.
         fadeCoroutine = null;
     }
 

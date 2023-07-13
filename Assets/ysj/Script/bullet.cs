@@ -22,7 +22,6 @@ public class bullet : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("haha");
         int numCollisions = particleSystem.GetCollisionEvents(other, collisionEvents);
         for (int i = 0; i < numCollisions; i++)
         {
