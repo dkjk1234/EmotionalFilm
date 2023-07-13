@@ -9445,48 +9445,6 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.7, z: 0}
---- !u!114 &595605048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 595605041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14ac4a02515bb4e4fa57eccf78f1679f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: 0
-  fillArea: {fileID: 678072026}
-  percentText: {fileID: 277340619}
-  cineFreeLook: {fileID: 1027356265}
-  cineCameraOffset: {fileID: 1027356267}
-  cineFollowZoom: {fileID: 1027356268}
-  lineRenderer: {fileID: 595605051}
-  P3dPD: {fileID: 94630707}
-  PS: {fileID: 1047697547}
-  cam: {fileID: 1714169581}
-  prefab:
-  - {fileID: 94630703}
-  - {fileID: 992101713}
-  - {fileID: 1123642296}
-  selectWeapon:
-  - {fileID: 290343547}
-  - {fileID: 1301125207}
-  - {fileID: 709956508}
-  - {fileID: 309275113}
-  aim:
-  - {fileID: 1029313608}
-  effect:
-  - {fileID: 125192680}
-  srSpeed: 3
-  originSpeed: 5
-  runSpeed: 7
-  isGround: 1
-  mouseSensitivity: 100
-  gravity: -9.81
-  jumpHeight: 2
 --- !u!54 &595605049
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9627,6 +9585,53 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &595605052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595605041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fd7c69194d47e4a974264b778804d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: 0
+  fillArea: {fileID: 678072026}
+  percentText: {fileID: 277340619}
+  cineFreeLook: {fileID: 1027356265}
+  cineCameraOffset: {fileID: 1027356267}
+  cineFollowZoom: {fileID: 1027356268}
+  lineRenderer: {fileID: 595605051}
+  PS: {fileID: 1047697547}
+  cam: {fileID: 1714169581}
+  prefab:
+  - {fileID: 94630703}
+  - {fileID: 992101713}
+  - {fileID: 1123642296}
+  selectWeapon:
+  - {fileID: 290343547}
+  - {fileID: 1301125207}
+  - {fileID: 709956508}
+  - {fileID: 309275113}
+  aim:
+  - {fileID: 1029313608}
+  effect:
+  - {fileID: 125192680}
+  SBScript:
+  - {fileID: 0}
+  - {fileID: 0}
+  PWScript:
+  - {fileID: 0}
+  - {fileID: 0}
+  srSpeed: 3
+  originSpeed: 5
+  runSpeed: 7
+  isGround: 1
+  mouseSensitivity: 100
+  gravity: -9.81
+  jumpHeight: 2
 --- !u!114 &600926345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10570,7 +10575,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -225.7137
+  cooldown: -533.6773
   currentReader:
     dirty: 1
     requested: 0
@@ -13128,7 +13133,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3324446406351297882, guid: 8d89ada5f8847c44389ce35d4ea4612d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 595605048}
+      addedObject: {fileID: 595605052}
     - targetCorrespondingSourceObject: {fileID: 3324446406351297882, guid: 8d89ada5f8847c44389ce35d4ea4612d,
         type: 3}
       insertIndex: -1
@@ -52005,7 +52010,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0}
   m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 1, y: 0}
 --- !u!225 &1099565986
@@ -63387,7 +63392,7 @@ PrefabInstance:
     - target: {fileID: 6714071095664549332, guid: 3a6c429900fad3a4db39b003ba2b6d6e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 17.066729
+      value: 17.066772
       objectReference: {fileID: 0}
     - target: {fileID: 6714071095664549332, guid: 3a6c429900fad3a4db39b003ba2b6d6e,
         type: 3}
@@ -72756,7 +72761,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -9381.45
+  cooldown: -9689.263
   currentReader:
     dirty: 0
     requested: 0
@@ -73187,7 +73192,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835416093}
-  m_LocalRotation: {x: 0.3858525, y: -0.000000015873928, z: 0.0000000066391244, w: 0.9225605}
+  m_LocalRotation: {x: 0.3858525, y: 0.000000015873928, z: -0.0000000066391244, w: 0.9225605}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

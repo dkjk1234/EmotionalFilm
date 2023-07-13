@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class CameraTest : MonoBehaviour
+public class CameraTest2 : MonoBehaviour
 {
     public CinemachineFreeLook thirdPersonCamera;
     public CinemachineVirtualCamera fixCamera;
