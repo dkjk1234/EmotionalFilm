@@ -7,34 +7,35 @@ using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.Networking;
 
-class RequestTest
+public class RequestTest
 {
-    public ChatCompletionMessage2[] messages;
+    public List<ChatCompletionMessage2> messages;
 }
 
 public class ChatServerManager : MonoBehaviour
 {
     public void Start()
     {
-        ChatCompletionMessage2[] messages = new ChatCompletionMessage2[2];
-        var a = new ChatCompletionMessage2
+        List<ChatCompletionMessage2> messages = new List<ChatCompletionMessage2>();
+        
+        ChatCompletionMessage2 a = new ChatCompletionMessage2
         {
             role = "system",
             content = "너는 나무꾼이야 말끝마다 나무를 붙여"
         };
-        var b = new ChatCompletionMessage2
+        ChatCompletionMessage2 b = new ChatCompletionMessage2
         {
             role = "user",
             content = "뭐하고있어?"
         };
-        messages[0] = a;
-        messages[1] = b;
-        Debug.Log(messages);
+        messages.Add(a);
+        messages.Add(b);
+        Debug.Log(messages[0]);
         RequestTest testbody = new RequestTest
         {
             messages = messages
         };
-        string json = JsonUtility.ToJson(testbody);
+        string json = JsonUtility.ToJson((object)testbody,true);
         StartCoroutine(PostRequest("http://localhost:3000/chat", json));
     }
 

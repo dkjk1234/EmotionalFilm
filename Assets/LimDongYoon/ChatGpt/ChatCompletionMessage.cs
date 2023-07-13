@@ -6,6 +6,5 @@ public class ChatCompletionMessage2
 {
     public string role;
     public string content;
-
-    
+   
 }
