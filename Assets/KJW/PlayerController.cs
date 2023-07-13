@@ -9,7 +9,6 @@ using PaintIn3D;
 public class PlayerController : MonoBehaviour
 {
     // 김정우 코드
-    
     public enum Weapon
     {
         Spray,
@@ -19,22 +18,11 @@ public class PlayerController : MonoBehaviour
     }
     public Weapon weapon = Weapon.Spray;
 
-    public enum PlayMode
-    {
-        Play,
-        Edit
-    }
-    public PlayMode playMode = PlayMode.Play;
-
     private Animator anim;
 
-    public List<GameObject> prefab;
-    public List<GameObject> selectWeapon;
-    public List<GameObject> aim;
-    public List<GameObject> effect;
+    public Image fillArea;
 
-    public Slider paintBar;
-    public GameObject fillArea;
+    public Text percentText;
 
     public CinemachineFreeLook cineFreeLook;
     public CinemachineCameraOffset cineCameraOffset;
@@ -43,11 +31,27 @@ public class PlayerController : MonoBehaviour
     Vector3[] trajectoryPoints;
     public LineRenderer lineRenderer;
 
-    public P3dPaintDecal P3dPD;
-
     public ParticleSystem PS;
 
     public Camera cam;
+    
+    public List<GameObject> prefab;
+    public List<GameObject> selectWeapon;
+    public List<GameObject> aim;
+    public List<GameObject> effect;
+    public List<P3dPaintSphere> SBScript; //Spray, Brush
+    public List<P3dPaintDecal> PWScript; //PaintGun, WaterBalloon
+
+
+    float paintValue = 100;
+
+    float sprayConsumption = 0.03f;
+    float ARpaintGunConsumption = 1f;
+    float SRpaintGunConsumption = 3f;
+    float waterBalloonConsumption = 5f;
+
+    bool paintRecovery = true;
+    bool sprayPaintMin = true;
 
     bool FPS = false;
     bool swingBool = true;
@@ -83,14 +87,13 @@ public class PlayerController : MonoBehaviour
         // 원래 있던 코드
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
-        
 
         // 김정우 코드
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         anim = GetComponent<Animator>();
 
-        trajectoryPoints = new Vector3[60];
-        lineRenderer.positionCount = 60;
+        trajectoryPoints = new Vector3[30];
+        lineRenderer.positionCount = 30;
 
         // 윤수지 코드
         rigid = GetComponent<Rigidbody>();
@@ -99,56 +102,69 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playMode == PlayMode.Play)
+        Spray();
+        Brush();
+        PaintGun();
+        WaterBalloon();
+        PaintBar();
+
+        paintValue = Mathf.Clamp(paintValue, 0, 100);
+
+        if (paintRecovery)
         {
-            Spray();
-            Brush();
-            PaintGun();
-            WaterBalloon();
-            PaintBar();
-
-            // Player movement - WASD
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-
-            Vector3 move = transform.right * x + transform.forward * z;
-
-            if (x != 0 || z != 0)
-            {
-                anim.SetBool("Move", true);
-            }
-            else
-            {
-                anim.SetBool("Move", false);
-            }
-
-            characterController.Move(move * speed * Time.deltaTime);
-
-
-            // Jump
-
-            if (Input.GetKeyDown(KeyCode.Space) && isGround)
-            {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                anim.SetBool("Jump", true);
-                StartCoroutine(WaitJump());
-                isGround = false;
-            }
-
-            velocity.y += gravity * Time.deltaTime;
-            characterController.Move(velocity * Time.deltaTime);
-
-            if (Input.GetKeyDown(KeyCode.LeftShift) && isGround)
-            {
-                anim.SetTrigger("Roll");
-            }
-
-            // Mouse look - rotate player and camera
-            transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
+            paintValue += 0.02f;
         }
-        
+        int percentPaintValue = (int)paintValue;
+        percentText.text = percentPaintValue.ToString() + "%";
+
+        // Player movement - WASD
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        if (x != 0 || z != 0)
+        {
+            anim.SetBool("Move", true);
+        }
+        else
+        {
+            anim.SetBool("Move", false);
+        }
+
+        characterController.Move(move * speed * Time.deltaTime);
+
+
+        // Jump
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            anim.SetBool("Jump", true);
+            StartCoroutine(WaitJump());
+            isGround = false;
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGround)
+        {
+            anim.SetTrigger("Roll");
+        }
+
+        // Mouse look - rotate player and camera
+        transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
+
     }
 
+    void FixedUpdate()
+    {
+        if (weapon == Weapon.WaterBalloon && Input.GetMouseButton(0) && paintValue >= waterBalloonConsumption)
+        {
+            CalculateTrajectory();
+        }
+    }
 
     IEnumerator WaitCombo()
     {
@@ -215,9 +231,15 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Jump", false);
     }
 
+    IEnumerator PaintRecovery()
+    {
+        paintRecovery = false;
+        yield return new WaitForSeconds(4f);
+        paintRecovery = true;
+    }
+
     void Spray()
     {
-        // 동작 중에는 변경 불가능하게 막는 코드 추가할 것
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ConnectWeapon(0, "Spray");
@@ -229,24 +251,33 @@ public class PlayerController : MonoBehaviour
 
         prefab[2].transform.rotation = Quaternion.Euler(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
 
+
         if (Input.GetMouseButton(0))
         {
-            if (paintBar.value > 0)
+            if (paintValue >= sprayConsumption && sprayPaintMin)
             {
+                StopCoroutine("PaintRecovery");
                 prefab[2].SetActive(true);
-                paintBar.value -= 0.001f;
+                paintValue -= sprayConsumption;
+                StartCoroutine("PaintRecovery");
             }
 
-            else
+            else if (paintValue < sprayConsumption)
             {
                 prefab[2].SetActive(false);
+                sprayPaintMin = false;
             }
+
+        }
+
+        if (paintValue > 10f)
+        {
+            sprayPaintMin = true;
         }
     }
 
     void Brush()
     {
-        // 동작 중에는 변경 불가능하게 막는 코드 추가할 것
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ConnectWeapon(1, "Brush");
@@ -291,10 +322,12 @@ public class PlayerController : MonoBehaviour
         }
         aim[0].SetActive(true);
 
+
         if (Input.GetMouseButton(0))
         {
-            if (!bulletCool)
+            if ((!bulletCool && FPS && paintValue >= SRpaintGunConsumption) || (!bulletCool && !FPS && paintValue >= ARpaintGunConsumption))
             {
+                StopCoroutine("PaintRecovery");
                 var ray = Camera.main.ScreenPointToRay(ScreenCenter);
                 var rotation = Quaternion.LookRotation(ray.direction);
 
@@ -308,27 +341,46 @@ public class PlayerController : MonoBehaviour
                 {
                     cloneRigidbody.velocity = clone.transform.forward * 100;
                 }
-
+                StartCoroutine("PaintRecovery");
                 if (FPS)
                 {
                     StartCoroutine(recoil());
                     StartCoroutine(BulletCooldown(1.5f));
-
+                    paintValue -= SRpaintGunConsumption;
                 }
 
                 if (!FPS)
+                {
                     StartCoroutine(BulletCooldown(0.2f));
+                    paintValue -= ARpaintGunConsumption;
+                }
             }
         }
 
+
         if (Input.GetMouseButtonDown(1))
-            FPS = true;
+        {
+            if (paintValue > SRpaintGunConsumption)
+            {
+                FPS = true;
+            }
+        }
+
 
         if (Input.GetMouseButtonUp(1))
+        {
             FPS = false;
+        }
+
+        // paintValue값이 3보다 적으면, 조준이 불가능
+        if (paintValue < SRpaintGunConsumption)
+        {
+            FPS = false;
+        }
 
         if (FPS)
         {
+            StopCoroutine("PaintRecovery");
             // 스피드 변경 코드
             speed = srSpeed;
             cineFreeLook.m_Orbits = new Orbit[3]
@@ -341,12 +393,14 @@ public class PlayerController : MonoBehaviour
             cineCameraOffset.enabled = true;
             cineFreeLook.m_XAxis.m_MaxSpeed = 50f;
 
-            P3dPD.Radius = 2;
+            PWScript[0].Radius = 2;
             var main = PS.main;
             main.startSize = 3;
 
             aim[0].transform.localScale = new Vector3(5, 5, 5);
+            StartCoroutine("PaintRecovery");
         }
+
         if (!FPS || !isGround)
         {
             // 스피드 변경 코드
@@ -361,7 +415,7 @@ public class PlayerController : MonoBehaviour
             cineCameraOffset.enabled = false;
             cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
 
-            P3dPD.Radius = 1;
+            PWScript[0].Radius = 1;
             var main = PS.main;
             main.startSize = 1;
 
@@ -371,7 +425,6 @@ public class PlayerController : MonoBehaviour
 
     void WaterBalloon()
     {
-        // 동작 중에는 변경 불가능하게 막는 코드 추가할 것
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             ConnectWeapon(3, "WaterBalloon");
@@ -383,12 +436,18 @@ public class PlayerController : MonoBehaviour
 
         prefab[1].transform.rotation = Quaternion.Euler(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && paintValue >= waterBalloonConsumption)
         {
-            lineRenderer.enabled = true;
-            CalculateTrajectory();
+            if (!waterBalloonCool)
+            {
+                StopCoroutine("PaintRecovery");
+                lineRenderer.enabled = true;
+                //CalculateTrajectory();
+                StartCoroutine("PaintRecovery");
+            }
         }
-        if (Input.GetMouseButtonUp(0))
+        
+        if (Input.GetMouseButtonUp(0) && paintValue >= waterBalloonConsumption)
         {
             if (!waterBalloonCool)
             {
@@ -398,7 +457,9 @@ public class PlayerController : MonoBehaviour
                 var rotation = Quaternion.LookRotation(ray.direction);
 
                 var clone = Instantiate(prefab[1], prefab[1].transform.position, rotation);
-
+                
+                paintValue -= waterBalloonConsumption;
+                
                 clone.SetActive(true);
 
                 var cloneRigidbody = clone.GetComponent<Rigidbody>();
@@ -408,6 +469,11 @@ public class PlayerController : MonoBehaviour
                     cloneRigidbody.velocity = clone.transform.forward * 15 + clone.transform.up * 5;
                 }
 
+                for (int i = 0; i < 30; i++)
+                {
+                    //fixedUpdate로 할 경우 예전 위치값이 보이는 버그가 존재. 따라서 계속 위치값을 제거해줘야 함.
+                    lineRenderer.SetPosition(i, Vector3.zero);
+                }
                 lineRenderer.enabled = false;
 
                 StartCoroutine(WaitWaterBalloon());
@@ -417,10 +483,7 @@ public class PlayerController : MonoBehaviour
 
     void PaintBar()
     {
-        if (paintBar.value <= 0)
-            fillArea.SetActive(false);
-        else
-            fillArea.SetActive(true);
+        fillArea.rectTransform.sizeDelta = new Vector2(840, 70 + paintValue * 7);
     }
 
     // 현재 무기를 활성화해주는 함수
@@ -439,6 +502,23 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(weaponName, true);
 
         FPS = false;
+        speed = originSpeed;
+        cineFreeLook.m_Orbits = new Orbit[3]
+        {
+                new Orbit(4.5f, 3f),
+                new Orbit(2f, 5f),
+                new Orbit(-1.5f, 3f)
+        };
+        cineFollowZoom.enabled = false;
+        cineCameraOffset.enabled = false;
+        cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
+
+        for (int i = 0; i < 30; i++)
+        {
+            //fixedUpdate로 할 경우 예전 위치값이 보이는 버그가 존재. 따라서 계속 위치값을 제거해줘야 함.
+            lineRenderer.SetPosition(i, Vector3.zero);
+        }
+        lineRenderer.enabled = false;
     }
 
     // 물풍선 궤적 구하는 코드(등가속도 공식을 이용하여 거리 계산 s = v0*t + (1/2)at^2) 여기서 가속도는 중력가속도뿐임.
@@ -447,7 +527,7 @@ public class PlayerController : MonoBehaviour
         Vector3 startPosition = prefab[1].transform.position;
         Vector3 currentVelocity = prefab[1].transform.forward * 15f + prefab[1].transform.up * 5;
 
-        for (int i = 0; i < 60; i++)
+        for (int i = 0; i < 30; i++)
         {
             float time = i * 0.1f;
             float x = startPosition.x + (currentVelocity.x * time);
@@ -458,5 +538,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
- 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Ground"))
+            isGround = true;
+    }
 }
