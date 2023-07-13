@@ -10,7 +10,6 @@ public class MapControl : MonoBehaviour
     public GameObject MonsterPos3;
     public GameObject MonsterPos4;
     public GameObject MonsterPos5;
-    public GameObject Boss;
     public GameObject Door;
     int MonsterTag = 6;
     // Start is called before the first frame update
