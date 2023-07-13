@@ -1737,6 +1737,41 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activated: 0
+--- !u!1 &180884721 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8089297233015587038, guid: eee1d4c81c3c1fb428cd35d96893e53e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1684147132}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &180884722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180884721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba515ffeba7fe441899a0ef009f682c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 0
+  particlePrefab: {fileID: 100006, guid: 6ec8476e220a45f4b83f0ce3dd05d14c, type: 3}
+  poolSize: 5
+  attackDelay: 1
+  attackTime: 0
+  delay: 3
+  moveRange: 20
+  isAttack: 0
+  isMove: 0
+  curHealth: 0
+  maxHealth: 0
+  player: {fileID: 1655705851}
+  hpBar: {fileID: 0}
+  hpBarRange: 10
+  hpBarPrefab: {fileID: 4805842481269477219, guid: d86892d0fccf32c40b11ef1bf17c7da7,
+    type: 3}
+  hpBarOffset: {x: 0, y: 2.2, z: 0}
 --- !u!114 &184408043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49461,12 +49496,17 @@ PrefabInstance:
         type: 3}
       propertyPath: nav
       value: 
-      objectReference: {fileID: 1684147135}
+      objectReference: {fileID: 0}
     - target: {fileID: 2068786035168401356, guid: eee1d4c81c3c1fb428cd35d96893e53e,
         type: 3}
       propertyPath: Target.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3308184753164533790, guid: eee1d4c81c3c1fb428cd35d96893e53e,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5b5e844dbebaa964d8d19f52142bf1fb, type: 2}
     - target: {fileID: 6152285135285627727, guid: eee1d4c81c3c1fb428cd35d96893e53e,
         type: 3}
       propertyPath: m_Speed
@@ -49542,17 +49582,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2068786035168401356, guid: eee1d4c81c3c1fb428cd35d96893e53e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8089297233015587038, guid: eee1d4c81c3c1fb428cd35d96893e53e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 180884722}
   m_SourcePrefab: {fileID: 100100000, guid: eee1d4c81c3c1fb428cd35d96893e53e, type: 3}
---- !u!195 &1684147135 stripped
-NavMeshAgent:
-  m_CorrespondingSourceObject: {fileID: 6152285135285627727, guid: eee1d4c81c3c1fb428cd35d96893e53e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1684147132}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1701155863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50181,7 +50220,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -4687.54
+  cooldown: -5103.3926
   currentReader:
     dirty: 0
     requested: 0
@@ -51897,6 +51936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba515ffeba7fe441899a0ef009f682c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
   particlePrefab: {fileID: 100008, guid: f5b1962b105591c44925869d7d74cf5d, type: 3}
   poolSize: 5
   attackDelay: 1

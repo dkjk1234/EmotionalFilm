@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
+    public enum Type { ice, icicle };
+    public Type enemyType;
     public GameObject particlePrefab;
     public int poolSize = 5;
     public float attackDelay = 3f;
@@ -148,7 +150,7 @@ public class EnemyController : MonoBehaviour
             //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             //transform.rotation = targetRotation;
 
-            FireBullet(directionToPlayer);
+            FireBullet(directionToPlayer);  
         }
     }
 
@@ -160,7 +162,7 @@ public class EnemyController : MonoBehaviour
             {
                 particlePool[i].SetActive(true);
                 particlePool[i].transform.position = transform.position;
-
+                //Debug.Log(particlePool[i].transform.name);
                 particlePool[i].GetComponent<Bullet>().Initialized(direction);
                 StartCoroutine(DisableParticle(particlePool[i]));
                 break;
