@@ -31,6 +31,10 @@ namespace LeastSquares.Spark
         /// The text object where the dialogue will be displayed.
         /// </summary>
         public TMP_Text dialogueText;
+
+        public ChatAIController chatAIController;
+
+        
         
         protected List<ChatCompletionMessage> _messages = new ();
 
@@ -53,6 +57,10 @@ namespace LeastSquares.Spark
         {
             StartCoroutine(WriteText(text));
         }
+        protected void EndText()
+        {
+            chatAIController.EndTalk();
+        }
         
         /// <summary>
         /// Coroutine that writes the text on screen one character at a time.
@@ -68,6 +76,7 @@ namespace LeastSquares.Spark
                 dialogueText.text = total;
                 yield return new WaitForSeconds(writeSpeed);
             }
+            EndText();
         }
 
         protected abstract ChatCompletionMessage CreateStartingPrompt();

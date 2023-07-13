@@ -31,8 +31,8 @@ namespace LeastSquares.Spark
                 role = "user",
                 content = prompt
             });
-            
-            SetText("Thinking...");
+           
+            SetText("생각하는 척 하는중...");
             var result = await OpenAIAccessManager.RequestChatCompletion(_messages.ToArray());
             _messages.Add(new ChatCompletionMessage
             {

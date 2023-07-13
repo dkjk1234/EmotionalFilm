@@ -458,31 +458,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collsion)
-    {
-        if (collsion.transform.CompareTag("Ground"))
-            isGround = true;    
-    }
-    public void ScriptOnOff(bool OnOff)
-    {
-        this.enabled = OnOff;
-        if (OnOff)
-        {
-            GetComponent<Rigidbody>().isKinematic = false;
-            playMode = PlayMode.Play;
-        }
-        else
-        {
-            playMode = PlayMode.Edit;
-            GetComponent<Rigidbody>().isKinematic = true;
-        }
-    }
-    private void OnDisable()
-    {
-        Cursor.lockState = CursorLockMode.None;
-    }
-    private void OnEnable()
-    {
-        Cursor.lockState= CursorLockMode.None;
-    }
+ 
 }
