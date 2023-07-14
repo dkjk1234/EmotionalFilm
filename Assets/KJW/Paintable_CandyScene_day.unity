@@ -1019,7 +1019,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1041.8604
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
@@ -2242,8 +2242,8 @@ MonoBehaviour:
   stateLimit: 10
   saveLoad: 0
   saveName: 
-  width: 512
-  height: 512
+  width: 4096
+  height: 4096
   texture: {fileID: 0}
   color: {r: 1, g: 1, b: 1, a: 1}
   format: 0
@@ -9426,7 +9426,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1043.4114
+  cooldown: -1281.4719
   currentReader:
     dirty: 1
     requested: 0
@@ -9840,38 +9840,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ac4a02515bb4e4fa57eccf78f1679f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: 0
   fillArea: {fileID: 678072026}
   percentText: {fileID: 277340619}
-  cineFreeLook: {fileID: 1027356265}
-  cineCameraOffset: {fileID: 1027356267}
-  cineFollowZoom: {fileID: 1027356268}
-  lineRenderer: {fileID: 595605051}
-  PS: {fileID: 1047697547}
   cam: {fileID: 1714169581}
-  prefab:
-  - {fileID: 94630703}
-  - {fileID: 992101713}
-  - {fileID: 1123642296}
-  selectWeapon:
-  - {fileID: 290343547}
-  - {fileID: 1301125207}
-  - {fileID: 709956508}
-  - {fileID: 309275113}
-  aim:
-  - {fileID: 1029313608}
-  effect:
-  - {fileID: 125192680}
-  SBScript:
-  - {fileID: 1123642298}
-  - {fileID: 12916446}
-  PWScript:
-  - {fileID: 94630707}
-  - {fileID: 992101714}
-  srSpeed: 3
-  originSpeed: 5
-  runSpeed: 7
+  paintValue: 100
+  paintRecovery: 1
   isGround: 1
+  speed: 5
   mouseSensitivity: 100
   gravity: -9.81
   jumpHeight: 2
@@ -9910,7 +9885,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595605041}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -10015,6 +9990,58 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &595605053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595605041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4805af764aa85fd4798c1514c5d3d5e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &595605055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595605041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb3c19b01cebd744b919c08720a3a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: 0
+  cineFreeLook: {fileID: 1027356265}
+  cineCameraOffset: {fileID: 1027356267}
+  cineFollowZoom: {fileID: 1027356268}
+  lineRenderer: {fileID: 595605051}
+  PS: {fileID: 1047697547}
+  prefab:
+  - {fileID: 1123642296}
+  - {fileID: 94630703}
+  - {fileID: 992101713}
+  selectWeapon:
+  - {fileID: 290343547}
+  - {fileID: 1301125207}
+  - {fileID: 709956508}
+  - {fileID: 309275113}
+  aim:
+  - {fileID: 1029313608}
+  effect:
+  - {fileID: 125192680}
+  SBScript:
+  - {fileID: 1123642298}
+  - {fileID: 12916446}
+  PWScript:
+  - {fileID: 94630707}
+  - {fileID: 992101714}
+  srSpeed: 3
+  originSpeed: 5
+  runSpeed: 7
 --- !u!114 &600926345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10958,7 +10985,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1062.6016
+  cooldown: -1300.6621
   currentReader:
     dirty: 1
     requested: 0
@@ -13593,6 +13620,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 595605051}
+    - targetCorrespondingSourceObject: {fileID: 3324446406351297882, guid: 8d89ada5f8847c44389ce35d4ea4612d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 595605053}
+    - targetCorrespondingSourceObject: {fileID: 3324446406351297882, guid: 8d89ada5f8847c44389ce35d4ea4612d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 595605055}
     - targetCorrespondingSourceObject: {fileID: 72589947717663971, guid: 8d89ada5f8847c44389ce35d4ea4612d,
         type: 3}
       insertIndex: -1
@@ -52407,7 +52442,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1041.8604
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
@@ -52560,6 +52595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195bef199eb603b4ca0340be53cb1727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 595605048}
 --- !u!4 &1084709880
 Transform:
   m_ObjectHideFlags: 0
@@ -58531,7 +58567,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1041.8604
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
@@ -72990,7 +73026,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1041.8604
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
@@ -73789,7 +73825,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -10215.786
+  cooldown: -10453.679
   currentReader:
     dirty: 0
     requested: 0
@@ -74385,7 +74421,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1041.8604
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
