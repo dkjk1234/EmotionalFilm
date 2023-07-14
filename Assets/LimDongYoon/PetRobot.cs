@@ -77,7 +77,6 @@ public class PetRobot : MonoBehaviour
                         Vector3 directionToNearestObject = (nearestObject.transform.position - transform.position).normalized;
                         Quaternion targetRotation = Quaternion.LookRotation(directionToNearestObject);
                         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, lerpSpeed * Time.deltaTime);
-
                         lookAtTimer += Time.deltaTime;
                     }
                 }
@@ -85,8 +84,8 @@ public class PetRobot : MonoBehaviour
                 {
                     lastNearestObject = null;
                     lookAtTimer = 0f;
+                    
                 }
-
                 break;
 
             case State.Attack:

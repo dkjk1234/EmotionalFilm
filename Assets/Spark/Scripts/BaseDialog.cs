@@ -40,6 +40,7 @@ namespace LeastSquares.Spark
 
         private void Start()
         {
+            
             if (!ChatEngine._loaded)
             {
                 Debug.LogError("ChatEngine has not been loaded properly. Please ensure that the ChatEngine script is in the scene and that the auth file is set.");

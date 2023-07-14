@@ -33,7 +33,10 @@ namespace LeastSquares.Spark
             });
            
             SetText("생각하는 척 하는중...");
+
             var result = await OpenAIAccessManager.RequestChatCompletion(_messages.ToArray());
+            //var result = await ChatServerManager.ChatPostRequest();
+
             _messages.Add(new ChatCompletionMessage
             {
                 role = "assistant",
@@ -46,6 +49,8 @@ namespace LeastSquares.Spark
         /// Creates the starting prompt for the AI or NPC character.
         /// </summary>
         /// <returns>A ChatCompletionMessage object representing the starting prompt.</returns>
+        /// 
+        
         protected override ChatCompletionMessage CreateStartingPrompt()
         {
             var prompt = "You are acting as an AI or NPC inside a game, a player might talk to you and you will have a pleasant conversation. The following are the instructions for your character:\n"; 
