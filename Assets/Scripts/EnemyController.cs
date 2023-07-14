@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
+    public enum Type { ice, icicle };
+    public Type enemyType;
     public GameObject particlePrefab;
     public int poolSize = 5;
     public float attackDelay = 3f;
@@ -20,7 +22,9 @@ public class EnemyController : MonoBehaviour
     public bool isMove;
     public int curHealth;
     public int maxHealth;
-    //public Sprite image;
+    public Transform player;
+    public GameObject hpBar;
+    public float hpBarRange = 10f;
 
     public GameObject hpBarPrefab;
     public Vector3 hpBarOffset = new Vector3(0, 2.2f, 0);
@@ -48,6 +52,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        ShowHpBar();
         timer += Time.deltaTime;
         attackTime += Time.deltaTime;
         if (timer >= attackDelay && !isAttack)
@@ -66,7 +71,7 @@ public class EnemyController : MonoBehaviour
     void SetHpBar()
     {
         uiCanvas = GameObject.Find("UI Canvas").GetComponent<Canvas>();
-        GameObject hpBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
+        hpBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
         hpBarImage = hpBar.GetComponentsInChildren<Image>()[1];
 
         var _hpbar = hpBar.GetComponent<EnemyHpBar>();
@@ -76,13 +81,31 @@ public class EnemyController : MonoBehaviour
 
     private void Targeting()
     {
-        float targetRadius = 5f;
+        float targetRadius = 5;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, targetRadius, LayerMask.GetMask("Player"));
+        
         if (colliders.Length > 0 && !isAttack)
+        {
+            // hpBar.SetActive(true);
+            Attack();
+        }
+
+        else hpBar.SetActive(false);
+        /*
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (targetRadius >= distance && !isAttack)
         {
             Attack();
         }
+        */
+    }
+
+    private void ShowHpBar()
+    {
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (hpBarRange >= distance) hpBar.SetActive(true);
+        else hpBar.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()
@@ -120,13 +143,14 @@ public class EnemyController : MonoBehaviour
             int ranNumber = Random.Range(0, 3);
             anim.SetFloat("Attack", ranNumber);
             anim.SetTrigger("doAttack");
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            transform.LookAt(player);
+            //GameObject player = GameObject.FindGameObjectWithTag("Player");
             Vector3 directionToPlayer = player.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+            //Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
             //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-            transform.rotation = targetRotation;
+            //transform.rotation = targetRotation;
 
-            FireBullet(directionToPlayer);
+            FireBullet(directionToPlayer);  
         }
     }
 
@@ -138,7 +162,7 @@ public class EnemyController : MonoBehaviour
             {
                 particlePool[i].SetActive(true);
                 particlePool[i].transform.position = transform.position;
-
+                //Debug.Log(particlePool[i].transform.name);
                 particlePool[i].GetComponent<Bullet>().Initialized(direction);
                 StartCoroutine(DisableParticle(particlePool[i]));
                 break;
