@@ -1019,7 +1019,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1253.6088
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
@@ -9426,7 +9426,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1255.1598
+  cooldown: -1281.4719
   currentReader:
     dirty: 1
     requested: 0
@@ -9844,6 +9844,7 @@ MonoBehaviour:
   percentText: {fileID: 277340619}
   cam: {fileID: 1714169581}
   paintValue: 100
+  paintRecovery: 1
   isGround: 1
   speed: 5
   mouseSensitivity: 100
@@ -9884,7 +9885,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595605041}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -10984,7 +10985,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1274.35
+  cooldown: -1300.6621
   currentReader:
     dirty: 1
     requested: 0
@@ -52441,7 +52442,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1253.6088
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
@@ -58566,7 +58567,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1253.6088
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
@@ -73025,7 +73026,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1253.6088
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
@@ -73824,7 +73825,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1803511622}
-  cooldown: -10427.38
+  cooldown: -10453.679
   currentReader:
     dirty: 0
     requested: 0
@@ -74255,7 +74256,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835416093}
-  m_LocalRotation: {x: 0.3858525, y: -0.000000015873928, z: 0.0000000066391244, w: 0.9225605}
+  m_LocalRotation: {x: 0.3858525, y: 0.000000015873928, z: -0.0000000066391244, w: 0.9225605}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -74420,7 +74421,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 775259269}
-  cooldown: -1253.6088
+  cooldown: -1279.9209
   currentReader:
     dirty: 1
     requested: 0
