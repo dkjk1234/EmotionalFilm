@@ -2116,7 +2116,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178653887}
-  m_LocalRotation: {x: 0.41785684, y: 0.00000004689666, z: -0.000000021569411, w: 0.90851295}
+  m_LocalRotation: {x: 0.41785684, y: -0.00000003829096, z: 0.00000001761135, w: 0.90851295}
   m_LocalPosition: {x: 1.9692078, y: 9.099998, z: 68.394424}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -52103,7 +52103,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398416178}
-  m_LocalRotation: {x: 0.29546934, y: -0.64241564, z: 0.29546934, w: 0.64241564}
+  m_LocalRotation: {x: 0.2954694, y: -0.64241564, z: 0.2954694, w: 0.64241564}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -53978,6 +53978,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1921110170}
+    - targetCorrespondingSourceObject: {fileID: 3324446406351297882, guid: 8d89ada5f8847c44389ce35d4ea4612d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1921110180}
   m_SourcePrefab: {fileID: 100100000, guid: 8d89ada5f8847c44389ce35d4ea4612d, type: 3}
 --- !u!114 &1420590371
 MonoBehaviour:
@@ -60214,7 +60218,7 @@ MonoBehaviour:
   async: 1
   downsampleSteps: 3
   registeredPaintableTexture: {fileID: 1528686104}
-  cooldown: -7516.6494
+  cooldown: -7636.538
   currentReader:
     dirty: 0
     requested: 0
@@ -61426,6 +61430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195bef199eb603b4ca0340be53cb1727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1921110176}
 --- !u!1 &1611780790
 GameObject:
   m_ObjectHideFlags: 0
@@ -71157,36 +71162,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1921110169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14ac4a02515bb4e4fa57eccf78f1679f, type: 3}
+  m_Script: {fileID: 11500000, guid: f93a241ff80998148b26579f88f12f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: 0
   fillArea: {fileID: 550333484}
   percentText: {fileID: 1705342232}
-  cineFreeLook: {fileID: 1374618806}
-  cineCameraOffset: {fileID: 1374618805}
-  cineFollowZoom: {fileID: 1374618804}
-  lineRenderer: {fileID: 1921110172}
-  P3dPD: {fileID: 618103224}
-  PS: {fileID: 1451413238}
   cam: {fileID: 178653888}
-  prefab:
-  - {fileID: 618103215}
-  - {fileID: 443511190}
-  - {fileID: 425773831}
-  selectWeapon:
-  - {fileID: 2005545762}
-  - {fileID: 1835691409}
-  - {fileID: 539256088}
-  - {fileID: 1611780790}
-  aim:
-  - {fileID: 91535896}
-  effect:
-  - {fileID: 1891002085}
-  srSpeed: 3
-  originSpeed: 5
-  runSpeed: 7
+  paintValue: 100
+  paintRecovery: 1
   isGround: 1
+  speed: 5
   mouseSensitivity: 100
   gravity: -9.81
   jumpHeight: 2
@@ -71196,6 +71181,46 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1418572253}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1921110180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921110169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb3c19b01cebd744b919c08720a3a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: 0
+  cineFreeLook: {fileID: 1374618806}
+  cineCameraOffset: {fileID: 1374618805}
+  cineFollowZoom: {fileID: 1374618804}
+  lineRenderer: {fileID: 1921110172}
+  PS: {fileID: 1451413238}
+  prefab:
+  - {fileID: 425773831}
+  - {fileID: 618103215}
+  - {fileID: 443511190}
+  selectWeapon:
+  - {fileID: 2005545762}
+  - {fileID: 1835691409}
+  - {fileID: 539256088}
+  - {fileID: 1611780790}
+  aim:
+  - {fileID: 91535896}
+  effect:
+  - {fileID: 1891002085}
+  SBScript:
+  - {fileID: 425773834}
+  - {fileID: 653754794}
+  PWScript:
+  - {fileID: 618103224}
+  - {fileID: 443511194}
+  srSpeed: 3
+  originSpeed: 5
+  runSpeed: 7
 --- !u!4 &1928388709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2a8d6f68e0f3e46448a68cfa08632ac9,
