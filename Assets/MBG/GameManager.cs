@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public PlayerController player;
+    //public WeaponScript weapon;
+
     private static GameManager _instance;
     public static GameManager Instance
     {
