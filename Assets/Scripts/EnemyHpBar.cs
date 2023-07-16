@@ -16,8 +16,9 @@ public class EnemyHpBar : MonoBehaviour
     {
         canvas = GetComponentInParent<Canvas>();
         uiCamera = canvas.worldCamera;
-        rectParent = GetComponentInParent<RectTransform>();
-        rectHp = GetComponent<RectTransform>();
+        rectParent = canvas.GetComponentInParent<RectTransform>();
+        rectHp = this.gameObject.GetComponent<RectTransform>();
+
     }
 
     private void LateUpdate()
