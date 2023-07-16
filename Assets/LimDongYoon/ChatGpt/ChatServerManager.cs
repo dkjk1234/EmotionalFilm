@@ -7,38 +7,21 @@ using Unity.VisualScripting;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
 
+/*[Description("GPT 3.5 Turbo")] ChatGPT3,
+[Description("GPT 4")] ChatGPT4,
+[Description("GPT 4 32K")] ChatGPT432K,
+[Description("GPT 3.5 16K")] ChatGPT316K,*/
 public static class ChatServerManager
 {
     public static string url = "http://localhost:3000/chat";
-   /* public void Start()
-    {
-        List<ChatCompletionMessage3> messages = new List<ChatCompletionMessage3>();
-
-        ChatCompletionMessage3 a = new ChatCompletionMessage3
-        {
-            role = "system",
-            content = "너는 나무꾼이야 말끝마다 나무를 붙여"
-        };
-        ChatCompletionMessage3 b = new ChatCompletionMessage3
-        {
-            role = "user",
-            content = "뭐하고있어?"
-        };
-
-        messages.Add(a);
-        messages.Add(b);
-        Debug.Log(messages[0]);
-        
-        
-        //await PostRequest(messages);
-    }
-*/
+    
     public static async Task<string> ChatPostRequest(List<_ChatCompletionMessage> messages)
     {
         
         RequestBody testbody = new RequestBody
         {
-            messages = messages
+            messages = messages,
+            /*model = "gpt-4"*/
         };
         string json = JsonUtility.ToJson((object)testbody, true);
         Debug.Log(json);
@@ -68,8 +51,9 @@ public static class ChatServerManager
 
             /*string[] splitString = originalString.Split('/');
             string result = splitString[0];*/
+            ResponseData responseData = JsonUtility.FromJson<ResponseData>(request.downloadHandler.text);
 
-            return request.downloadHandler.text;
+            return responseData.data;
         }
     }
 
@@ -101,6 +85,14 @@ public static class ChatServerManager
 }
 
 [Serializable]
+public class ResponseData
+{
+    public string data;
+    public string message;
+    public int status;
+}
+
+[Serializable]
 public class _ChatCompletionMessage
 {
     public string role;
@@ -111,6 +103,12 @@ public class RequestBody
 {
     public List<_ChatCompletionMessage> messages;
     public string model;
+}
+
+[Serializable]
+public class CurrentCondition
+{
+    
 }
 
 

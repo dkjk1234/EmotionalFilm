@@ -1,3 +1,4 @@
+using System;
 using LeastSquares.Spark;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,11 +32,16 @@ public class PetAIDialog : MonoBehaviour
     public List<_ChatCompletionMessage> _messages = new List<_ChatCompletionMessage>();
 
     public ChatAIController chatAIController;
+
     /// <summary>
     /// Initiates a conversation with the AI or NPC character.
     /// </summary>
     /// <param name="prompt">The initial prompt or message from the player.</param>
     /// 
+    public void Start()
+    {
+        _messages.Add(CreateStartingPrompt());
+    }
 
     public async void Talk(string prompt)
     {
@@ -88,7 +94,7 @@ public class PetAIDialog : MonoBehaviour
 
     public _ChatCompletionMessage CreateStartingPrompt()
     {
-        var prompt = "You are acting as an AI or NPC inside a game, a player might talk to you and you will have a pleasant conversation. The following are the instructions for your character:\n";
+        var prompt = "You are acting as an AI or NPC inside a game, a player might talk to you and you will have a pleasant cddonversation. The following are the instructions for your character:\n";
         prompt += characterName != null ? $"Your name is {characterName}. " : "";
         prompt += actAs != null ? $"You are a {actAs}." : "";
         prompt += thingsToMention != null ? $"Try to mention this things during your conversations:\n{string.Join("\n", thingsToMention)} " : "";

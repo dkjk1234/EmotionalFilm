@@ -16,7 +16,7 @@ public class ChatAIController : MonoBehaviour
     }
     public ChatAIState chatAIstate = ChatAIState.Idle;
     public string currentStatePrompt;
-    public InteractiveAIDialogue Dialogue;
+    public PetAIDialog Dialogue;
     public TMP_InputField input;
     public Image imageToFade;
     public float fadeDuration = 1.0f;
