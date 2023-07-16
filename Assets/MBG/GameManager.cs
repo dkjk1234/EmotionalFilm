@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public PlayerController player;
-    //public WeaponScript weapon;
+    public WeaponScript weapon;
+    public UIScript uIScript;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -43,7 +44,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (weapon.paintRecovery && weapon.paintValue < 100)
+        {
+            weapon.paintValue += 0.02f;
+        }
     }
     
 }
