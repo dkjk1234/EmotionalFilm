@@ -94,7 +94,7 @@ public class PetRobot : MonoBehaviour
                 if (enemies.Length > 0)
                 {
                     GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-                    //projectile.GetComponent<Projectile>().target = enemies[0].transform;
+                        //projectile.GetComponent<Projectile>().target = enemies[0].transform;
                 }
                 break;
 

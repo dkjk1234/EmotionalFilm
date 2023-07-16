@@ -94,7 +94,7 @@ public class PetAIDialog : MonoBehaviour
 
     public _ChatCompletionMessage CreateStartingPrompt()
     {
-        var prompt = "You are acting as an AI or NPC inside a game, a player might talk to you and you will have a pleasant cddonversation. The following are the instructions for your character:\n";
+        var prompt = "";//"You are acting as an AI or NPC inside a game, a player might talk to you and you will have a pleasant cddonversation. The following are the instructions for your character:\n";
         prompt += characterName != null ? $"Your name is {characterName}. " : "";
         prompt += actAs != null ? $"You are a {actAs}." : "";
         prompt += thingsToMention != null ? $"Try to mention this things during your conversations:\n{string.Join("\n", thingsToMention)} " : "";
