@@ -29,7 +29,9 @@ public class PetRobot : MonoBehaviour
 
     void Start()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         initialOffset = transform.position - playerTransform.position;
+        
     }
     void Update()
     {
@@ -100,6 +102,7 @@ public class PetRobot : MonoBehaviour
 
             case State.Guide:
                 // TODO: 플레이어에게 이동 경로를 표시하거나 안내
+                targetObject = nearestObject.transform;
                 transform.position = Vector3.Lerp(transform.position, targetObject.position, Time.deltaTime);
                 break;
 
