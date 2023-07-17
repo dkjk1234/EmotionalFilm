@@ -32,6 +32,7 @@ public class PetAIDialog : MonoBehaviour
     public List<_ChatCompletionMessage> _messages = new List<_ChatCompletionMessage>();
 
     public ChatAIController chatAIController;
+    public PetAICommand petAICommand;
 
     /// <summary>
     /// Initiates a conversation with the AI or NPC character.
@@ -41,6 +42,7 @@ public class PetAIDialog : MonoBehaviour
     public void Start()
     {
         _messages.Add(CreateStartingPrompt());
+        petAICommand = GameObject.FindObjectOfType<PetAICommand>();
     }
 
     public async void Talk(string prompt)
@@ -63,7 +65,10 @@ public class PetAIDialog : MonoBehaviour
             role = "assistant",
             content = result
         });
-        SetText(result);
+        _ChatMessageResult messageResult = DivideChatMessage(result);
+        SetText(messageResult.message);
+        petAICommand.PlayCommand(messageResult);
+        
     }
 
     private IEnumerator WriteText(string textToWrite)
@@ -107,4 +112,68 @@ public class PetAIDialog : MonoBehaviour
         };
 
     }
+    _ChatMessageResult DivideChatMessage(string input)
+    {
+        _ChatMessageResult result = new _ChatMessageResult();
+
+        // '/' 문자로 문자열을 분할
+        string[] dividedStrings = input.Split('/');
+
+        if (dividedStrings.Length >= 2)
+        {
+            // '/' 다음에 오는 문자열을 저장
+            result.command = dividedStrings[1];
+
+            // 괄호 사이에 오는 문자열 추출
+            int startIndex = result.command.IndexOf('(');
+            int endIndex = result.command.IndexOf(')');
+            if (startIndex != -1 && endIndex != -1 && endIndex > startIndex)
+            {
+                result.command = result.command.Substring(startIndex + 1, endIndex - startIndex - 1);
+            }
+
+            // command 문자열에서 숫자 추출
+            string numString = "";
+            for (int i = 0; i < result.command.Length; i++)
+            {
+                if (char.IsDigit(result.command[i]))
+                    numString += result.command[i];
+                else
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(numString))
+            {
+                // 숫자를 정수로 변환하여 저장
+                result.commandNum = int.Parse(numString);
+            }
+            else
+            {
+                // 숫자가 없는 경우 0으로 설정
+                result.commandNum = 0;
+            }
+
+            // '/' 다음에 오는 문자열을 제거하고 나머지 문자열을 합침
+            result.message = string.Join("", dividedStrings, 2, dividedStrings.Length - 2);
+        }
+        else
+        {
+            // '/'가 없는 경우 모든 값을 초기화
+            result.message = input;
+            result.command = "";
+            result.commandNum = 0;
+        }
+
+        return result;
+    }
+
 }
+public class _ChatMessageResult
+{
+    public string message;
+    public string command;
+    public int commandNum;
+
+}
+
+

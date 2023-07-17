@@ -3,15 +3,7 @@ using UnityEngine;
 
 public class PetRobot : MonoBehaviour
 {
-    public enum State
-    {
-        FollowPlayer,
-        Attack,
-        Defense,
-        Guide,
-        Speak,
-        Explore
-    }
+    
 
     [SerializeField]
     [Range(0, 3f)] private float lerpSpeed = 1f;
@@ -125,4 +117,13 @@ public class PetRobot : MonoBehaviour
                 break;
         }
     }
+}
+public enum State
+{
+    FollowPlayer,
+    Attack,
+    Defense,
+    Guide,
+    Speak,
+    Explore
 }
