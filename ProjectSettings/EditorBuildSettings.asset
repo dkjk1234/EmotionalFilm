@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: ec9645b85a7a81244a29b5f8c2a740ef
   - enabled: 1
-    path: Assets/MBG/Paintable_CandyScene_day.unity
+    path: Assets/MBG/Scene/MainScene.unity
     guid: cb9d7770a26797a4ea5b84f5052e0b36
   - enabled: 1
     path: Assets/Scenes/End.unity
