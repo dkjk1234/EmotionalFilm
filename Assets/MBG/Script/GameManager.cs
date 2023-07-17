@@ -1,3 +1,4 @@
+using PaintIn3D;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     public UIScript uIScript;
     public GameObject[] monsters;
 
+    public P3dChangeCounter[] playerChangeCounter;
+    public float playerHealth;
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         monsters = GameObject.FindGameObjectsWithTag("Monster");
+        playerChangeCounter = player.transform.GetComponentsInChildren<P3dChangeCounter>();
     }
 
     // Update is called once per frame
@@ -50,6 +54,19 @@ public class GameManager : MonoBehaviour
         {
             weapon.paintValue += 0.02f;
         }
+
+        playerHealth = (233664 - PlayerHealth()) / 2336.64f;
+
+        
     }
-    
+    float PlayerHealth()
+    {
+        float total = 0;
+        for (int i = 0; i < playerChangeCounter.Length; i++)
+        {
+            total += playerChangeCounter[i].Count;
+        }
+        return total;
+    }
+
 }
