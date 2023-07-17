@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/End.unity
     guid: a437ec3db0fdef6489c8d215260f50f6
+  - enabled: 1
+    path: Assets/ysj/Ch.unity
+    guid: a599a2f71082d1e4486e3d521eb1a119
+  - enabled: 1
+    path: Assets/ysj/YSJCANDYMAP.unity
+    guid: fe5dac4a1cf7a4d4fb6d7cccdff0eede
   m_configObjects: {}

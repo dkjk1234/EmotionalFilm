@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HairControll : MonoBehaviour
+public class NextCharacter : MonoBehaviour
 {
-    public GameObject[] hairprefabs;
-
     // Start is called before the first frame update
-    void OncClickExit()
+    void Start()
     {
-        
+        GameObject character = GameObject.FindGameObjectWithTag("CH");
+
     }
 
     // Update is called once per frame
