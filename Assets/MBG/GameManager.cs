@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public PlayerController player;
     public WeaponScript weapon;
     public UIScript uIScript;
+    public GameObject[] monsters;
+
 
     private static GameManager _instance;
     public static GameManager Instance
@@ -38,7 +40,7 @@ public class GameManager : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
-        
+        monsters = GameObject.FindGameObjectsWithTag("Monster");
     }
 
     // Update is called once per frame

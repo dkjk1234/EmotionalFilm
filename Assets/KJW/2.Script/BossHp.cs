@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class BossHp : MonoBehaviour
 {
     public P3dChangeCounter p3DChangeCounter;
     // Start is called before the first frame update
     void Start()
     {
-        
+        p3DChangeCounter.GetComponent<P3dChangeCounter>();
     }
 
     // Update is called once per frame
