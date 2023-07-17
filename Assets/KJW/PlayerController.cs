@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour
     public List<P3dPaintSphere> SBScript; //Spray, Brush
     public List<P3dPaintDecal> PWScript; //PaintGun, WaterBalloon
 
-
     float paintValue = 100;
 
     float sprayConsumption = 0.03f;
