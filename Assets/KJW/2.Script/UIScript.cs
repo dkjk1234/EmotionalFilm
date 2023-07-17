@@ -8,6 +8,9 @@ public class UIScript : MonoBehaviour
     public Image staminaFill;
     public Text staminaPercentText;
 
+    public Image hpFill;
+    public Text hpPercentText;
+
     public List<GameObject> selectWeaponImage;
 
     public List<GameObject> aim;
@@ -57,5 +60,12 @@ public class UIScript : MonoBehaviour
 
         // 스테미나 양
         staminaFill.rectTransform.sizeDelta = new Vector2(840, 70 + GameManager.Instance.weapon.paintValue * 7);
+
+        // 체력 텍스트
+        int hpPaintValue = (int)GameManager.Instance.playerHealth;
+        hpPercentText.text = hpPaintValue.ToString() + "%";
+
+        // 체력 양
+        hpFill.rectTransform.sizeDelta = new Vector2(840, 70 + GameManager.Instance.playerHealth * 7);
     }
 }

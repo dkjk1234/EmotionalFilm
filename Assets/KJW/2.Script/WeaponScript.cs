@@ -139,10 +139,10 @@ public class WeaponScript : MonoBehaviour
             cineFreeLook.m_YAxis.Value -= 0.01f;
             yield return new WaitForSeconds(0.01f);
         }
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
-            cineFreeLook.m_YAxis.Value += 0.005f;
-            yield return new WaitForSeconds(0.05f);
+            cineFreeLook.m_YAxis.Value += 0.0025f;
+            yield return new WaitForSeconds(0.025f);
         }
     }
 
