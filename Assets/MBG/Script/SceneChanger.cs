@@ -18,6 +18,7 @@ public class SceneChanger : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        //Portal에 닿으면 End 신으로 넘어감
         if(collision.collider.gameObject.CompareTag("Portal"))
         {
             SceneManager.LoadScene("End");
