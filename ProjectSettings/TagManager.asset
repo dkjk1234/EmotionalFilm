@@ -11,6 +11,7 @@ TagManager:
   - AttackParticle1
   - Monster
   - Portal
+  - Boss
   layers:
   - Default
   - TransparentFX
