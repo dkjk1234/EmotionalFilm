@@ -99,8 +99,7 @@ public class PetAICommand : MonoBehaviour
      
             SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
         }
-        if (commandNum == 1)
-        {
+        
             switch (command)
             {
                 case "FollowPlayer":
@@ -131,7 +130,7 @@ public class PetAICommand : MonoBehaviour
                     Debug.Log("커맨드를 인식하지 못 하였습니다.");
                     // 처리할 옵션이 없는 경우
                     break;
-            }
+            
 
 
         }
