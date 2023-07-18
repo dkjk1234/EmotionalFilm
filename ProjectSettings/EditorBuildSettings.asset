@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/End.unity
     guid: a437ec3db0fdef6489c8d215260f50f6
   - enabled: 1
+    path: Assets/KJW/1.Scene/Emotional.unity
+    guid: 530ca627d5f426247bdbb73b02b95ea5
+  - enabled: 1
     path: Assets/LimDongYoon/Scene/KJW2_CandyScene_day 1.unity
     guid: 07767ae3c3cbb3e478b23c079da12093
   m_configObjects: {}

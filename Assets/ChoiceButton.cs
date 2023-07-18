@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ChoiceButton : MonoBehaviour
 {
-    public GameObject characterPrefab;
 
     void Start()
     {
@@ -14,8 +13,7 @@ public class ChoiceButton : MonoBehaviour
 
     public void SceneChange()
     {
-        GameObject character = Instantiate(characterPrefab);
-        DontDestroyOnLoad(character);
-        SceneManager.LoadScene("YSJCANDYMAP");
+
+        SceneManager.LoadScene("Emotional");
     }
 }
