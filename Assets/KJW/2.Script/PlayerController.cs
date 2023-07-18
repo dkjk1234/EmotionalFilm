@@ -10,7 +10,12 @@ public class PlayerController : MonoBehaviour
 {
     private Animator anim;
 
+    RaycastDiretionColor rayColor;
+
     public Camera cam;
+
+    public bool isColorGround = false;
+    public GameObject colorParticle;
 
     public bool isGround = true;
 
@@ -26,6 +31,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        colorParticle = GameObject.Find("P_Orbit");
+        rayColor = new RaycastDiretionColor();
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -74,8 +81,23 @@ public class PlayerController : MonoBehaviour
 
         // Mouse look - rotate player and camera
         transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
-
+        var groundColor = rayColor.PlayerDownRaycastColor(transform);
+        if (groundColor > 0.5f)
+        {
+            isColorGround = true;
+            colorParticle.SetActive(true);
+            
+        }
+        else
+        {
+            isColorGround = false;
+            colorParticle.SetActive(false);
+        }
+        
+        
+        
     }
+    
 
 
     IEnumerator WaitJump()

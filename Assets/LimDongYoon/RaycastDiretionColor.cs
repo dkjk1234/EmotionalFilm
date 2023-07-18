@@ -22,10 +22,11 @@ public class RaycastDiretionColor : MonoBehaviour
     {
         
     }
-    public float PlayerDownRaycastColor()
+    public float PlayerDownRaycastColor(Transform player)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, -transform.up, out hit, raycastDistance, raycastLayerMask))
+        if (Physics.Raycast(player.position, player.up, out hit, raycastDistance, raycastLayerMask))
+            // し.し .....................................................し っぇ っぁぞ つつつつつ 
         {
             // Call your function with the hit details.
             P3dHit p3dHit = new P3dHit(hit);

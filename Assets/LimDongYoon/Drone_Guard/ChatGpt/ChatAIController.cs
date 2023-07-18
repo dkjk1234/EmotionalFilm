@@ -19,6 +19,7 @@ public class ChatAIController : MonoBehaviour
     public PetAIDialog Dialogue;
     public TMP_InputField input;
     public Image imageToFade;
+    public GameObject pannel;
     public float fadeDuration = 1.0f;
 
 
@@ -51,6 +52,7 @@ public class ChatAIController : MonoBehaviour
     {
         chatAIstate = ChatAIState.Chatting;
         input.gameObject.SetActive(true);
+        
         input.ActivateInputField();
     }
     public void Talk()
