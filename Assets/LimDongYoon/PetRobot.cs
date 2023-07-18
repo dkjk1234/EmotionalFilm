@@ -76,18 +76,28 @@ public class PetRobot : MonoBehaviour
                     MoveToTarget(enemies[0].transform.position);
                         //projectile.GetComponent<Projectile>().target = enemies[0].transform;
                 }
+                else
+                {
+                    MoveToTarget(playerTransform.position);
+                }
                 break;
 
             case State.Defense:
+
                 Collider[] incomingProjectiles = Physics.OverlapSphere(transform.position, defenseRange, LayerMask.GetMask("EnemyProjectile"));
                 if (incomingProjectiles.Length > 0)
                 {
                     Destroy(incomingProjectiles[0].gameObject);
                 }
+                else
+                {
+                    MoveToTarget(playerTransform.position);
+                }
                 break;
 
             case State.Guide:
                 // TODO: 플레이어에게 이동 경로를 표시하거나 안내
+                MoveToTarget(playerTransform.position);
                 targetObject = nearestObject.transform;
                 transform.position = Vector3.Lerp(transform.position, targetObject.position, Time.deltaTime);
                 break;

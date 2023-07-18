@@ -22,18 +22,5 @@ public class SpiralShoot : BossShoot
             nextFire = Time.time + fireRate;
         }
     }
-    public void SprialAttack()
-    {
-        if (Time.time > nextFire)
-        {
-            // Calculate the direction of spiral shooting
-            float rad = currentAngle * Mathf.Deg2Rad;
-            Vector3 spiralDirection = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad));
-            ShootParticle(transform.position, spiralDirection, speed);
-            // Update the angle
-            currentAngle += spiralSpeed;
-
-            nextFire = Time.time + fireRate;
-        }
-    }
+ 
 }
