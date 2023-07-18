@@ -9,22 +9,30 @@ public class EnemyController : MonoBehaviour
     public enum Type { ice, icicle };
     public Type enemyType;
     public GameObject particlePrefab;
+    private GameObject[] particlePool;
     public int poolSize = 5;
+
     public float attackDelay = 3f;
     public float attackTime = 0f;
     public float delay = 3;
-    private GameObject[] particlePool;
     public float moveRange = 20f;
     private float timer = 0f;
     private Animator anim;
     private NavMeshAgent nav;
+
     public bool isAttack;
     public bool isMove;
+    public bool isDie;
+
     public int curHealth;
     public int maxHealth;
     public Transform player;
     public GameObject hpBar;
     public float hpBarRange = 10f;
+
+    AudioSource audioSource;
+    public AudioClip audioAttack;
+    public AudioClip audioDamaged;
 
     public GameObject hpBarPrefab;
     public Vector3 hpBarOffset = new Vector3(0, 2.2f, 0);
@@ -35,6 +43,7 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
     }
@@ -66,6 +75,22 @@ public class EnemyController : MonoBehaviour
     {
         Targeting();
         Move();
+    }
+
+    void PlaySound(string action)
+    {
+        switch(action)
+        {
+            case "ATTACK":
+                audioSource.clip = audioAttack;
+                break;
+
+            case "DAMAGED":
+                audioSource.clip = audioDamaged;
+                break;
+        }
+
+        audioSource.Play();
     }
 
     void SetHpBar()
@@ -117,7 +142,7 @@ public class EnemyController : MonoBehaviour
 
     private void Move()
     {
-        if (!isAttack && !nav.pathPending && nav.remainingDistance < 0.5f)
+        if (!isAttack && !nav.pathPending && nav.remainingDistance < 0.5f && !isDie)
         {
             Vector3 randomPoint = GetRandomPoint();
             nav.SetDestination(randomPoint);
@@ -135,7 +160,7 @@ public class EnemyController : MonoBehaviour
 
     private void Attack()
     {
-        if (!isAttack && attackDelay <= attackTime)
+        if (!isAttack && !isDie && attackDelay <= attackTime)
         {
             isAttack = true;
             nav.isStopped = true; // NavMeshAgent 이동 중지
@@ -149,7 +174,7 @@ public class EnemyController : MonoBehaviour
             //Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
             //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             //transform.rotation = targetRotation;
-
+            PlaySound("ATTACK");
             FireBullet(directionToPlayer);  
         }
     }
@@ -177,5 +202,24 @@ public class EnemyController : MonoBehaviour
         nav.isStopped = false; // NavMeshAgent 이동 재개
         isAttack = false;
         attackTime = 0f;
+    }
+
+    private void Damage()
+    {
+        if(!isDie)
+        {
+            anim.SetTrigger("OnDamage");
+        }
+        else
+        {
+            isDie = true;
+            anim.SetTrigger("doDie");
+            Destroy(gameObject, 1f);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Weapon"));
     }
 }
