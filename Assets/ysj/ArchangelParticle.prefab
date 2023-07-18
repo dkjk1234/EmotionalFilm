@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 380992987299597321}
   - component: {fileID: 380992987280197969}
   - component: {fileID: 380992987280306417}
-  - component: {fileID: 368805045958343759}
   - component: {fileID: 7526258519213328484}
+  - component: {fileID: 123001018156858044}
+  - component: {fileID: 8670168404894039388}
   m_Layer: 0
   m_Name: ArchangelParticle
   m_TagString: Untagged
@@ -4770,20 +4771,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &368805045958343759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380992987300089897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab4bcf830cfde2848a465bdc9f887e5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  fadeDuration: 1
 --- !u!54 &7526258519213328484
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4811,3 +4798,73 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &123001018156858044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380992987300089897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f9cea69abe8304a84accae904c56be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emit: 0
+  raycastDistance: 0.0001
+  layers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  orientation: 0
+  _camera: {fileID: 0}
+  normal: 0
+  offset: 0
+  skip: 0
+  preview: 0
+  priority: 0
+  pressureMode: 0
+  pressureMin: 0
+  pressureMax: 0
+  pressureConstant: 1
+  pressureMultiplier: 1
+  root: {fileID: 0}
+--- !u!114 &8670168404894039388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380992987300089897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724ff6f732015ec4e8fecdb3d889fb82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  group:
+    index: 0
+  targetModel: {fileID: 0}
+  targetTexture: {fileID: 0}
+  blendMode:
+    Index: 0
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Texture: {fileID: 0}
+    Kernel: 1
+    Channels: {x: 1, y: 1, z: 1, w: 1}
+  color: {r: 0, g: 0, b: 0, a: 1}
+  opacity: 1
+  angle: 0
+  scale: {x: 1, y: 1, z: 1}
+  radius: 0.2
+  hardness: 5
+  tileTexture: {fileID: 0}
+  tileTransform: {fileID: 0}
+  tileOpacity: 1
+  tileTransition: 4
+  modifiers:
+    modifiers: []
+  references:
+    version: 2
+    RefIds: []

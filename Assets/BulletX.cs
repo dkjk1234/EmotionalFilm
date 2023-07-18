@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-<<<<<<<< HEAD:Assets/NextCharacter.cs
-public class NextCharacter : MonoBehaviour
-========
-
-public class bullet : MonoBehaviour
->>>>>>>> main:Assets/BulletX.cs
+public class bulletX : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

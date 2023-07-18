@@ -76,7 +76,7 @@ public class EnemyController : MonoBehaviour
         Targeting();
         Move();
     }
-
+    /*
     void PlaySound(string action)
     {
         switch(action)
@@ -92,7 +92,7 @@ public class EnemyController : MonoBehaviour
 
         audioSource.Play();
     }
-
+    */
     void SetHpBar()
     {
         uiCanvas = GameObject.Find("UI Canvas").GetComponent<Canvas>();
@@ -174,7 +174,7 @@ public class EnemyController : MonoBehaviour
             //Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
             //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             //transform.rotation = targetRotation;
-            PlaySound("ATTACK");
+            //PlaySound("ATTACK");
             FireBullet(directionToPlayer);  
         }
     }
@@ -216,7 +216,7 @@ public class EnemyController : MonoBehaviour
             anim.SetTrigger("doDie");
             Destroy(gameObject, 1f);
         }
-    }
+    }           
 
     private void OnCollisionEnter(Collision collision)
     {

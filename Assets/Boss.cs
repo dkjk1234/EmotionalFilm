@@ -167,7 +167,7 @@ public class Boss : MonoBehaviour
     }
     IEnumerator SprialShoot()
     {
-        StartCoroutine(SetCoolTime(false, 2f));
+        StartCoroutine(SetCoolTime(false, 1f));
         while (isAttack)
         {
 

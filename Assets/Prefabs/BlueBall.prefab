@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 400000}
   - component: {fileID: 19800000}
   - component: {fileID: 19900000}
-  - component: {fileID: 2034169153448910173}
-  - component: {fileID: 1967377592811164363}
   m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
@@ -3621,9 +3619,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -4842,76 +4840,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2034169153448910173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2f9cea69abe8304a84accae904c56be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emit: 0
-  raycastDistance: 0.0001
-  layers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  orientation: 0
-  _camera: {fileID: 0}
-  normal: 0
-  offset: 0
-  skip: 0
-  preview: 0
-  priority: 0
-  pressureMode: 0
-  pressureMin: 0
-  pressureMax: 0
-  pressureConstant: 1
-  pressureMultiplier: 1
-  root: {fileID: 0}
---- !u!114 &1967377592811164363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 724ff6f732015ec4e8fecdb3d889fb82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  group:
-    index: 0
-  targetModel: {fileID: 0}
-  targetTexture: {fileID: 0}
-  blendMode:
-    Index: 9
-    Color: {r: 0, g: 0, b: 0, a: 1}
-    Texture: {fileID: 2800000, guid: 430658e8525edc44aa1fb47855cb3a8c, type: 3}
-    Kernel: 1
-    Channels: {x: 1, y: 1, z: 1, w: 1}
-  color: {r: 0, g: 0, b: 0, a: 1}
-  opacity: 1
-  angle: 0
-  scale: {x: 1, y: 1, z: 1}
-  radius: 0.1
-  hardness: 5
-  tileTexture: {fileID: 0}
-  tileTransform: {fileID: 0}
-  tileOpacity: 1
-  tileTransition: 4
-  modifiers:
-    modifiers: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -13355,7 +13283,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -14585,6 +14513,8 @@ GameObject:
   - component: {fileID: 400006}
   - component: {fileID: 19800006}
   - component: {fileID: 19900006}
+  - component: {fileID: 5135993920376469079}
+  - component: {fileID: 6804112659279177124}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -18195,7 +18125,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -19414,6 +19344,69 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5135993920376469079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6944f1d49f305f943a82dfc92ce2205c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintIn: 0
+  interval: 0.05
+  preview: 0
+  priority: 0
+  pressure: 1
+  connector:
+    hitSpacing: 0
+    hitLimit: 30
+    connectHits: 0
+    clipConnected: 0
+  lastPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &6804112659279177124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724ff6f732015ec4e8fecdb3d889fb82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  group:
+    index: 0
+  targetModel: {fileID: 0}
+  targetTexture: {fileID: 0}
+  blendMode:
+    Index: 0
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Texture: {fileID: 0}
+    Kernel: 1
+    Channels: {x: 1, y: 1, z: 1, w: 1}
+  color: {r: 0, g: 0, b: 0, a: 1}
+  opacity: 1
+  angle: 0
+  scale: {x: 1, y: 1, z: 1}
+  radius: 1
+  hardness: 1
+  tileTexture: {fileID: 0}
+  tileTransform: {fileID: 0}
+  tileOpacity: 1
+  tileTransition: 4
+  modifiers:
+    modifiers: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 0
