@@ -33,7 +33,7 @@ public class WeaponScript : MonoBehaviour
     public List<P3dPaintSphere> SBScript; //Spray, Brush
     public List<P3dPaintDecal> PWScript; //PaintGun, WaterBalloon
 
-    public List<P3dPaintSphere> bulletSpread;
+    public List<P3dPaintDecal> bulletSpread;
 
     public float paintValue = 100;
 
@@ -56,7 +56,6 @@ public class WeaponScript : MonoBehaviour
 
     public float srSpeed = 3f;
     public float originSpeed = 5f;
-    public float runSpeed = 7f;
 
     Vector3 ScreenCenter;
 
@@ -189,6 +188,11 @@ public class WeaponScript : MonoBehaviour
                 sprayPaintMin = false;
             }
 
+        }
+
+        else
+        {
+            prefab[0].SetActive(false);
         }
 
         if (paintValue > 10f)
