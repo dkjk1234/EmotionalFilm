@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ysj/YSJCANDYMAP.unity.meta
+guid: 6e3246673eedbf947ade2ff0b7dc2f1e
+========
 guid: d66f103f18d38cf4c8c4de233d4a6274
+>>>>>>>> main:Assets/Scenes/PMJ_CandyUI.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

@@ -320,7 +320,6 @@ public class WeaponScript : MonoBehaviour
 
             PWScript[0].Radius = 2;
             bulletSpread[0].Radius = 1;
-            bulletSpread[1].Radius = 1;
             var main = PS.main;
             main.startSize = 1f;
 
@@ -345,7 +344,6 @@ public class WeaponScript : MonoBehaviour
 
             PWScript[0].Radius = 1;
             bulletSpread[0].Radius = 0.5f;
-            bulletSpread[1].Radius = 0.5f;
             var main = PS.main;
             main.startSize = 0.5f;
 
