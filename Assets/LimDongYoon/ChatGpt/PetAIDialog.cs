@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class PetAIDialog : MonoBehaviour
 {
+    public bool useCurrentStatePrompt = false;
+
     public float writeSpeed = 0.04f;
 
     /// <summary>
@@ -34,6 +36,7 @@ public class PetAIDialog : MonoBehaviour
     public ChatAIController chatAIController;
     public PetAICommand petAICommand;
 
+
     /// <summary>
     /// Initiates a conversation with the AI or NPC character.
     /// </summary>
@@ -49,6 +52,7 @@ public class PetAIDialog : MonoBehaviour
     {
         //if (!ChatEngine._loaded) return;
 
+        if(useCurrentStatePrompt )prompt = petAICommand.SettingCurrentState() + prompt;
         _messages.Add(new _ChatCompletionMessage
         {
             role = "user",
@@ -59,6 +63,7 @@ public class PetAIDialog : MonoBehaviour
 
         //var result = await OpenAIAccessManager.RequestChatCompletion(_messages.ToArray());
         var result = await ChatServerManager.ChatPostRequest(_messages);
+
 
         _messages.Add(new _ChatCompletionMessage
         {
@@ -101,10 +106,10 @@ public class PetAIDialog : MonoBehaviour
     {
         var prompt = "";//"You are acting as an AI or NPC inside a game, a player might talk to you and you will have a pleasant cddonversation. The following are the instructions for your character:\n";
         prompt += characterName != null ? $"Your name is {characterName}. " : "";
-        prompt += actAs != null ? $"You are a {actAs}." : "";
+        prompt += actAs != null ? $"{actAs}" : "";
         prompt += thingsToMention != null ? $"Try to mention this things during your conversations:\n{string.Join("\n", thingsToMention)} " : "";
-        prompt += "Do not break character. Be creative";
-        prompt += "Do not talk excessively. Instead encourage the player to ask questions";
+       /* prompt += "Do not break character. Be creative";
+        prompt += "Do not talk excessively. Instead encourage the player to ask questions";*/
         return new _ChatCompletionMessage
         {
             role = "system",
@@ -138,8 +143,6 @@ public class PetAIDialog : MonoBehaviour
             {
                 if (char.IsDigit(result.command[i]))
                     numString += result.command[i];
-                else
-                    break;
             }
 
             if (!string.IsNullOrEmpty(numString))
@@ -154,7 +157,7 @@ public class PetAIDialog : MonoBehaviour
             }
 
             // '/' 다음에 오는 문자열을 제거하고 나머지 문자열을 합침
-            result.message = string.Join("", dividedStrings, 2, dividedStrings.Length - 2);
+            result.message = dividedStrings[0].Trim();
         }
         else
         {
@@ -166,6 +169,7 @@ public class PetAIDialog : MonoBehaviour
 
         return result;
     }
+
 
 }
 public class _ChatMessageResult
