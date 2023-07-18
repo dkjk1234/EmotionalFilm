@@ -11,7 +11,11 @@ GameObject:
   - component: {fileID: 8823960699811381350}
   - component: {fileID: 5610036065651707843}
   - component: {fileID: 7655606298265533193}
-  m_Layer: 0
+  - component: {fileID: -8212473543121109672}
+  - component: {fileID: -4848869283070101975}
+  - component: {fileID: 92884311389658796}
+  - component: {fileID: -5876211074477110211}
+  m_Layer: 6
   m_Name: Head03_Brown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,6 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -51,6 +56,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -60,6 +66,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: f323cced30244554986ee5e9f5dd8b67, type: 2}
+  - {fileID: 2100000, guid: 9b0f7dc6bf7ba1a46a578ac9e7c24a12, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,3 +88,144 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-8212473543121109672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160189569450613468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93669d9f171d43e40a38bc8a881b901b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintableTexture: {fileID: -5876211074477110211}
+  interval: 0
+  async: 1
+  downsampleSteps: 3
+  registeredPaintableTexture: {fileID: 0}
+  cooldown: 0
+  currentReader:
+    dirty: 0
+    requested: 0
+    buffer: {fileID: 0}
+    originalSize: {x: 0, y: 0}
+    downsampledSize: {x: 0, y: 0}
+    downsampleSteps: 0
+    downsampleBoost: 0
+    tempTexture: {fileID: 0}
+  maskMesh: {fileID: 0}
+  maskSubmesh: 0
+  maskTexture: {fileID: 0}
+  maskChannel: 3
+  total: 0
+  maskReader:
+    dirty: 0
+    requested: 0
+    buffer: {fileID: 0}
+    originalSize: {x: 0, y: 0}
+    downsampledSize: {x: 0, y: 0}
+    downsampleSteps: 0
+    downsampleBoost: 0
+    tempTexture: {fileID: 0}
+  threshold: 0.1
+  texture: {fileID: 2800000, guid: 430658e8525edc44aa1fb47855cb3a8c, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  count: 0
+  changeReader:
+    dirty: 0
+    requested: 0
+    buffer: {fileID: 0}
+    originalSize: {x: 0, y: 0}
+    downsampledSize: {x: 0, y: 0}
+    downsampleSteps: 0
+    downsampleBoost: 0
+    tempTexture: {fileID: 0}
+--- !u!114 &-4848869283070101975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160189569450613468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e296fafdfa878c645861e3c6b1f1a7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintable: {fileID: 0}
+  includeScale: 1
+  useMesh: 0
+  hash:
+    v: 0
+  activation: 2
+  baseScale: {x: 0, y: 0, z: 0}
+  otherRenderers: []
+  onActivating:
+    m_PersistentCalls:
+      m_Calls: []
+  onActivated:
+    m_PersistentCalls:
+      m_Calls: []
+  activated: 0
+--- !u!114 &92884311389658796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160189569450613468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9986da839a92d2d42975bac1e96cd24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 1
+  activated: 0
+  current: {fileID: 0}
+  original: {fileID: 0}
+--- !u!114 &-5876211074477110211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160189569450613468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6329a951f597a0488f4e1158c8f8c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot:
+    Index: 1
+    Name: _MainTex
+  coord: 1
+  group:
+    index: 0
+  undoRedo: 0
+  stateLimit: 10
+  saveLoad: 0
+  saveName: 
+  width: 512
+  height: 512
+  texture: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  format: 0
+  mipMaps: 0
+  filter: -1
+  aniso: -1
+  wrapU: -1
+  wrapV: -1
+  existing: 2
+  conversion: 0
+  localMaskTexture: {fileID: 0}
+  localMaskChannel: 0
+  shaderKeyword: 
+  hash:
+    v: 0
+  isDummy: 0
+  output: 
+  activated: 0
+  current: {fileID: 0}
+  preview: {fileID: 0}

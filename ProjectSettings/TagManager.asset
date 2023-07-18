@@ -11,6 +11,9 @@ TagManager:
   - AttackParticle1
   - Bullet
   - CH
+  - Monster
+  - Portal
+  - Boss
   layers:
   - Default
   - TransparentFX

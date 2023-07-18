@@ -15,7 +15,7 @@ public class GetPixxelUvColor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Input.GetMouseButtonDown(0)) 
+        if (!Input.GetMouseButtonDown(0))
         {
             return;
         }
@@ -37,4 +37,5 @@ public class GetPixxelUvColor : MonoBehaviour
             // 원하는 효과를 실행하세요.
         }
     }
+    
 }
