@@ -33,6 +33,8 @@ public class WeaponScript : MonoBehaviour
     public List<P3dPaintSphere> SBScript; //Spray, Brush
     public List<P3dPaintDecal> PWScript; //PaintGun, WaterBalloon
 
+    public List<P3dPaintSphere> bulletSpread;
+
     public float paintValue = 100;
 
     public bool paintRecovery = true;
@@ -313,8 +315,10 @@ public class WeaponScript : MonoBehaviour
             cineFreeLook.m_XAxis.m_MaxSpeed = 50f;
 
             PWScript[0].Radius = 2;
+            bulletSpread[0].Radius = 1;
+            bulletSpread[1].Radius = 1;
             var main = PS.main;
-            main.startSize = 3;
+            main.startSize = 1f;
 
             GameManager.Instance.uIScript.aim[0].transform.localScale = new Vector3(5, 5, 5);
             GameManager.Instance.uIScript.aim[1].SetActive(true);
@@ -336,8 +340,10 @@ public class WeaponScript : MonoBehaviour
             cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
 
             PWScript[0].Radius = 1;
+            bulletSpread[0].Radius = 0.5f;
+            bulletSpread[1].Radius = 0.5f;
             var main = PS.main;
-            main.startSize = 1;
+            main.startSize = 0.5f;
 
             GameManager.Instance.uIScript.aim[0].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             GameManager.Instance.uIScript.aim[1].SetActive(false);
@@ -406,9 +412,10 @@ public class WeaponScript : MonoBehaviour
         }
     }
 
-    // 현재 무기를 활성화해주는 함수
+    // 현재 무기를 활성화해주는 함수(무기 교체시 종료하는 모든 내용들)
     void ConnectWeapon(int weaponNum, string weaponName)
     {
+        // 모든 무기 비활성화 후에 현재 활성화
         selectWeapon[0].SetActive(false);
         selectWeapon[1].SetActive(false);
         selectWeapon[2].SetActive(false);
@@ -421,8 +428,15 @@ public class WeaponScript : MonoBehaviour
         anim.SetBool("WaterBalloon", false);
         anim.SetBool(weaponName, true);
 
+        // 스프레이 비활성화
+        prefab[0].SetActive(false);
+
+        // 스나이퍼 전용 UI 비활성화
         FPS = false;
+        GameManager.Instance.uIScript.aim[1].SetActive(false);
+        // 스나이퍼 전용 속도에서 원래 속도로 복구
         GameManager.Instance.player.speed = originSpeed;
+        // 스나이퍼 전용 카메라 셋팅을 원래대로 복구
         cineFreeLook.m_Orbits = new Orbit[3]
         {
                 new Orbit(4.5f, 3f),
@@ -433,6 +447,7 @@ public class WeaponScript : MonoBehaviour
         cineCameraOffset.enabled = false;
         cineFreeLook.m_XAxis.m_MaxSpeed = 300f;
 
+        // 수류탄 궤적 비활성화
         for (int i = 0; i < 30; i++)
         {
             //fixedUpdate로 할 경우 예전 위치값이 보이는 버그가 존재. 따라서 계속 위치값을 제거해줘야 함.

@@ -55,6 +55,9 @@ public class GameManager : MonoBehaviour
             weapon.paintValue += 0.02f;
         }
 
+        if (weapon.weapon == WeaponScript.Weapon.Brush && weapon.paintValue < 100)
+            weapon.paintValue += 0.01f;
+
         playerHealth = (233664 - PlayerHealth()) / 2336.64f;
 
         
