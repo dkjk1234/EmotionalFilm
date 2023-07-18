@@ -35,6 +35,12 @@ public class WeaponScript : MonoBehaviour
 
     public List<P3dPaintDecal> bulletSpread;
 
+    AudioSource audioSource;
+    public AudioClip audioSpray;
+    public AudioClip audioBrush;
+    public AudioClip audioPaintGun;
+    public AudioClip audioWaterBalloon;
+
     public float paintValue = 100;
 
     public bool paintRecovery = true;
@@ -64,6 +70,7 @@ public class WeaponScript : MonoBehaviour
     {
         ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         trajectoryPoints = new Vector3[30];
         lineRenderer.positionCount = 30;
@@ -88,6 +95,29 @@ public class WeaponScript : MonoBehaviour
         }
     }
 
+    void PlaySound(string action)
+    {
+        switch(action)
+        {
+            case "SPRAY":
+                audioSource.clip = audioSpray;
+                break;
+
+            case "BRUSH":
+                audioSource.clip = audioBrush;
+                break;
+
+            case "PAINTGUN":
+                audioSource.clip = audioPaintGun;
+                break;
+
+            case "WATERBALLOON":
+                audioSource.clip = audioWaterBalloon;
+                break;
+        }
+        audioSource.Play();
+    }
+    
     IEnumerator WaitCombo()
     {
         // 콤보 끊기는데 걸리는 시간
