@@ -7,7 +7,8 @@ public class PetRobot : MonoBehaviour
 
     [SerializeField]
     [Range(0, 3f)] private float lerpSpeed = 1f;
-    
+
+    private PetShoot petShoot;
     [Header("FollowPlayer")]
     private Vector3 initialOffset;
     private GameObject nearestObject;
@@ -29,6 +30,7 @@ public class PetRobot : MonoBehaviour
 
     void Start()
     {
+        petShoot = GetComponent<PetShoot>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         initialOffset = transform.position - playerTransform.position;
         
@@ -58,8 +60,10 @@ public class PetRobot : MonoBehaviour
     }
     void Update()
     {
+        if (state != State.Attack) petShoot.isAttack = false;
         switch (state)
         {
+                
             case State.FollowPlayer:
                 Vector3 targetPosition = playerTransform.position + initialOffset;
                 MoveToTarget(playerTransform.position);
@@ -72,6 +76,8 @@ public class PetRobot : MonoBehaviour
                 
                 if (enemies.Length > 0)
                 {
+                    petShoot.isAttack = true;
+                    petShoot.target = enemies[0].transform;
                     GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
                     MoveToTarget(enemies[0].transform.position);
                         //projectile.GetComponent<Projectile>().target = enemies[0].transform;

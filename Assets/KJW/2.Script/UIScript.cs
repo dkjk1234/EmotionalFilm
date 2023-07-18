@@ -26,7 +26,7 @@ public class UIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ¼±ÅÃ ¹«±â ½Ã°¢È­
+        // ì„ íƒ ë¬´ê¸° ì‹œê°í™”
         switch (GameManager.Instance.weapon.weapon)
         {
             case WeaponScript.Weapon.Spray:
@@ -54,18 +54,18 @@ public class UIScript : MonoBehaviour
                 break;
         }
 
-        // ½ºÅ×¹Ì³ª ÅØ½ºÆ®
+        // ìŠ¤í…Œë¯¸ë‚˜ í…ìŠ¤íŠ¸
         int percentPaintValue = (int)GameManager.Instance.weapon.paintValue;
         staminaPercentText.text = percentPaintValue.ToString() + "%";
 
-        // ½ºÅ×¹Ì³ª ¾ç
+        // ìŠ¤í…Œë¯¸ë‚˜ ì–‘
         staminaFill.rectTransform.sizeDelta = new Vector2(840, 70 + GameManager.Instance.weapon.paintValue * 7);
 
-        // Ã¼·Â ÅØ½ºÆ®
+        // ì²´ë ¥ í…ìŠ¤íŠ¸
         int hpPaintValue = (int)GameManager.Instance.playerHealth;
         hpPercentText.text = hpPaintValue.ToString() + "%";
 
-        // Ã¼·Â ¾ç
+        // ì²´ë ¥ ì–‘
         hpFill.rectTransform.sizeDelta = new Vector2(840, 70 + GameManager.Instance.playerHealth * 7);
     }
 }
