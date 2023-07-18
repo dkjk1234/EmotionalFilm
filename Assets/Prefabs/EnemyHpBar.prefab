@@ -166,5 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65fdd4c70d612ee49bd50db217cefdd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpFill: {fileID: 6324031939119644533}
+  enemyCurHp: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   targetTr: {fileID: 0}
