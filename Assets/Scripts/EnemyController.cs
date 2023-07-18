@@ -1,3 +1,4 @@
+using PaintIn3D;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,7 @@ public class EnemyController : MonoBehaviour
     private Canvas uiCanvas;
     private Image hpBarImage;
 
+    public P3dChangeCounter enemyCurHp;
 
     private void Awake()
     {
@@ -68,6 +70,12 @@ public class EnemyController : MonoBehaviour
         {
             Move();
             timer = 0f;
+        }
+        hpBarImage.fillAmount = 1 - enemyCurHp.Count * 0.0002f;
+        if (hpBarImage.fillAmount == 0)
+        {
+            Destroy(gameObject);
+            Destroy(hpBar);
         }
     }
 
