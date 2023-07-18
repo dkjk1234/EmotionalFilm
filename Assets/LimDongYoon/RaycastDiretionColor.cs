@@ -25,8 +25,8 @@ public class RaycastDiretionColor : MonoBehaviour
     public float PlayerDownRaycastColor(Transform player)
     {
         RaycastHit hit;
-        if (Physics.Raycast(player.position, player.up, out hit, raycastDistance, raycastLayerMask))
-            // ¤·.¤· .....................................................¤· ¤Ã¤§ ¤Ã¤¡¤¾ ¤Ä¤Ä¤Ä¤Ä¤Ä 
+        if (Physics.Raycast(transform.position, -transform.up, out hit, raycastDistance, raycastLayerMask))
+            // ã…‡.ã…‡ .....................................................ã…‡ ã…“ã„· ã…“ã„±ã…Ž ã…”ã…”ã…”ã…”ã…” 
         {
             // Call your function with the hit details.
             P3dHit p3dHit = new P3dHit(hit);
@@ -34,7 +34,7 @@ public class RaycastDiretionColor : MonoBehaviour
             readColor.HandleHitCoord(false, 0, 0, 0, p3dHit, Quaternion.identity);
             Color color = readColor.Color;
 
-            Debug.Log(color + " alpha: " + color.a);
+//            Debug.Log(color + " alpha: " + color.a);
             return color.a;
         }
         return 0f;

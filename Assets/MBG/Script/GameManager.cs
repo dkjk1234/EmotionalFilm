@@ -1,7 +1,10 @@
+using System;
 using PaintIn3D;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+       // DontDestroyOnLoad(gameObject);
     }
     //Start is called before the first frame update
     void Start()
@@ -47,9 +50,18 @@ public class GameManager : MonoBehaviour
         playerChangeCounter = player.transform.GetComponentsInChildren<P3dChangeCounter>();
     }
 
+    public void PlayerDeath()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Debug.Log("GameReset");
+        
+        SceneManager.LoadScene(0);
+    }
+    
     // Update is called once per frame
     void Update()
     {
+        
         if (weapon.paintRecovery && weapon.paintValue < 100)
         {
             weapon.paintValue += 0.02f;
@@ -62,6 +74,15 @@ public class GameManager : MonoBehaviour
 
         
     }
+
+    private void LateUpdate()
+    {
+        if (playerHealth == 0)
+        {
+            PlayerDeath();
+        }
+    }
+
     float PlayerHealth()
     {
         float total = 0;

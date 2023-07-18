@@ -14,9 +14,11 @@ public class SceneChangeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            SceneManager.LoadScene("Paintable_CandyScene_day");
-        }
+       
+    }
+
+    public void SceneLoadBuildIndex(int num)
+    {
+        SceneManager.LoadScene(num);
     }
 }

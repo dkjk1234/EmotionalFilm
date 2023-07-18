@@ -46,7 +46,7 @@ public class WeaponScript : MonoBehaviour
 
     bool sprayPaintMin = true;
 
-    bool FPS = false;
+    public bool FPS = false;
     bool swingBool = true;
     bool comboBool = false;
     bool bulletCool = false;
