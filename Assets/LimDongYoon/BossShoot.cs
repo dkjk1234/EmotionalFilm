@@ -21,7 +21,7 @@ public class BossShoot : MonoBehaviour
         }
     }
 
-    protected void ShootParticle(Vector3 position, Vector3 direction, float speed)
+    public void ShootParticle(Vector3 position, Vector3 direction, float speed)
     {
         // Create an instance from the object pool
         GameObject particle = poolingManager.GetPooledParticle();

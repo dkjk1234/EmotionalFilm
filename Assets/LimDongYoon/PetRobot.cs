@@ -29,7 +29,32 @@ public class PetRobot : MonoBehaviour
 
     void Start()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         initialOffset = transform.position - playerTransform.position;
+        
+
+    }
+    public void MoveToTarget(Vector3 targetPosition)
+    {
+        targetPosition = targetPosition + initialOffset;
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange);
+        float shortestDistance = Mathf.Infinity;
+        nearestObject = null;
+
+        foreach (Collider collider in colliders)
+        {
+            if (!collider.gameObject.CompareTag("Ground") && !collider.gameObject.CompareTag("Player"))
+            {
+                float distance = Vector3.Distance(transform.position, collider.transform.position);
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    nearestObject = collider.gameObject;
+                }
+            }
+        }
     }
     void Update()
     {
@@ -37,47 +62,9 @@ public class PetRobot : MonoBehaviour
         {
             case State.FollowPlayer:
                 Vector3 targetPosition = playerTransform.position + initialOffset;
-                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
+                MoveToTarget(playerTransform.position);
 
-                Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange);
-                float shortestDistance = Mathf.Infinity;
-                nearestObject = null;
-
-                foreach (Collider collider in colliders)
-                {
-                    if (!collider.gameObject.CompareTag("Ground")&&!collider.gameObject.CompareTag("Player"))
-                    {
-                        float distance = Vector3.Distance(transform.position, collider.transform.position);
-                        if (distance < shortestDistance)
-                        {
-                            shortestDistance = distance;
-                            nearestObject = collider.gameObject;
-                        }
-                    }
-                }
-
-                if (nearestObject != null)
-                {
-                    if (nearestObject != lastNearestObject)
-                    {
-                        lookAtTimer = 0f;
-                        lastNearestObject = nearestObject;
-                    }
-
-                    if (lookAtTimer < 3f) // 3초 동안만 오브젝트를 바라봅니다.
-                    {
-                        Vector3 directionToNearestObject = (nearestObject.transform.position - transform.position).normalized;
-                        Quaternion targetRotation = Quaternion.LookRotation(directionToNearestObject);
-                        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, lerpSpeed * Time.deltaTime);
-                        lookAtTimer += Time.deltaTime;
-                    }
-                }
-                else
-                {
-                    lastNearestObject = null;
-                    lookAtTimer = 0f;
-                    
-                }
+               
                 break;
 
             case State.Attack:
@@ -86,6 +73,7 @@ public class PetRobot : MonoBehaviour
                 if (enemies.Length > 0)
                 {
                     GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                    MoveToTarget(enemies[0].transform.position);
                         //projectile.GetComponent<Projectile>().target = enemies[0].transform;
                 }
                 break;
@@ -100,6 +88,7 @@ public class PetRobot : MonoBehaviour
 
             case State.Guide:
                 // TODO: 플레이어에게 이동 경로를 표시하거나 안내
+                targetObject = nearestObject.transform;
                 transform.position = Vector3.Lerp(transform.position, targetObject.position, Time.deltaTime);
                 break;
 

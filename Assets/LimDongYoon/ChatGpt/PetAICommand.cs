@@ -2,29 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AICommand;
+using UnityEditor.Timeline.Actions;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
 public class PetAICommand : MonoBehaviour
 {
 
     PetRobot petRobot;
     private GameObject player;
     private GameObject boss;
-    private WeaponScript wepon;
-    
+    private WeaponScript weponMgr;
+    private Slider bossHp;
 
     // Start is called before the first frame update
     void Start()
     {
         petRobot = FindAnyObjectByType<PetRobot>();
         player = FindObjectOfType<PlayerController>().gameObject;
-        wepon = player.GetComponent<WeaponScript>();
+        weponMgr = player.GetComponent<WeaponScript>();
         boss = FindObjectOfType<BossTag>().gameObject;
+        bossHp = GameManager.Instance.uIScript.bossHealthSlider;
         StartCoroutine( TestJson());
     }
     
     public IEnumerator TestJson()
     {
         yield return null;
-        Debug.Log(JsonUtility.ToJson(SettingCurrentState()));
+        Debug.Log(SettingCurrentState());
     }
     // Update is called once per frame
     void Update()
@@ -37,46 +43,63 @@ public class PetAICommand : MonoBehaviour
     monster3Location = numberOfMonsters > 2 ? GameManager.Instance.monsters[2].transform.position : Vector3.zero,
 
      */
-    public CurrentState SettingCurrentState()
+    public string SettingCurrentState()
     {
+        
+        var petLocation = petRobot.transform.position;
+        var playerLocation = player.transform.position;
+        var bossLocation = boss.transform.position;
+        var monsters = GameManager.Instance.monsters;
         CurrentState current = new CurrentState()
         {
-            gameInformation = new GameInformation() 
+            gameInformation = new GameInformation()
             {
-               BossLocation = boss.transform.position,
-               TotalNormalMonsters = 4,
-               NumberOfNormalMonstersRemaining = GameManager.Instance.monsters.Length,
-               Monster1Location = GameManager.Instance.monsters[0].transform.position,
-               Monster2Location = GameManager.Instance.monsters[1].transform.position,
-               Monster3Location = GameManager.Instance.monsters[2].transform.position,
-               DistanceBetweenMainCharacterAndBoss = Vector3.Distance(boss.transform.position,player.transform.position),
-               CurrentgBossHealth = "80"
+                BossLocation = boss.transform.position,
+                TotalNormalMonsters = 4,
+                NumberOfNormalMonstersRemaining = monsters.Length,
+                Monster1Location = monsters[0].transform.position,
+                Monster2Location = monsters[1].transform.position,
+                Monster3Location = monsters[2].transform.position,
+                DistanceBetweenMainCharacterAndBoss = Vector3.Distance(bossLocation, playerLocation),
+                CurrentgBossHealth = ((int)(bossHp.value / bossHp.maxValue)*100).ToString() + "%"
 
 
-            },
-            playerStatus = new PlayerStatus() 
+    },
+            playerStatus = new PlayerStatus()
             {
-               
+                CurrentMainCharacterLocation = playerLocation,
+                CurrentMainCharacterWeapon = weponMgr.weapon.ToString(),
+                Health = GameManager.Instance.playerHealth.ToString(),
+                PaintAmount = weponMgr.paintValue.ToString() + "%",
+
             },
-            TX500Status = new TX500Status() 
-            { 
+            TX500Status = new TX500Status()
+            {
+                DistanceFromPlayer = Vector3.Distance(petLocation, playerLocation),
+                Location = petLocation,
+                TX500Mode = petRobot.state,
+
                 
             }
-
+            
         };
-        return current;
+        return JsonUtility.ToJson(current);
     }
     public void PlayCommand(_ChatMessageResult result)
     {
-        if (petRobot != null) { Debug.Log("petRobotScript is Null!"); return; } 
+        if (petRobot == null) { Debug.Log("petRobotScript is Null!"); return; }
+        if (result.command == null) { Debug.Log("커맨드가 없습니다"); return; }
+        else { Debug.Log("커맨드 " + result.command); Debug.Log("메시지 " + result.message); Debug.Log("번호" + result.commandNum); }
+        
         int commandNum = result.commandNum;
         string command = result.command;
-        if (commandNum == 0)
+        if (commandNum == 2 || commandNum == 3)
         {
-
+            
+     
+            SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
         }
-        if (commandNum == 1)
-        {
+        
             switch (command)
             {
                 case "FollowPlayer":
@@ -104,9 +127,10 @@ public class PetAICommand : MonoBehaviour
                     break;
 
                 default:
+                    Debug.Log("커맨드를 인식하지 못 하였습니다.");
                     // 처리할 옵션이 없는 경우
                     break;
-            }
+            
 
 
         }
@@ -141,8 +165,8 @@ namespace AICommand
     [System.Serializable]
     public class PlayerStatus
     {
-        public string Paint;
-        public string PhysicalStrength;
+        public string PaintAmount;
+        public string Health;
         public Vector3 CurrentMainCharacterLocation;
         public string CurrentMainCharacterWeapon;
         public string CurrentStateOfMainCharacter;
