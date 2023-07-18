@@ -95,24 +95,32 @@ public class WeaponScript : MonoBehaviour
         }
     }
 
-    void PlaySound(string action)
+    void PlaySound()
     {
-        switch(action)
+        switch(weapon)
         {
-            case "SPRAY":
+            case Weapon.Spray:
                 audioSource.clip = audioSpray;
+                audioSource.loop = true;
+                audioSource.time = 1.2f;
                 break;
 
-            case "BRUSH":
+            case Weapon.Brush:
                 audioSource.clip = audioBrush;
+                audioSource.loop = false;
+                audioSource.time = 0f;
                 break;
 
-            case "PAINTGUN":
+            case Weapon.PaintGun:
                 audioSource.clip = audioPaintGun;
+                audioSource.loop = false;
+                audioSource.time = 0f;
                 break;
 
-            case "WATERBALLOON":
+            case Weapon.WaterBalloon:
                 audioSource.clip = audioWaterBalloon;
+                audioSource.loop = false;
+                audioSource.time = 0f;
                 break;
         }
         audioSource.Play();
@@ -201,6 +209,10 @@ public class WeaponScript : MonoBehaviour
             GameManager.Instance.player.cam.transform.eulerAngles.z
             );
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            PlaySound();
+        }
 
         if (Input.GetMouseButton(0))
         {
@@ -223,6 +235,11 @@ public class WeaponScript : MonoBehaviour
         else
         {
             prefab[0].SetActive(false);
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            audioSource.Stop();
         }
 
         if (paintValue > 10f)
@@ -255,7 +272,7 @@ public class WeaponScript : MonoBehaviour
                 StopCoroutine("WaitCombo");
                 anim.SetInteger("SwingCombo", combo + 1);
                 comboBool = false;
-
+                PlaySound();
                 // 공격이 끝나면 콤보가 끊겼는지 확인하는 코루틴 진행
                 StartCoroutine("WaitCombo");
             }
@@ -309,6 +326,7 @@ public class WeaponScript : MonoBehaviour
                     StartCoroutine(BulletCooldown(0.2f));
                     paintValue -= ARpaintGunConsumption;
                 }
+                PlaySound();
             }
         }
 
@@ -432,11 +450,14 @@ public class WeaponScript : MonoBehaviour
                     cloneRigidbody.velocity = clone.transform.forward * 15 + clone.transform.up * 5;
                 }
 
+                PlaySound();
+
                 for (int i = 0; i < 30; i++)
                 {
                     //fixedUpdate로 할 경우 예전 위치값이 보이는 버그가 존재. 따라서 계속 위치값을 제거해줘야 함.
                     lineRenderer.SetPosition(i, Vector3.zero);
                 }
+
                 lineRenderer.enabled = false;
 
                 StartCoroutine(WaitWaterBalloon());
@@ -486,6 +507,9 @@ public class WeaponScript : MonoBehaviour
             lineRenderer.SetPosition(i, Vector3.zero);
         }
         lineRenderer.enabled = false;
+
+        // 오디오 비활성화
+        audioSource.Stop();
     }
 
     // 물풍선 궤적 구하는 코드(등가속도 공식을 이용하여 거리 계산 s = v0*t + (1/2)at^2) 여기서 가속도는 중력가속도뿐임.
