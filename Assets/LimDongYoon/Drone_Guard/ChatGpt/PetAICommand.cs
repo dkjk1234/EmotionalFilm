@@ -62,7 +62,7 @@ public class PetAICommand : MonoBehaviour
         var petLocation = petRobot.transform.position;
         var playerLocation = player.transform.position;
         var bossLocation = boss ? boss.transform.position : Vector3.zero;
-        var monsters = GameManager.Instance.monsters;
+        var monsters = GameObject.FindGameObjectsWithTag("Monster");
         CurrentState current = new CurrentState()
         {
             gameInformation = new GameInformation()
