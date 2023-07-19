@@ -1,6 +1,7 @@
 using PaintIn3D;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -229,5 +230,11 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Weapon"));
+    }
+
+    public void OnDestroy()
+    {
+        var a = FindObjectOfType<ClearMap>();
+        if(a) a.catchedMonster++;
     }
 }

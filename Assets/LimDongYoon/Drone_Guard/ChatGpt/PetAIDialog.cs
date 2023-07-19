@@ -120,6 +120,11 @@ public class PetAIDialog : MonoBehaviour
     _ChatMessageResult DivideChatMessage(string input)
     {
         _ChatMessageResult result = new _ChatMessageResult();
+        if (input == null) 
+        {
+            Debug.Log("서버 응답 없음");
+            return null;
+        }
 
         // '/' 문자로 문자열을 분할
         string[] dividedStrings = input.Split('/');

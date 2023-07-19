@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public WeaponScript weapon;
     public UIScript uIScript;
     public GameObject[] monsters;
+    public ClearMap ClearMap;
 
     public P3dChangeCounter[] playerChangeCounter;
     public float playerHealth;
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
+        ClearMap = FindObjectOfType<ClearMap>();
         monsters = GameObject.FindGameObjectsWithTag("Monster");
         playerChangeCounter = player.transform.GetComponentsInChildren<P3dChangeCounter>();
     }
@@ -77,8 +79,10 @@ public class GameManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (playerHealth == 0)
+        
+        if (playerHealth == 0 && !ClearMap.isClear)
         {
+           
             PlayerDeath();
         }
     }

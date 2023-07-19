@@ -1,12 +1,20 @@
+using System;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using PaintIn3D;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using Random = UnityEngine.Random;
 
 public class Boss : MonoBehaviour
 {
+    [Range(0, 1f)] public float hpRate = 0.8f;
+    
     Animator animator;
     BossShoot bossShoot;
+
+    private P3dChangeCounter p3dChangeCounter;
 
     Transform player;
     Transform target;
@@ -37,6 +45,10 @@ public class Boss : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+       
+    }
 
     public void LookPlayer(bool immediately)
     {
@@ -73,7 +85,7 @@ public class Boss : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
-
+        p3dChangeCounter = GetComponentInChildren<P3dChangeCounter>();
         state = BossState.Idle;
         startRotation = transform.rotation;
         animator = GetComponent<Animator>();
@@ -88,6 +100,7 @@ public class Boss : MonoBehaviour
     }
     void Update()
     {
+        HealthBarUdpate();
         targetDistance = Vector3.Distance(transform.position, player.position);
 
         switch (state)
@@ -116,6 +129,26 @@ public class Boss : MonoBehaviour
         }
     }
 
+    public void HealthBarUdpate()
+    {
+        var a = 100096 * hpRate;
+        GameManager.Instance.uIScript.bossHealthSlider.maxValue = a;
+        GameManager.Instance.uIScript.bossHealthSlider.value = (100096 * hpRate) - p3dChangeCounter.Count;
+        if ( a - p3dChangeCounter.Count < 0)
+        {
+            FindObjectOfType<ClearMap>()._ClearMap();
+            StartCoroutine(Death());
+        }
+    }
+
+    IEnumerator Death()
+    {
+        animator.SetTrigger("Die");
+        yield return new WaitForSeconds(3f);
+        FindObjectOfType<ClearMap>().bossHealthBar.SetActive(false);
+        Destroy(this.gameObject);
+    }
+   
     public void SelectAttack()
     {
 

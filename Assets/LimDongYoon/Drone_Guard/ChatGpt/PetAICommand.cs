@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AICommand;
+using Unity.VisualScripting;
 using UnityEditor.Timeline.Actions;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -15,14 +16,18 @@ public class PetAICommand : MonoBehaviour
     private GameObject boss;
     private WeaponScript weponMgr;
     private Slider bossHp;
+    public ClearMap ClearMap;
+
+    public bool isBoss = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        ClearMap = FindObjectOfType<ClearMap>();
         petRobot = FindAnyObjectByType<PetRobot>();
         player = FindObjectOfType<PlayerController>().gameObject;
         weponMgr = player.GetComponent<WeaponScript>();
-        boss = FindObjectOfType<BossTag>().gameObject;
+        boss = FindObjectOfType<BossTag>() ? FindObjectOfType<BossTag>().gameObject : null ;
         bossHp = GameManager.Instance.uIScript.bossHealthSlider;
         StartCoroutine( TestJson());
     }
@@ -35,7 +40,15 @@ public class PetAICommand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isBoss)
+        {
+            if (ClearMap.boss.activeSelf)
+            {
+                isBoss = true;
+                boss = ClearMap.boss;
+                bossHp = GameManager.Instance.uIScript.bossHealthSlider;
+            }
+        }
     }
     /*
     monster1Location = numberOfMonsters > 0 ? GameManager.Instance.monsters[0].transform.position : Vector3.zero,
@@ -48,20 +61,21 @@ public class PetAICommand : MonoBehaviour
         
         var petLocation = petRobot.transform.position;
         var playerLocation = player.transform.position;
-        var bossLocation = boss.transform.position;
-        var monsters = GameManager.Instance.monsters;
+        var bossLocation = boss ? boss.transform.position : Vector3.zero;
+        var monsters = GameObject.FindGameObjectsWithTag("Monster");
         CurrentState current = new CurrentState()
         {
             gameInformation = new GameInformation()
             {
-                BossLocation = boss.transform.position,
+                isExistBoss = isBoss,
+                BossLocation = isBoss ? boss.transform.position : Vector3.zero,
                 TotalNormalMonsters = 4,
-                NumberOfNormalMonstersRemaining = monsters.Length,
-                Monster1Location = monsters[0].transform.position,
-                Monster2Location = monsters[1].transform.position,
-                Monster3Location = monsters[2].transform.position,
-                DistanceBetweenMainCharacterAndBoss = Vector3.Distance(bossLocation, playerLocation),
-                CurrentgBossHealth = ((int)(bossHp.value / bossHp.maxValue)*100).ToString() + "%"
+                NumberOfNormalMonstersRemaining = GameObject.FindGameObjectsWithTag("Monster").Length,
+                Monster1Location = monsters.Length > 0 ?monsters[0].transform.position :Vector3.zero,
+                Monster2Location = monsters.Length > 1 ?monsters[1].transform.position : Vector3.zero,
+                Monster3Location = monsters.Length > 2 ? monsters[2].transform.position : Vector3.zero,
+                DistanceBetweenMainCharacterAndBoss = isBoss ? Vector3.Distance(bossLocation, playerLocation) : 0f,
+                CurrentgBossHealth = isBoss ? ((int)(bossHp.value / bossHp.maxValue)*100).ToString() + "%" : ""
 
 
     },
@@ -95,9 +109,7 @@ public class PetAICommand : MonoBehaviour
         string command = result.command;
         if (commandNum == 2 || commandNum == 3)
         {
-            
-     
-            SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+            SceneManager.LoadScene(0);
         }
         
             switch (command)
@@ -125,6 +137,9 @@ public class PetAICommand : MonoBehaviour
                 case "Explore":
                     petRobot.state = State.Explore;
                     break;
+                case "Health":
+                    petRobot.state = State.Health;
+                    break;
 
                 default:
                     Debug.Log("커맨드를 인식하지 못 하였습니다.");
@@ -151,6 +166,7 @@ namespace AICommand
     [System.Serializable]
     public class GameInformation
     {
+        public bool isExistBoss;
         public int TotalNormalMonsters;
         public int NumberOfNormalMonstersRemaining;
         public Vector3 Monster1Location;
