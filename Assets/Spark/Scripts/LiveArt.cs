@@ -13,7 +13,7 @@ namespace LeastSquares.Spark
 {
     public class LiveArt : MonoBehaviour
     {
-        public string Prompt => inputField.text;
+        public string Prompt => "A beautiful pink-bottomed candy village with a background with colorful hills, a pointed character face with a glacier" + inputField.text;
         public static string[] validSizes = new string[] { "256x256", "512x512", "1024x1024" };
         [HideInInspector] public int sizeIndex = 1;
         public RawImage image;

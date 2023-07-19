@@ -34,6 +34,12 @@ public class ChatAIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Z) && chatAIstate == ChatAIState.Idle)
+        {
+            
+            pannel.SetActive(false);
+            input.gameObject.SetActive(false);
+        }
         if (Input.GetKeyDown(KeyCode.Return))
         {
             switch (chatAIstate)
@@ -51,6 +57,7 @@ public class ChatAIController : MonoBehaviour
     public void OpenChatWindow() 
     {
         chatAIstate = ChatAIState.Chatting;
+        pannel.SetActive(true);
         input.gameObject.SetActive(true);
         
         input.ActivateInputField();

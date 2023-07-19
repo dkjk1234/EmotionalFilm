@@ -45,9 +45,13 @@ public class WeaponScript : MonoBehaviour
 
     public bool paintRecovery = true;
 
-    float sprayConsumption = 0.03f;
+    [SerializeField]
+    float sprayConsumption = 0.3f;
+    [SerializeField]
     float ARpaintGunConsumption = 1f;
+    [SerializeField]
     float SRpaintGunConsumption = 3f;
+    [SerializeField]
     float waterBalloonConsumption = 5f;
 
     bool sprayPaintMin = true;
@@ -102,7 +106,7 @@ public class WeaponScript : MonoBehaviour
             case Weapon.Spray:
                 audioSource.clip = audioSpray;
                 audioSource.loop = true;
-                audioSource.time = 1.2f;
+                audioSource.time = 0.01f;
                 break;
 
             case Weapon.Brush:

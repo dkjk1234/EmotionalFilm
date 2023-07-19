@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController characterController;
 
+    public bool isChatting = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,8 @@ public class PlayerController : MonoBehaviour
     {
 
         // Player movement - WASD
+        if (isChatting) return;
+        
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 

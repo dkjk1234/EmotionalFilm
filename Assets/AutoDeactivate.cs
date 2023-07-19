@@ -1,8 +1,17 @@
+using System;
 using UnityEngine;
 
 public class AutoDeactivate : MonoBehaviour
 {
     public float deactivateAfterSeconds = 5f;  // GameObject를 비활성화할 시간(초)
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.transform.CompareTag("Player"))
+        {
+            Deactivate();
+        }
+    }
 
     void OnEnable()
     {

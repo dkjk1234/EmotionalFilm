@@ -3313,6 +3313,7 @@ GameObject:
   - component: {fileID: 1929913904}
   - component: {fileID: 1929913903}
   - component: {fileID: 1929913902}
+  - component: {fileID: 1929913906}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -3397,14 +3398,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1929913902}
-        m_TargetAssemblyTypeName: ChoiceButton, Assembly-CSharp
-        m_MethodName: SceneChange
-        m_Mode: 1
+      - m_Target: {fileID: 1929913906}
+        m_TargetAssemblyTypeName: SceneChangeManager, Assembly-CSharp
+        m_MethodName: SceneLoadBuildIndex
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3447,6 +3448,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929913900}
   m_CullTransparentMesh: 1
+--- !u!114 &1929913906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929913900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bacc57ea2a61c1143b59b0fd18302f7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1946181555
 GameObject:
   m_ObjectHideFlags: 0
@@ -4257,18 +4270,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5536135137200791802}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3332069831048453754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3332069831048453752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 775d9d1fbdb90f0458c6230103350747, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3584098510313484762 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2045427993264277602, guid: c291b73c2b37e864abe6e746e143806e,
@@ -4411,6 +4412,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 626279195908226228, guid: c291b73c2b37e864abe6e746e143806e,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 645566366673738649, guid: c291b73c2b37e864abe6e746e143806e,
         type: 3}
       propertyPath: m_Layer
@@ -4545,6 +4551,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601089287458502838, guid: c291b73c2b37e864abe6e746e143806e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1612511573663883323, guid: c291b73c2b37e864abe6e746e143806e,
         type: 3}
@@ -5035,6 +5046,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3889470416281217706, guid: c291b73c2b37e864abe6e746e143806e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3964165282079903230, guid: c291b73c2b37e864abe6e746e143806e,
         type: 3}
@@ -5810,11 +5826,7 @@ PrefabInstance:
     - {fileID: 2313990017650618080, guid: c291b73c2b37e864abe6e746e143806e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 51409399677826681, guid: c291b73c2b37e864abe6e746e143806e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3332069831048453754}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c291b73c2b37e864abe6e746e143806e, type: 3}
 --- !u!1 &6676974596242465734 stripped
 GameObject:
